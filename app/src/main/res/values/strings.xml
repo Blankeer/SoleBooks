@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">SoleBook</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="user_name">用户名/手机号</string>
+    <string name="tel">手机号</string>
+    <string name="sms_code">手机验证码</string>
+    <string name="get_sms_code">获取手机验证码</string>
+    <string name="next">继续</string>
+    <string name="email">邮箱</string>
+    <string name="submit">提交</string>
+    <string name="user_password">密码</string>
+    <string name="user_password_agin">再次输入密码</string>
+    <string name="msg_username"></string>
+    <string name="msg_forget_error">找回密码失败</string>
+    <string name="msg_forget_ok">找回密码成功</string>
+    <string name="msg_sendsmscode_ok">已经发送到你的手机，注意查收.</string>
+    <string name="msg_sendsmscode_fail">发送短信失败.</string>
+    <string name="msg_smscode_fail">验证码不正确.</string>
+    <string name="msg_password">密码长度6-12</string>
+    <string name="msg_smscode_input_error">验证码必须6位</string>
+    <string name="msg_password_agin_error">两次密码不一致</string>
+    <string name="msg_tel">手机号格式不正确</string>
+    <string name="msg_email">邮箱格式不正确</string>
+    <string name="login">登录</string>
+    <string name="login_sina">sina</string>
+    <string name="login_qq">qq</string>
+    <string name="register">注册</string>
+    <string name="anonymous">随便看看</string>
+    <string name="forget">忘记密码</string>
+    <string name="msg_loading">loading ....</string>
+    <string name="msg_switch_tel">不想用邮箱?\n换用手机号吧。</string>
+    <string name="msg_switch_email">不想用手机号?\n换用邮箱吧。</string>
+</resources>

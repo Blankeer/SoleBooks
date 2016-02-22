@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'//dagger2 apt
+apply plugin: 'me.tatarka.retrolambda'//lambda
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    defaultConfig {
+        applicationId "com.blanke.solebook"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    signingConfigs {
+        release {
+            storeFile file("blank")
+            storePassword ""
+            keyAlias ""
+            keyPassword ""
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+           // signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {//lambda  jdk1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+apt {
+    arguments {
+        androidManifestFile variant.outputs[0].processResources.manifestFile
+
+        resourcePackageName android.defaultConfig.applicationId
+    }
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+dependencies {
+    compile(name: 'loadingbutton', ext: 'aar')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
+    compile('cn.leancloud.android:avoscloud-push:v3.+@aar') { transitive = true }
+    compile 'cn.leancloud.android:avoscloud-statistics:v3.+'
+    compile 'cn.leancloud.android:avoscloud-feedback:v3.+@aar'
+    compile 'cn.leancloud.android:avoscloud-sns:v3.+@aar'
+    compile 'cn.leancloud.android:qq-sdk:1.6.1-leancloud'
+    compile 'cn.leancloud.android:weibo-sdk-android-sso:3.0.1-leancloud'
+    compile 'com.github.zhaokaiqiang.klog:library:1.3.0'
+    compile 'com.hannesdorfmann.mosby:mvp:2.0.0'
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.2.0'
+    compile 'com.google.dagger:dagger:2.0.2'
+    apt 'com.google.dagger:dagger-compiler:2.0.2'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    apt "org.androidannotations:androidannotations:3.3.2"
+    compile 'org.androidannotations:androidannotations-api:3.3.2'
+    compile 'com.zhy:percent-support-extends:1.1.1'
+    compile 'net.frakbot:jumpingbeans:1.3.0'
+    compile 'io.reactivex:rxjava:1.1.1'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.hannesdorfmann.mosby:viewstate:2.0.0'
+    compile 'com.github.iwgang:familiarrecyclerview:1.2.3'
+
+}
