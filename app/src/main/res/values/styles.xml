@@ -9,7 +9,7 @@
         <!--<item name="colorControlHighlight">@color/colorPrimaryDark</item>-->
         <!--<item name="colorButtonNormal">@color/colorAccent</item>-->
         <!--<item name="android:textColor">@android:color/white</item>-->
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

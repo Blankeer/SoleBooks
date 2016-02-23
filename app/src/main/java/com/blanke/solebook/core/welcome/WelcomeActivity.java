@@ -6,8 +6,8 @@ import android.widget.ImageView;
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseActivity;
 import com.blanke.solebook.bean.SoleUser;
-import com.blanke.solebook.core.MainActivity_;
 import com.blanke.solebook.core.login.LoginActivity_;
+import com.blanke.solebook.core.main.MainActivity_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;

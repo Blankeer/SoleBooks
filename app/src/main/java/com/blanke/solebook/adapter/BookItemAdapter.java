@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.bean.Book;
+import com.blanke.solebook.constants.Constants;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.w3c.dom.Text;
 
@@ -53,6 +55,8 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookViewHolder> {
     public void onBindViewHolder(BookViewHolder holder, int position) {
         Book book = books.get(position);
         holder.textView.setText(book.getTitle());
+        ImageLoader.getInstance()
+                .displayImage(book.getImgL(), holder.imageView, Constants.getImageOptions());
     }
 
     @Override

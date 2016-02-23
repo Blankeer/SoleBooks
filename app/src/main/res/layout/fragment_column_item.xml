@@ -8,15 +8,18 @@
         android:id="@+id/contentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="5dp"
         app:direction="both">
 
         <cn.iwgang.familiarrecyclerview.FamiliarRecyclerView
             android:id="@+id/fragment_columnitem_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:frv_dividerHeight="7dp"
+            app:frv_itemViewBothSidesMargin="4dp"
             app:frv_layoutManager="staggeredGrid"
             app:frv_layoutManagerOrientation="vertical"
-            app:frv_spanCount="2" />
+            app:frv_spanCount="3" />
 
     </com.neu.refresh.NeuSwipeRefreshLayout>
 

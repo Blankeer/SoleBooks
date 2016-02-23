@@ -10,5 +10,5 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
  */
 public abstract class ColumnItemPersenter extends MvpBasePresenter<ColumnItemView> {
 
-    abstract public void getBookData(BookColumn bookColumn, boolean pullToRefresh, int skip, int limit);
+    abstract public void getBookData(BookColumn bookColumn,boolean isCache, boolean pullToRefresh, int skip, int limit);
 }

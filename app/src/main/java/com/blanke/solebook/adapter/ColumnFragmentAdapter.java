@@ -7,11 +7,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.core.columnitem.ColumnItemFragment;
 import com.blanke.solebook.core.columnitem.ColumnItemFragment_;
+import com.blanke.solebook.manager.ColumnManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 模块fragment  包括  榜单  发现 收藏 等 的  viewpager  adapter
  * Created by Blanke on 16-2-22.
  */
 public class ColumnFragmentAdapter extends FragmentPagerAdapter {
@@ -28,9 +30,10 @@ public class ColumnFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ColumnItemFragment_.builder()
-                .arg(ColumnItemFragment.ARG_BOOKCOLUMN, bookColumns.get(position))
-                .build();
+//        return ColumnItemFragment_.builder()
+//                .arg(ColumnItemFragment.ARG_BOOKCOLUMN, bookColumns.get(position))
+//                .build();
+        return ColumnManager.getColumnFragment(bookColumns.get(position));
     }
 
     @Override

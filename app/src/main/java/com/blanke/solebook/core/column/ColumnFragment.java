@@ -1,5 +1,6 @@
 package com.blanke.solebook.core.column;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -22,17 +23,34 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 /**
+ * 模块fragment  包括  榜单  发现 收藏 等
  * Created by Blanke on 16-2-22.
  */
 @EFragment(R.layout.fragment_column)
 public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, List<BookColumn>, ColumnView, ColumnPersenter> implements ColumnView {
+    public static final String ARGS_BOOKCOLUMN = "ColumnFragment_mCurrentBookColumn";
     @ViewById(R.id.fragment_column_tablayout)
     TabLayout mTabLayout;
     @ViewById(R.id.fragment_column_viewpager)
     ViewPager mViewPager;
 
-    List<BookColumn> data;
+    List<BookColumn> subBookColumn;
     ColumnFragmentAdapter pageAdapter;
+    BookColumn mCurrentBookColumn;
+
+    public static ColumnFragment newInstance(BookColumn bookColumn) {
+        ColumnFragment_ fragment = new ColumnFragment_();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ARGS_BOOKCOLUMN, bookColumn);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mCurrentBookColumn = getArguments().getParcelable(ARGS_BOOKCOLUMN);
+    }
 
     @AfterViews
     void init() {
@@ -46,7 +64,7 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
 
     @Override
     public List<BookColumn> getData() {
-        return data;
+        return subBookColumn;
     }
 
     @Override
@@ -61,7 +79,10 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
 
     @Override
     public void setData(List<BookColumn> data) {
-        this.data = data;
+        this.subBookColumn = data;
+        if (data == null || data.size() == 0) {
+            return;
+        }
         for (BookColumn item : data) {
             mTabLayout.addTab(mTabLayout.newTab().setText(item.getName()));
             pageAdapter.addTab(item);
@@ -78,7 +99,7 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
 
     @Override
     public void loadData(boolean pullToRefresh) {
-        getPresenter().getColumnData(pullToRefresh);
+        getPresenter().getColumnData(mCurrentBookColumn, pullToRefresh);
     }
 
 

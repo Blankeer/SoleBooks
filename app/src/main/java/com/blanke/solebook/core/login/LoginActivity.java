@@ -1,6 +1,7 @@
 package com.blanke.solebook.core.login;
 
 import android.content.Intent;
+import android.view.View;
 
 import com.avos.sns.SNS;
 import com.avos.sns.SNSType;
@@ -8,13 +9,14 @@ import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseActivity;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
-import com.blanke.solebook.core.MainActivity_;
+import com.blanke.solebook.core.main.MainActivity_;
 import com.blanke.solebook.rx.RxSNS;
 import com.blanke.solebook.utils.SnackUtils;
 import com.socks.library.KLog;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
 
 /**
@@ -23,12 +25,17 @@ import org.json.JSONObject;
 @EActivity(R.layout.activity_login)
 public class LoginActivity extends BaseActivity {
 
+    @ViewById(R.id.contentView)
+    View contentView;
+    @ViewById(R.id.loadingView)
+    View loadView;
     private SNSType type;
 
     JSONObject authorData = null;
 
     @Click(R.id.activity_login_bu_sina)
     void loginSina() {
+        loading(true);
         type = SNSType.AVOSCloudSNSSinaWeibo;
         RxSNS.snsLogin(this, type, Constants.APPID_SINA,
                 Constants.APPSEC_SINA, Constants.REDIRECTURL_SINA)
@@ -37,15 +44,28 @@ public class LoginActivity extends BaseActivity {
 
     @Click(R.id.activity_login_bu_qq)
     void loginQQ() {
+        loading(true);
         type = SNSType.AVOSCloudSNSQQ;
         RxSNS.snsLogin(this, type, Constants.APPID_QQ,
                 Constants.APPSEC_QQ, Constants.REDIRECTURL_QQ)
                 .subscribe(this::onNext, this::onError);
     }
 
+    @Click(R.id.activity_login_bu_anonymous)
+    void anonymous() {
+
+        jumpMain();
+    }
+
+    private void loading(boolean isshow) {
+        contentView.setVisibility(isshow ? View.GONE : View.VISIBLE);
+        loadView.setVisibility(!isshow ? View.GONE : View.VISIBLE);
+    }
+
     private void onError(Throwable throwable) {
         KLog.d(throwable.getMessage());
         SnackUtils.show(getWindow().getDecorView(), throwable.getMessage());
+        loading(false);
     }
 
     private void onNext(SoleUser soleUser) {

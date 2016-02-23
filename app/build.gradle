@@ -82,5 +82,5 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.hannesdorfmann.mosby:viewstate:2.0.0'
     compile 'com.github.iwgang:familiarrecyclerview:1.2.3'
-
+    compile 'de.hdodenhof:circleimageview:2.0.0'
 }

@@ -1,33 +1,31 @@
-package com.blanke.solebook.core.column.persenter;
+package com.blanke.solebook.core.main.persenter;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.blanke.solebook.bean.BookColumn;
-import com.blanke.solebook.constants.Constants;
-import com.blanke.solebook.core.column.view.ColumnView;
+import com.blanke.solebook.core.main.view.MainView;
 import com.blanke.solebook.utils.AvosCacheUtils;
-import com.socks.library.KLog;
 
 import java.util.List;
 
 /**
- * Created by Blanke on 16-2-22.
+ * Created by Blanke on 16-2-23.
  */
-public class ColumnPersenterImpl extends ColumnPersenter {
+public class MainPersenterImpl extends MainPersenter {
     @Override
-    public void getColumnData(BookColumn parentBookColumn, boolean pullToRefresh) {
+    public void loadBookColumn(boolean pullToRefresh) {
         getView().showLoading(pullToRefresh);
-        AvosCacheUtils.CacheELseNetwork(parentBookColumn.getSubs().getQuery(BookColumn.class))
+        AvosCacheUtils.CacheELseNetwork(BookColumn.getQuery(BookColumn.class))
+                .whereLessThan("order", 10)
                 .orderByAscending("order")
                 .findInBackground(new FindCallback<BookColumn>() {
                     @Override
                     public void done(List<BookColumn> list, AVException e) {
 //                        KLog.json(list.toString());
                         if (isViewAttached()) {
-                            ColumnView view = getView();
-                            view.setData(list);
+                            MainView view = getView();
                             if (e == null) {
+                                view.setData(list);
                                 view.showContent();
                             } else {
                                 view.showError(e, pullToRefresh);

@@ -8,6 +8,7 @@ import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.column.view.ColumnView;
 import com.blanke.solebook.core.columnitem.view.ColumnItemView;
+import com.blanke.solebook.utils.AvosCacheUtils;
 import com.socks.library.KLog;
 
 import java.util.List;
@@ -18,10 +19,10 @@ import java.util.List;
 public class ColumnItemPersenterImpl extends ColumnItemPersenter {
 
     @Override
-    public void getBookData(BookColumn bookColumn, boolean pullToRefresh, int skip, int limit) {
+    public void getBookData(BookColumn bookColumn, boolean isCache, boolean pullToRefresh, int skip, int limit) {
         getView().showLoading(pullToRefresh);
-        bookColumn.getBooks().getQuery(Book.class)
-                .setPolicy(AVQuery.CachePolicy.NETWORK_ELSE_CACHE)
+        AvosCacheUtils.CacheELseNetwork(bookColumn.getBooks().getQuery(Book.class))
+                .setPolicy(isCache ? AVQuery.CachePolicy.CACHE_ELSE_NETWORK : AVQuery.CachePolicy.NETWORK_ONLY)
                 .limit(limit)
                 .skip(skip)
                 .findInBackground(new FindCallback<Book>() {
@@ -29,8 +30,8 @@ public class ColumnItemPersenterImpl extends ColumnItemPersenter {
                     public void done(List<Book> list, AVException e) {
                         if (isViewAttached()) {
                             ColumnItemView view = getView();
+                            view.setData(list);
                             if (e == null) {
-                                view.setData(list);
                                 view.showContent();
                             } else {
                                 view.showError(e, pullToRefresh);

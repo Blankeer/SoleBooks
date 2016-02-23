@@ -1,5 +1,6 @@
 package com.blanke.solebook.core.column.persenter;
 
+import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.core.column.view.ColumnView;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
@@ -8,5 +9,5 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
  */
 public abstract class ColumnPersenter extends MvpBasePresenter<ColumnView> {
 
-    abstract public void getColumnData(boolean pullToRefresh);
+    abstract public void getColumnData(BookColumn parentBookColumn,boolean pullToRefresh);
 }

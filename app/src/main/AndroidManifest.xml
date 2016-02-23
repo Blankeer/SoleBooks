@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".core.MainActivity_"
+            android:name=".core.main.MainActivity_"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
