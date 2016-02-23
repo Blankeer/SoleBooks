@@ -18,11 +18,12 @@ import java.util.List;
 public class ColumnItemPersenterImpl extends ColumnItemPersenter {
 
     @Override
-    public void getBookData(BookColumn bookColumn, boolean pullToRefresh) {
+    public void getBookData(BookColumn bookColumn, boolean pullToRefresh, int skip, int limit) {
         getView().showLoading(pullToRefresh);
         bookColumn.getBooks().getQuery(Book.class)
-                .setPolicy(AVQuery.CachePolicy.CACHE_ELSE_NETWORK)
-                .setMaxCacheAge(Constants.DAY_AGE)
+                .setPolicy(AVQuery.CachePolicy.NETWORK_ELSE_CACHE)
+                .limit(limit)
+                .skip(skip)
                 .findInBackground(new FindCallback<Book>() {
                     @Override
                     public void done(List<Book> list, AVException e) {

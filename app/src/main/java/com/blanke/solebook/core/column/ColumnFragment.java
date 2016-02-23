@@ -2,6 +2,7 @@ package com.blanke.solebook.core.column;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.blanke.solebook.R;
@@ -65,16 +66,14 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
             mTabLayout.addTab(mTabLayout.newTab().setText(item.getName()));
             pageAdapter.addTab(item);
         }
-        for (BookColumn item : data) {
-            mTabLayout.addTab(mTabLayout.newTab().setText(item.getName()));
-            pageAdapter.addTab(item);
-        }
-        for (BookColumn item : data) {
-            mTabLayout.addTab(mTabLayout.newTab().setText(item.getName()));
-            pageAdapter.addTab(item);
-        }
+        mViewPager.setOffscreenPageLimit(data.size());
         mViewPager.setAdapter(pageAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
+        if (data.size() > 1) {
+            mTabLayout.setVisibility(View.VISIBLE);
+            mTabLayout.setupWithViewPager(mViewPager);
+        } else {
+            mTabLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override

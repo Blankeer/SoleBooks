@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@id/contentView"
+    <com.neu.refresh.NeuSwipeRefreshLayout
+        android:id="@+id/contentView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:direction="both">
 
         <cn.iwgang.familiarrecyclerview.FamiliarRecyclerView
             android:id="@+id/fragment_columnitem_recyclerview"
@@ -17,13 +18,9 @@
             app:frv_layoutManagerOrientation="vertical"
             app:frv_spanCount="2" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.neu.refresh.NeuSwipeRefreshLayout>
 
-    <include
-        android:id="@id/loadingView"
-        layout="@layout/view_loading" />
+    <include layout="@layout/view_loading" />
 
-    <include
-        android:id="@id/errorView"
-        layout="@layout/view_error" />
+    <include layout="@layout/view_error" />
 </FrameLayout>

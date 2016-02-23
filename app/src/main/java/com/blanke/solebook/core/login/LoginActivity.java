@@ -56,6 +56,7 @@ public class LoginActivity extends BaseActivity {
 
     private void jumpMain() {
         MainActivity_.intent(this).start();
+        this.finish();
     }
 
     @Override

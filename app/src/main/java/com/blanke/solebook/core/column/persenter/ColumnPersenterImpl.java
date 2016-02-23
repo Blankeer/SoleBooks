@@ -18,12 +18,11 @@ public class ColumnPersenterImpl extends ColumnPersenter {
     public void getColumnData(boolean pullToRefresh) {
         getView().showLoading(pullToRefresh);
         BookColumn.getQuery(BookColumn.class)
-//                .setPolicy(AVQuery.CachePolicy.CACHE_ELSE_NETWORK)
-                .setMaxCacheAge(Constants.DAY_AGE)
+                .setPolicy(AVQuery.CachePolicy.NETWORK_ELSE_CACHE)
                 .findInBackground(new FindCallback<BookColumn>() {
                     @Override
                     public void done(List<BookColumn> list, AVException e) {
-                        KLog.json(list.toString());
+//                        KLog.json(list.toString());
                         if (isViewAttached()) {
                             ColumnView view = getView();
                             if (e == null) {
