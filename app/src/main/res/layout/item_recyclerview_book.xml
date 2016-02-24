@@ -12,8 +12,6 @@
             android:id="@+id/item_book_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxHeight="200dp"
-            android:minHeight="150dp"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -21,6 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:lines="1" />
+            android:maxLines="2"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

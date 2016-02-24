@@ -34,4 +34,5 @@
     <string name="msg_loading">loading ....</string>
     <string name="msg_switch_tel">不想用邮箱?\n换用手机号吧。</string>
     <string name="msg_switch_email">不想用手机号?\n换用邮箱吧。</string>
+    <string name="search_hint">书名/作者</string>
 </resources>

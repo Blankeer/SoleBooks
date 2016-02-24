@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="@dimen/toolbar_elevation"
+            android:theme="@style/TabLayout"
             app:tabBackground="@color/colorPrimary"
             app:tabIndicatorColor="@android:color/white"
             app:tabSelectedTextColor="@android:color/white"

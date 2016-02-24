@@ -1,7 +1,12 @@
-package com.blanke.solebook.core.columnitem;
+package com.blanke.solebook.core.booklist;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.adapter.BookItemAdapter;
@@ -9,11 +14,12 @@ import com.blanke.solebook.base.BaseColumnFragment;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.constants.Constants;
-import com.blanke.solebook.core.columnitem.persenter.ColumnItemPersenter;
-import com.blanke.solebook.core.columnitem.persenter.ColumnItemPersenterImpl;
-import com.blanke.solebook.core.columnitem.view.ColumnItemView;
+import com.blanke.solebook.core.booklist.persenter.BookListPersenter;
+import com.blanke.solebook.core.booklist.persenter.BookListPersenterImpl;
+import com.blanke.solebook.core.booklist.view.BookListView;
+import com.blanke.solebook.utils.SnackUtils;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
 import com.socks.library.KLog;
@@ -22,6 +28,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
@@ -30,16 +37,15 @@ import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
  * book  fragment   recyclerview布局  比如 热门榜单 等页面
  * Created by Blanke on 16-2-22.
  */
-@EFragment(R.layout.fragment_column_item)
-public class ColumnItemFragment extends BaseColumnFragment<SwipeRefreshLayout, List<Book>, ColumnItemView, ColumnItemPersenter>
-        implements ColumnItemView, NeuSwipeRefreshLayout.OnRefreshListener {
+@EFragment(R.layout.fragment_book_item)
+public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, List<Book>, BookListView, BookListPersenter>
+        implements BookListView, NeuSwipeRefreshLayout.OnRefreshListener {
 
     @ViewById(R.id.fragment_columnitem_recyclerview)
     FamiliarRecyclerView mRecyclerView;
 
     @ViewById(R.id.contentView)
     NeuSwipeRefreshLayout mSwipeRefreshLayout;
-
     private List<Book> books;
     private BookItemAdapter mAdapter;
 
@@ -52,19 +58,44 @@ public class ColumnItemFragment extends BaseColumnFragment<SwipeRefreshLayout, L
         return mCurrentBookColumn.getName();
     }
 
-    public static ColumnItemFragment newInstance(BookColumn bookColumn) {
-        ColumnItemFragment fragment = new ColumnItemFragment_();
+    public static BookListFragment newInstance(BookColumn bookColumn) {
+        BookListFragment fragment = new BookListFragment_();
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARG_BOOKCOLUMN, bookColumn);
         fragment.setArguments(bundle);
         return fragment;
     }
 
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        mCurrentBookColumn = getArguments().getParcelable(ARG_BOOKCOLUMN);
-//    }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        KLog.d(mCurrentBookColumn.getName() + hashCode());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        KLog.d(mCurrentBookColumn.getName() + hashCode());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        KLog.d(mCurrentBookColumn.getName());
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        KLog.d(mCurrentBookColumn.getName() + hashCode());
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        int screenWidth = newConfig.screenWidthDp;
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(screenWidth / 150 + 1, OrientationHelper.VERTICAL));
+    }
 
     @AfterViews
     void init() {
@@ -72,6 +103,7 @@ public class ColumnItemFragment extends BaseColumnFragment<SwipeRefreshLayout, L
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        KLog.d(isNetworkFinish);
         isCreateView = true;
         lazyLoad();
     }
@@ -85,19 +117,23 @@ public class ColumnItemFragment extends BaseColumnFragment<SwipeRefreshLayout, L
 
     private void lazyLoad() {//fragment懒加载，可见才网络加载
         if (isCreateView && isVisible && !isNetworkFinish) {
-            mSwipeRefreshLayout.autoRefresh();
+            mSwipeRefreshLayout.postDelayed(() -> mSwipeRefreshLayout.autoRefresh(), 800);
             isNetworkFinish = true;
+        }
+        if (isVisible && isCreateView) {
+            fab.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
+            fab.attachToRecyclerView(mRecyclerView);
         }
     }
 
     @Override
-    public LceViewState<List<Book>, ColumnItemView> createViewState() {
-        return new RetainingLceViewState<>();
+    public LceViewState<List<Book>, BookListView> createViewState() {
+        return new CastedArrayListLceViewState<>();
     }
 
     @Override
     public List<Book> getData() {
-        return books;
+        return books == null ? null : new ArrayList<>(books);
     }
 
     @Override
@@ -106,14 +142,15 @@ public class ColumnItemFragment extends BaseColumnFragment<SwipeRefreshLayout, L
     }
 
     @Override
-    public ColumnItemPersenter createPresenter() {
-        return new ColumnItemPersenterImpl();
+    public BookListPersenter createPresenter() {
+        return new BookListPersenterImpl();
     }
 
     @Override
     public void setData(List<Book> data) {
+        KLog.d(mCurrentBookColumn.getName());
         mSwipeRefreshLayout.setRefreshing(false);
-        if (data == null) {
+        if (data == null || data.size() == 0) {
             return;
         }
         books = data;
@@ -126,6 +163,10 @@ public class ColumnItemFragment extends BaseColumnFragment<SwipeRefreshLayout, L
         currentPage++;
     }
 
+    protected void showLightError(String msg) {
+        SnackUtils.show(mRecyclerView, msg);
+    }
+
     @Override
     public void loadData(boolean pullToRefresh) {
         getPresenter().getBookData(mCurrentBookColumn, !pullToRefresh, pullToRefresh, PAGE_COUNT * currentPage, PAGE_COUNT);
@@ -136,9 +177,7 @@ public class ColumnItemFragment extends BaseColumnFragment<SwipeRefreshLayout, L
         if (direction == NeuSwipeRefreshLayoutDirection.TOP) {
             currentPage = 0;
             loadData(true);
-            KLog.d();
         } else if (direction == NeuSwipeRefreshLayoutDirection.BOTTOM) {
-            KLog.d();
             loadData(true);
         }
     }

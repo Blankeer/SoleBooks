@@ -4,9 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.blanke.solebook.base.BaseColumnFragment;
 import com.blanke.solebook.bean.BookColumn;
-import com.blanke.solebook.core.columnitem.ColumnItemFragment;
-import com.blanke.solebook.core.columnitem.ColumnItemFragment_;
 import com.blanke.solebook.manager.ColumnManager;
 
 import java.util.ArrayList;
@@ -18,21 +17,23 @@ import java.util.List;
  */
 public class ColumnFragmentAdapter extends FragmentPagerAdapter {
     List<BookColumn> bookColumns;
+    List<BaseColumnFragment> fragments;
 
     public ColumnFragmentAdapter(FragmentManager fm) {
         super(fm);
         bookColumns = new ArrayList<>();
+        fragments=new ArrayList<>();
     }
-
+    public void clear() {
+        bookColumns.clear();
+        fragments.clear();
+    }
     public void addTab(BookColumn bookColumn) {
         bookColumns.add(bookColumn);
     }
 
     @Override
     public Fragment getItem(int position) {
-//        return ColumnItemFragment_.builder()
-//                .arg(ColumnItemFragment.ARG_BOOKCOLUMN, bookColumns.get(position))
-//                .build();
         return ColumnManager.getColumnFragment(bookColumns.get(position));
     }
 
@@ -45,4 +46,6 @@ public class ColumnFragmentAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return bookColumns.get(position).getName();
     }
+
+
 }

@@ -1,7 +1,11 @@
 package com.blanke.solebook.core.column;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,12 +18,17 @@ import com.blanke.solebook.core.column.persenter.ColumnPersenter;
 import com.blanke.solebook.core.column.persenter.ColumnPersenterImpl;
 import com.blanke.solebook.core.column.view.ColumnView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
+import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,24 +56,45 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        KLog.d(mCurrentBookColumn.getName() + hashCode());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        KLog.d(mCurrentBookColumn.getName() + hashCode());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        KLog.d(mCurrentBookColumn.getName() + hashCode());
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCurrentBookColumn = getArguments().getParcelable(ARGS_BOOKCOLUMN);
+        KLog.d(mCurrentBookColumn.getName() + this.hashCode());
     }
 
     @AfterViews
     void init() {
         pageAdapter = new ColumnFragmentAdapter(getChildFragmentManager());
+        mViewPager.setAdapter(pageAdapter);
+        KLog.d(mCurrentBookColumn.getName() + hashCode());
     }
 
     @Override
     public LceViewState<List<BookColumn>, ColumnView> createViewState() {
-        return new RetainingLceViewState<>();
+        return new CastedArrayListLceViewState<>();
     }
 
     @Override
     public List<BookColumn> getData() {
-        return subBookColumn;
+        return subBookColumn == null ? null : new ArrayList<>(subBookColumn);
     }
 
     @Override
@@ -79,16 +109,19 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
 
     @Override
     public void setData(List<BookColumn> data) {
-        this.subBookColumn = data;
+        KLog.d(mCurrentBookColumn.getName());
         if (data == null || data.size() == 0) {
             return;
         }
+        mTabLayout.removeAllTabs();
+        pageAdapter.clear();
+        this.subBookColumn = data;
         for (BookColumn item : data) {
             mTabLayout.addTab(mTabLayout.newTab().setText(item.getName()));
             pageAdapter.addTab(item);
         }
+        pageAdapter.notifyDataSetChanged();
         mViewPager.setOffscreenPageLimit(data.size());
-        mViewPager.setAdapter(pageAdapter);
         if (data.size() > 1) {
             mTabLayout.setVisibility(View.VISIBLE);
             mTabLayout.setupWithViewPager(mViewPager);

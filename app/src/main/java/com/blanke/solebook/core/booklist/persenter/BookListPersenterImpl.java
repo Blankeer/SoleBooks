@@ -1,22 +1,19 @@
-package com.blanke.solebook.core.columnitem.persenter;
+package com.blanke.solebook.core.booklist.persenter;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.BookColumn;
-import com.blanke.solebook.constants.Constants;
-import com.blanke.solebook.core.column.view.ColumnView;
-import com.blanke.solebook.core.columnitem.view.ColumnItemView;
+import com.blanke.solebook.core.booklist.view.BookListView;
 import com.blanke.solebook.utils.AvosCacheUtils;
-import com.socks.library.KLog;
 
 import java.util.List;
 
 /**
  * Created by Blanke on 16-2-22.
  */
-public class ColumnItemPersenterImpl extends ColumnItemPersenter {
+public class BookListPersenterImpl extends BookListPersenter {
 
     @Override
     public void getBookData(BookColumn bookColumn, boolean isCache, boolean pullToRefresh, int skip, int limit) {
@@ -29,7 +26,7 @@ public class ColumnItemPersenterImpl extends ColumnItemPersenter {
                     @Override
                     public void done(List<Book> list, AVException e) {
                         if (isViewAttached()) {
-                            ColumnItemView view = getView();
+                            BookListView view = getView();
                             view.setData(list);
                             if (e == null) {
                                 view.showContent();

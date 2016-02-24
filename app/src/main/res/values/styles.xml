@@ -6,10 +6,25 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <!--<item name="colorControlHighlight">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorControlHighlight">@android:color/white</item>-->
+        <!--<item name="android:colorPressedHighlight">@android:color/white</item>-->
         <!--<item name="colorButtonNormal">@color/colorAccent</item>-->
         <!--<item name="android:textColor">@android:color/white</item>-->
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:windowAnimationStyle">@style/ActivityAnim</item>
+    </style>
+
+    <style name="ActivityAnim" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_enter</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_exit</item>
+        <item name="android:activityCloseExitAnimation">@anim/normal</item>
+    </style>
+
+    <style name="MaterialSearchViewStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:hint">@string/search_hint</item>
+        <item name="android:textColorHint">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -17,10 +32,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Button" parent="Base.TextAppearance.AppCompat.Button">
+    <style name="Button" parent="Base.TextAppearance.AppCompat.Button"></style>
 
-
-    </style>
+    <style name="TabLayout" parent="Base.Widget.Design.TabLayout"></style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
