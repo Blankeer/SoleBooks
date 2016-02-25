@@ -35,8 +35,6 @@
     </com.zhy.android.percent.support.PercentLinearLayout>
 
     <include
-        layout="@layout/view_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        layout="@layout/view_loading" />
 
 </com.zhy.android.percent.support.PercentFrameLayout>

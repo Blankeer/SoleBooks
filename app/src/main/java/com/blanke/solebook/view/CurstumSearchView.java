@@ -1,5 +1,7 @@
 package com.blanke.solebook.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -15,15 +17,23 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.speech.RecognizerIntent;
+import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.TintableBackgroundView;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.TintManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -39,19 +49,23 @@ import android.widget.TextView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.miguelcatalan.materialsearchview.SearchAdapter;
 import com.miguelcatalan.materialsearchview.utils.AnimationUtil;
+import com.socks.library.KLog;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
+import io.codetail.animation.SupportAnimator;
+import io.codetail.animation.ViewAnimationUtils;
+
 /**
  * Created by Blanke on 16-2-24.
  */
-public class CurstumSearchView extends FrameLayout implements Filter.FilterListener {
+public class CurstumSearchView extends FrameLayout implements Filter.FilterListener, TintableBackgroundView {
     public static final int REQUEST_VOICE = 9999;
 
     private MenuItem mMenuItem;
     private boolean mIsSearchOpen = false;
-    private int mAnimationDuration;
+    private long mAnimationDuration = 500;
     private boolean mClearingFocus;
 
     //Views
@@ -70,6 +84,10 @@ public class CurstumSearchView extends FrameLayout implements Filter.FilterListe
     private OnQueryTextListener mOnQueryChangeListener;
     private SearchViewListener mSearchViewListener;
     private int textColor;
+    private Drawable vioceIcon;
+    private Drawable closeIcon;
+    private Drawable backIcon;
+    private Drawable suggestionIcon;
 
     public VoiceViewClickListener getmVoiceViewClickListener() {
         return mVoiceViewClickListener;
@@ -89,7 +107,6 @@ public class CurstumSearchView extends FrameLayout implements Filter.FilterListe
     private boolean ellipsize = false;
 
     private boolean allowVoiceSearch;
-    private Drawable suggestionIcon;
 
     private Context mContext;
 
@@ -133,15 +150,18 @@ public class CurstumSearchView extends FrameLayout implements Filter.FilterListe
             }
 
             if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchVoiceIcon)) {
-                setVoiceIcon(a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchVoiceIcon));
+                vioceIcon = a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchVoiceIcon);
+                setVoiceIcon(vioceIcon);
             }
 
             if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchCloseIcon)) {
-                setCloseIcon(a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchCloseIcon));
+                closeIcon = a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchCloseIcon);
+                setCloseIcon(closeIcon);
             }
 
             if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchBackIcon)) {
-                setBackIcon(a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchBackIcon));
+                backIcon = a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchBackIcon);
+                setBackIcon(backIcon);
             }
 
             if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchSuggestionBackground)) {
@@ -180,6 +200,8 @@ public class CurstumSearchView extends FrameLayout implements Filter.FilterListe
 
         showVoice(true);
 
+        mSearchLayout.setVisibility(View.VISIBLE);
+        setVisibility(INVISIBLE);
         initSearchView();
 
         mSuggestionsListView.setVisibility(GONE);
@@ -539,7 +561,6 @@ public class CurstumSearchView extends FrameLayout implements Filter.FilterListe
 
         if (animate) {
             setVisibleWithAnimation();
-
         } else {
             mSearchLayout.setVisibility(VISIBLE);
             if (mSearchViewListener != null) {
@@ -558,6 +579,7 @@ public class CurstumSearchView extends FrameLayout implements Filter.FilterListe
 
             @Override
             public boolean onAnimationEnd(View view) {
+//                view.setVisibility(VISIBLE);
                 if (mSearchViewListener != null) {
                     mSearchViewListener.onSearchViewShown();
                 }
@@ -569,15 +591,16 @@ public class CurstumSearchView extends FrameLayout implements Filter.FilterListe
                 return false;
             }
         };
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mSearchLayout.setVisibility(View.VISIBLE);
-            AnimationUtil.reveal(mSearchTopBar, animationListener);
-
-        } else {
-            AnimationUtil.fadeInView(mSearchLayout, mAnimationDuration, animationListener);
-        }
+        setVisibility(VISIBLE);
+        revealSearchIn(this, animationListener);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            AnimationUtil.reveal(mSearchLayout, animationListener);
+//
+//        } else {
+//            AnimationUtil.fadeInView(mSearchLayout, mAnimationDuration, animationListener);
+//        }
     }
+
 
     /**
      * Close search view.
@@ -590,13 +613,82 @@ public class CurstumSearchView extends FrameLayout implements Filter.FilterListe
         mSearchSrcTextView.setText(null);
         dismissSuggestions();
         clearFocus();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            revealOut(mSearchLayout, null);
+//        } else {
+//            mSearchLayout.setVisibility(View.VISIBLE);
+////            AnimationUtil.fadeOutView(mSearchLayout, mAnimationDuration);
+//        }
+        revealSearchOut(this, new AnimationUtil.AnimationListener() {
+            @Override
+            public boolean onAnimationStart(View view) {
+                return false;
+            }
 
-        mSearchLayout.setVisibility(GONE);
+            @Override
+            public boolean onAnimationEnd(View view) {
+                view.setVisibility(GONE);
+                return false;
+            }
+
+            @Override
+            public boolean onAnimationCancel(View view) {
+                return false;
+            }
+        });
         if (mSearchViewListener != null) {
             mSearchViewListener.onSearchViewClosed();
         }
         mIsSearchOpen = false;
+    }
 
+    public void revealSearchIn(final View view, final AnimationUtil.AnimationListener listener) {
+        int cx = view.getWidth() - (int) TypedValue.applyDimension(1, 24.0F, view.getResources().getDisplayMetrics());
+        int cy = view.getHeight() / 2;
+        int finalRadius = Math.max(view.getWidth(), view.getHeight());
+        reveal(view, listener, cx, cy, 0, finalRadius);
+    }
+
+    public void revealSearchOut(final View view, final AnimationUtil.AnimationListener listener) {
+        int cx = view.getWidth() - (int) TypedValue.applyDimension(1, 24.0F, view.getResources().getDisplayMetrics());
+        int cy = view.getHeight() / 2;
+        int finalRadius = Math.max(view.getWidth(), view.getHeight());
+        reveal(view, listener, cx, cy, finalRadius, 0);
+    }
+
+    public void reveal(final View view, final AnimationUtil.AnimationListener listener, int cx, int cy, int startRadius, int endRadius) {
+//        KLog.d(cx + "," + cy);
+        SupportAnimator animator =
+                ViewAnimationUtils.createCircularReveal(view, cx, cy, startRadius, endRadius);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.setDuration(mAnimationDuration);
+        animator.start();
+        animator.addListener(new SupportAnimator.AnimatorListener() {
+            @Override
+            public void onAnimationStart() {
+                if (listener != null) {
+                    listener.onAnimationStart(view);
+                }
+            }
+
+            @Override
+            public void onAnimationEnd() {
+                if (listener != null) {
+                    listener.onAnimationEnd(view);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel() {
+                if (listener != null) {
+                    listener.onAnimationCancel(view);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat() {
+            }
+        });
     }
 
     /**
@@ -679,6 +771,40 @@ public class CurstumSearchView extends FrameLayout implements Filter.FilterListe
         }
 
         super.onRestoreInstanceState(mSavedState.getSuperState());
+    }
+
+    private void applyTint(ColorStateList tint, Drawable icon, ImageButton view) {
+        Drawable tintIcon = DrawableCompat.wrap(icon);
+        DrawableCompat.setTintList(tintIcon, tint);
+        view.setImageDrawable(tintIcon);
+    }
+
+    private void applyAllView(ColorStateList tint) {
+        applyTint(tint, vioceIcon, mVoiceBtn);
+        applyTint(tint, backIcon, mBackBtn);
+        applyTint(tint, closeIcon, mEmptyBtn);
+    }
+
+    @Override
+    public void setSupportBackgroundTintList(@Nullable ColorStateList tint) {
+        applyAllView(tint);
+    }
+
+    @Nullable
+    @Override
+    public ColorStateList getSupportBackgroundTintList() {
+        return null;
+    }
+
+    @Override
+    public void setSupportBackgroundTintMode(@Nullable PorterDuff.Mode tintMode) {
+
+    }
+
+    @Nullable
+    @Override
+    public PorterDuff.Mode getSupportBackgroundTintMode() {
+        return null;
     }
 
     static class SavedState extends BaseSavedState {

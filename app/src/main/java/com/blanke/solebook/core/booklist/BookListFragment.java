@@ -17,6 +17,8 @@ import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.booklist.persenter.BookListPersenter;
 import com.blanke.solebook.core.booklist.persenter.BookListPersenterImpl;
 import com.blanke.solebook.core.booklist.view.BookListView;
+import com.blanke.solebook.core.details.DetailsActivity;
+import com.blanke.solebook.core.details.DetailsActivity_;
 import com.blanke.solebook.utils.SnackUtils;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
@@ -40,7 +42,7 @@ import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 @EFragment(R.layout.fragment_book_item)
 public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, List<Book>, BookListView, BookListPersenter>
         implements BookListView, NeuSwipeRefreshLayout.OnRefreshListener {
-
+    private static final long LAZY_DELAY_TIME = Constants.LAZY_DELAY_TIME;
     @ViewById(R.id.fragment_columnitem_recyclerview)
     FamiliarRecyclerView mRecyclerView;
 
@@ -106,6 +108,13 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
         KLog.d(isNetworkFinish);
         isCreateView = true;
         lazyLoad();
+        mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
+            @Override
+            public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
+                Book book=getData().get(position);
+                DetailsActivity_.intent(getActivity()).book(book).start();
+            }
+        });
     }
 
     @Override
@@ -117,7 +126,7 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
 
     private void lazyLoad() {//fragment懒加载，可见才网络加载
         if (isCreateView && isVisible && !isNetworkFinish) {
-            mSwipeRefreshLayout.postDelayed(() -> mSwipeRefreshLayout.autoRefresh(), 800);
+            mSwipeRefreshLayout.postDelayed(() -> mSwipeRefreshLayout.autoRefresh(), LAZY_DELAY_TIME);
             isNetworkFinish = true;
         }
         if (isVisible && isCreateView) {

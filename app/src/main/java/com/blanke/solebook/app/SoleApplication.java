@@ -8,6 +8,7 @@ import com.avos.avoscloud.AVUser;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.bean.SoleUser;
+import com.blanke.solebook.constants.Constants;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
@@ -23,11 +24,12 @@ public class SoleApplication extends Application {
         initAvos();
         initImageLoader();
     }
-    private void initAvos(){
+
+    private void initAvos() {
         AVUser.alwaysUseSubUserClass(SoleUser.class);
         AVObject.registerSubclass(Book.class);
         AVObject.registerSubclass(BookColumn.class);
-        AVOSCloud.initialize(this, "l8eot9jDXBhCt40q1BPJqH9a-gzGzoHsz", "fAYpLpd3IBwlaiixg0bM20Rm");
+        AVOSCloud.initialize(this, Constants.APPID_AVOS, Constants.APPKEY_AVOS);
         AVOSCloud.setDebugLogEnabled(true);
     }
 
@@ -36,7 +38,7 @@ public class SoleApplication extends Application {
                 .Builder(this)
 //                .memoryCacheExtraOptions(500,700)
                 .imageDownloader(new BaseImageDownloader(this, 5 * 1000, 10 * 1000))
-//                .writeDebugLogs()
+                .writeDebugLogs()
                 .build();
         ImageLoader.getInstance().init(config);
     }

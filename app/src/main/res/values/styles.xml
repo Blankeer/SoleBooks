@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -25,6 +25,7 @@
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:hint">@string/search_hint</item>
         <item name="android:textColorHint">@color/colorAccent</item>
+        <item name="searchVoiceIcon">@mipmap/icon_shao</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -40,4 +41,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Toolbar_expanded_text" parent="android:TextAppearance">
+        <item name="android:textSize">13sp</item>
+    </style>
 </resources>

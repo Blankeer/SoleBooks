@@ -11,6 +11,9 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
  * Created by blanke on 16-2-21.
  */
 public class Constants {
+
+    public static final String APPID_AVOS = "l8eot9jDXBhCt40q1BPJqH9a-gzGzoHsz";
+    public static final String APPKEY_AVOS = "fAYpLpd3IBwlaiixg0bM20Rm";
     public static final String APPID_SINA = "1550326405";
     public static final String APPID_QQ = "1105114711";
     public static final String APPSEC_QQ = "uI7mVrh73fpKMuua";
@@ -21,7 +24,7 @@ public class Constants {
     public static final int PAGE_COUNT = 20;
     private static DisplayImageOptions options;
     public static final int TYPE_COLUMN_BOOK=1;
-
+    public static final long LAZY_DELAY_TIME=500;
     public static String getSinaIconUrl(String uid) {
         return "http://tp1.sinaimg.cn/" + uid + "/180/0/1";
     }
