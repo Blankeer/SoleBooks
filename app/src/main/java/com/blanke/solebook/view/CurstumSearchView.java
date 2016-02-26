@@ -65,7 +65,7 @@ public class CurstumSearchView extends FrameLayout implements Filter.FilterListe
 
     private MenuItem mMenuItem;
     private boolean mIsSearchOpen = false;
-    private long mAnimationDuration = 500;
+    private long mAnimationDuration = 800;
     private boolean mClearingFocus;
 
     //Views

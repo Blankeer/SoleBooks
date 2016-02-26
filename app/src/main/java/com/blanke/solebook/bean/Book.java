@@ -8,6 +8,7 @@ import com.avos.avoscloud.AVObject;
  */
 @AVClassName("Book")
 public class Book extends AVObject {
+    public static final String TABLE_NAME = "Book";
     public static final String TITLE = "title";
     public static final String IMG_L = "img_l";
     public static final String IMG_M = "img_m";

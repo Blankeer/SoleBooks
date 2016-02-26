@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/contentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <com.blanke.solebook.view.flingswipe.SwipeFlingAdapterView
+            android:id="@+id/fragment_random_swipeview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:max_visible="4"
+            app:min_adapter_stack="5"
+            app:rotation_degrees="8"
+            app:y_offset_step="40dp" />
+
+    </LinearLayout>
+
+    <include layout="@layout/view_loading" />
+
+    <include layout="@layout/view_error" />
+</FrameLayout>

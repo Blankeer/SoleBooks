@@ -38,7 +38,7 @@ public class SoleApplication extends Application {
                 .Builder(this)
 //                .memoryCacheExtraOptions(500,700)
                 .imageDownloader(new BaseImageDownloader(this, 5 * 1000, 10 * 1000))
-                .writeDebugLogs()
+//                .writeDebugLogs()
                 .build();
         ImageLoader.getInstance().init(config);
     }

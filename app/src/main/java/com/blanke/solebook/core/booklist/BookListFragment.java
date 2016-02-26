@@ -17,7 +17,6 @@ import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.booklist.persenter.BookListPersenter;
 import com.blanke.solebook.core.booklist.persenter.BookListPersenterImpl;
 import com.blanke.solebook.core.booklist.view.BookListView;
-import com.blanke.solebook.core.details.DetailsActivity;
 import com.blanke.solebook.core.details.DetailsActivity_;
 import com.blanke.solebook.utils.SnackUtils;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
@@ -34,6 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
+import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  * book  fragment   recyclerview布局  比如 热门榜单 等页面
@@ -105,16 +107,19 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        KLog.d(isNetworkFinish);
+//        KLog.d(isNetworkFinish);
         isCreateView = true;
         lazyLoad();
         mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
-                Book book=getData().get(position);
+                Book book = getData().get(position);
                 DetailsActivity_.intent(getActivity()).book(book).start();
             }
         });
+        mRecyclerView.setItemAnimator(new SlideInUpAnimator());
+
+
     }
 
     @Override
@@ -129,7 +134,7 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
             mSwipeRefreshLayout.postDelayed(() -> mSwipeRefreshLayout.autoRefresh(), LAZY_DELAY_TIME);
             isNetworkFinish = true;
         }
-        if (isVisible && isCreateView) {
+        if (isVisible && isCreateView && fab != null) {
             fab.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
             fab.attachToRecyclerView(mRecyclerView);
         }
@@ -168,7 +173,7 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
         } else {
             mAdapter.addData(books);
         }
-        mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyDataSetChanged();
         currentPage++;
     }
 

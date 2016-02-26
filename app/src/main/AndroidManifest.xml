@@ -50,6 +50,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".core.login.LoginActivity_" />
         <activity android:name=".core.details.DetailsActivity_"></activity>
+        <activity android:name=".core.search.SearchResActivity_"></activity>
+        <activity android:name=".core.random.RandomActivity_"></activity>
     </application>
 
 </manifest>

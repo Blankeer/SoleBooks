@@ -12,25 +12,24 @@ import com.blanke.solebook.R;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.constants.Constants;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.w3c.dom.Text;
+import com.socks.library.KLog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Blanke on 16-2-22.
+ * Created by Blanke on 16-2-26.
  */
-public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.BookViewHolder> {
+public class SearchResAdapter extends RecyclerView.Adapter<SearchResAdapter.SearchViewHolder> {
     private Context context;
     private List<Book> books;
 
-    public BookItemAdapter(Context context, List<Book> books) {
+    public SearchResAdapter(Context context, List<Book> books) {
         this.context = context;
         this.books = books;
     }
 
-    public BookItemAdapter(Context context) {
+    public SearchResAdapter(Context context) {
         this.context = context;
     }
 
@@ -50,15 +49,16 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.BookVi
     }
 
     @Override
-    public BookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new BookViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.item_recyclerview_book, parent, false));
+    public SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new SearchViewHolder(
+                LayoutInflater.from(context).inflate(R.layout.item_searchres_book, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(BookViewHolder holder, int position) {
+    public void onBindViewHolder(SearchViewHolder holder, int position) {
         Book book = books.get(position);
-        holder.textView.setText(book.getTitle());
+        holder.textViewTitle.setText(book.getTitle());
+        holder.textViewInfo.setText(book.getIntroContent());
         ImageLoader.getInstance()
                 .displayImage(book.getImgL(), holder.imageView, Constants.getImageOptions());
     }
@@ -68,14 +68,16 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.BookVi
         return books == null ? 0 : books.size();
     }
 
-    static class BookViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView textView;
 
-        public BookViewHolder(View itemView) {
+    static class SearchViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        TextView textViewTitle, textViewInfo;
+
+        public SearchViewHolder(View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.item_book_image);
-            textView = (TextView) itemView.findViewById(R.id.item_book_title);
+            imageView = (ImageView) itemView.findViewById(R.id.item_search_image);
+            textViewTitle = (TextView) itemView.findViewById(R.id.item_search_title);
+            textViewInfo = (TextView) itemView.findViewById(R.id.item_search_info);
         }
     }
 }

@@ -4,16 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,19 +26,15 @@ import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.column.ColumnFragment;
-import com.blanke.solebook.core.column.ColumnFragment_;
-import com.blanke.solebook.core.column.view.ColumnView;
 import com.blanke.solebook.core.main.persenter.MainPersenter;
 import com.blanke.solebook.core.main.persenter.MainPersenterImpl;
 import com.blanke.solebook.core.main.view.MainView;
+import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.utils.SnackUtils;
 import com.blanke.solebook.view.CurstumSearchView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -87,12 +79,23 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         searchView.setOnQueryTextListener(new CurstumSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                SearchResActivity_.intent(MainActivity.this).key(query).start();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+        searchView.setOnSearchViewListener(new CurstumSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+
             }
         });
     }
@@ -224,7 +227,6 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
 
     @Override
     public void setData(List<BookColumn> data) {
-        KLog.d();
         this.bookColumns = data;
         initNavigationMenu();
     }
