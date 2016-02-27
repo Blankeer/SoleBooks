@@ -7,4 +7,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="toolbar_elevation">0dp</dimen>
+    <dimen name="qrcode_crop_width">200dp</dimen>
+    <dimen name="qrcode_crop_height">200dp</dimen>
 </resources>

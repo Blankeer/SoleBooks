@@ -14,7 +14,6 @@
             android:id="@+id/fragment_searchres_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
             app:frv_dividerHeight="7dp"
             app:frv_itemViewBothSidesMargin="4dp"
             app:frv_layoutManager="linear"

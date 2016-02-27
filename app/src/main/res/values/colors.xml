@@ -4,4 +4,6 @@
     <color name="colorPrimary">@color/colorAccent</color>
     <color name="colorPrimaryDark">@color/accent_material_dark</color>
     <color name="colorAccent">#559688</color>
+    <color name="alpha_80_black">#CC000000</color>
+    <color name="transparent">#00000000</color>
 </resources>
