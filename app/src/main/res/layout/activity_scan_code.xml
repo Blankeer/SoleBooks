@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/capture_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <SurfaceView
+        android:id="@+id/capture_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/capture_crop_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent"
+        app:layout_heightPercent="30%"
+        app:layout_widthPercent="90%">
+
+        <ImageView
+            android:id="@+id/capture_scan_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/scan_mask" />
+
+        <ImageView
+            android:id="@+id/scan_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/scan_container" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_mask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/capture_crop_view"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/iv_light"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/shouquan_qrcode_s_flashgun"
+            android:clickable="true" />
+
+        <TextView
+            android:id="@+id/qrcode_ic_back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/shouquan_qrcode_ic_back"
+            android:clickable="true" />
+
+        <TextView
+            android:id="@+id/qrcode_g_gallery"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/shouquan_qrcode_g_gallery"
+            android:clickable="true" />
+
+    </LinearLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

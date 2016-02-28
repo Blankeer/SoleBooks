@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".app.SoleApplication"
@@ -52,6 +53,10 @@
         <activity android:name=".core.details.DetailsActivity_"></activity>
         <activity android:name=".core.search.SearchResActivity_"></activity>
         <activity android:name=".core.random.RandomActivity_"></activity>
+        <activity
+            android:name=".core.CommonScanActivity_"></activity>
+        <activity android:name=".core.picker.CommonImagePickerDetailActivity_"></activity>
+        <activity android:name=".core.picker.CommonImagePickerListActivity_"></activity>
     </application>
 
 </manifest>

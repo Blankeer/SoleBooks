@@ -20,6 +20,8 @@ public class Constants {
     public static final String APPSEC_SINA = "8d766414552a564a15bc4db2bbacc437";
     public static final String REDIRECTURL_SINA = "https://leancloud.cn/1.1/sns/callback/1k4u78lawq2pvrjr";
     public static final String REDIRECTURL_QQ = "https://leancloud.cn/1.1/sns/callback/lljmk2jy0vqme5vh";
+    public static final String CLOUD_MOTHOD_SEARCH_KEY="cloud_search_key";
+    public static final String CLOUD_MOTHOD_SEARCH_ISBN="cloud_search_isbn";
     public static final long DAY_AGE = 24 * 60 * 60 * 1000;
     public static final int PAGE_COUNT = 20;
     private static DisplayImageOptions options;

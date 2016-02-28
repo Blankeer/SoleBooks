@@ -25,6 +25,7 @@ import com.blanke.solebook.base.BaseMvpLceViewStateActivity;
 import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
+import com.blanke.solebook.core.CommonScanActivity_;
 import com.blanke.solebook.core.column.ColumnFragment;
 import com.blanke.solebook.core.main.persenter.MainPersenter;
 import com.blanke.solebook.core.main.persenter.MainPersenterImpl;
@@ -35,6 +36,7 @@ import com.blanke.solebook.view.CurstumSearchView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -86,6 +88,14 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+        searchView.setVoiceViewClickListener(new CurstumSearchView.VoiceViewClickListener() {
+            @Override
+            public void onClick(View v) {
+//                CaptureActivity_.intent(MainActivity.this).start();
+                CommonScanActivity_.intent(MainActivity.this).start();
+                searchView.closeSearch();
             }
         });
         searchView.setOnSearchViewListener(new CurstumSearchView.SearchViewListener() {
@@ -232,7 +242,14 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        KLog.d();
+    }
+
+    @Override
     public void loadData(boolean pullToRefresh) {
+        KLog.d();
         getPresenter().loadBookColumn(pullToRefresh);
     }
 }

@@ -88,4 +88,6 @@ dependencies {
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
 
     compile 'jp.wasabeef:recyclerview-animators:2.2.0'
+
+    compile 'com.google.zxing:core:3.2.1'
 }
