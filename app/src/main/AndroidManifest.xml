@@ -50,13 +50,11 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".core.login.LoginActivity_" />
-        <activity android:name=".core.details.DetailsActivity_"></activity>
-        <activity android:name=".core.search.SearchResActivity_"></activity>
-        <activity android:name=".core.random.RandomActivity_"></activity>
-        <activity
-            android:name=".core.CommonScanActivity_"></activity>
-        <activity android:name=".core.picker.CommonImagePickerDetailActivity_"></activity>
-        <activity android:name=".core.picker.CommonImagePickerListActivity_"></activity>
+        <activity android:name=".core.details.DetailsActivity_" />
+        <activity android:name=".core.search.SearchResActivity_" />
+        <activity android:name=".core.random.RandomActivity_" />
+        <activity android:name=".core.scan.CommonScanActivity_" />
+        <activity android:name=".test.TestCurstomImageviewActivity"></activity>
     </application>
 
 </manifest>

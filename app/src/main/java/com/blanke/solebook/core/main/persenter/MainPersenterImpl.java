@@ -26,7 +26,7 @@ public class MainPersenterImpl extends MainPersenter {
                             MainView view = getView();
                             if (e == null) {
                                 view.setData(list);
-                                view.showContent();
+//                                view.showContent();
                             } else {
                                 view.showError(e, pullToRefresh);
                             }

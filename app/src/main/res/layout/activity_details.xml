@@ -27,6 +27,7 @@
                 android:layout_height="match_parent"
                 android:padding="40dp"
                 android:scaleType="centerInside"
+                android:transitionName="@string/share_img"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.5" />
 

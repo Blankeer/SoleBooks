@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.adapter.BookItemAdapter;
@@ -112,7 +113,10 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
                 Book book = getData().get(position);
-                DetailsActivity_.intent(getActivity()).book(book).start();
+//                DetailsActivity_.intent(getActivity()).book(book).start();
+                DetailsActivity_.start(getActivity(),
+                        view,
+                        book);
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());

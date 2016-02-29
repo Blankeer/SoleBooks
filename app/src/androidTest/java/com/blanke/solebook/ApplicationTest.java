@@ -1,6 +1,7 @@
 package com.blanke.solebook;
 
 import android.app.Application;
+import android.content.Intent;
 import android.test.ApplicationTestCase;
 
 /**
@@ -9,5 +10,6 @@ import android.test.ApplicationTestCase;
 public class ApplicationTest extends ApplicationTestCase<Application> {
     public ApplicationTest() {
         super(Application.class);
+
     }
 }

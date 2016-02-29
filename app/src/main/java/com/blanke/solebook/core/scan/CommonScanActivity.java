@@ -1,4 +1,4 @@
-package com.blanke.solebook.core;
+package com.blanke.solebook.core.scan;
 
 import android.app.Activity;
 import android.content.Intent;

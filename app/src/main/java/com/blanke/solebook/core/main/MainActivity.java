@@ -25,11 +25,11 @@ import com.blanke.solebook.base.BaseMvpLceViewStateActivity;
 import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
-import com.blanke.solebook.core.CommonScanActivity_;
 import com.blanke.solebook.core.column.ColumnFragment;
 import com.blanke.solebook.core.main.persenter.MainPersenter;
 import com.blanke.solebook.core.main.persenter.MainPersenterImpl;
 import com.blanke.solebook.core.main.view.MainView;
+import com.blanke.solebook.core.scan.CommonScanActivity_;
 import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.utils.SnackUtils;
 import com.blanke.solebook.view.CurstumSearchView;
@@ -67,6 +67,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     private Fragment mSelectFragment;
     private ActionBarDrawerToggle toggle;
     private Fragment[] fragments;
+    private boolean isVisible;
 
     @AfterViews
     void init() {
@@ -76,7 +77,6 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        currentUser = SoleUser.getCurrentUser(SoleUser.class);
         searchView.setVoiceViewClickListener(v -> SnackUtils.show(toolbar, "...."));
         searchView.setOnQueryTextListener(new CurstumSearchView.OnQueryTextListener() {
             @Override
@@ -93,7 +93,6 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         searchView.setVoiceViewClickListener(new CurstumSearchView.VoiceViewClickListener() {
             @Override
             public void onClick(View v) {
-//                CaptureActivity_.intent(MainActivity.this).start();
                 CommonScanActivity_.intent(MainActivity.this).start();
                 searchView.closeSearch();
             }
@@ -143,6 +142,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     }
 
     private void initNavigationMenu() {
+        currentUser = SoleUser.getCurrentUser(SoleUser.class);
         Menu menu = navigationView.getMenu();
         int random = (int) (Math.random() * 9 + 1);
         int idbase = random << 10;
@@ -238,18 +238,27 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     @Override
     public void setData(List<BookColumn> data) {
         this.bookColumns = data;
-        initNavigationMenu();
+        onVisible();
     }
-
+    private void onVisible(){
+        if(isVisible){
+            if(bookColumns!=null){
+                initNavigationMenu();
+                showContent();
+            }
+        }
+    }
     @Override
     protected void onResume() {
         super.onResume();
-        KLog.d();
+        isVisible=true;
+        onVisible();
+//        KLog.d();
     }
 
     @Override
     public void loadData(boolean pullToRefresh) {
-        KLog.d();
+//        KLog.d();
         getPresenter().loadBookColumn(pullToRefresh);
     }
 }
