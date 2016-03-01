@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#4400ff00">
 
-    <com.blanke.solebook.view.CurstumImageView
+    <com.blanke.hold.HoldScaleImageView
         android:id="@+id/activity_test_image"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:background="#44ff0000"
         android:scaleType="centerCrop"
-        android:src="@drawable/load" />
+        android:src="@drawable/load"
+        app:holdHeight="true" />
 </RelativeLayout>

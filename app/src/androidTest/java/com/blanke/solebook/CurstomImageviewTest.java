@@ -19,10 +19,10 @@ public class CurstomImageviewTest extends InstrumentationTestCase {
     public void setUp() throws Exception {
         super.setUp();
         instrumentation = getInstrumentation();
-        testActitity = launchActivity("com.blanke.solebook", TestCurstomImageviewActivity.class, null);
     }
 
     public void testName() throws Exception {
+        testActitity = launchActivity("com.blanke.solebook", TestCurstomImageviewActivity.class, null);
         Thread.sleep(10000);
     }
 

@@ -3,6 +3,7 @@ package com.blanke.solebook.core.main;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -77,7 +78,6 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        searchView.setVoiceViewClickListener(v -> SnackUtils.show(toolbar, "...."));
         searchView.setOnQueryTextListener(new CurstumSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -95,16 +95,6 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
             public void onClick(View v) {
                 CommonScanActivity_.intent(MainActivity.this).start();
                 searchView.closeSearch();
-            }
-        });
-        searchView.setOnSearchViewListener(new CurstumSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-
             }
         });
     }
@@ -175,7 +165,10 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                 ImageLoader.getInstance().displayImage(currentUser.getIconurl(), mImageIcon, Constants.getImageOptions());
             });
         }
-        replaceFragment(0);
+        new Handler().postDelayed(() -> {
+            replaceFragment(0);
+            showContent();
+        }, 500);
     }
 
     @Override
@@ -238,27 +231,11 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     @Override
     public void setData(List<BookColumn> data) {
         this.bookColumns = data;
-        onVisible();
-    }
-    private void onVisible(){
-        if(isVisible){
-            if(bookColumns!=null){
-                initNavigationMenu();
-                showContent();
-            }
-        }
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        isVisible=true;
-        onVisible();
-//        KLog.d();
+        initNavigationMenu();
     }
 
     @Override
     public void loadData(boolean pullToRefresh) {
-//        KLog.d();
         getPresenter().loadBookColumn(pullToRefresh);
     }
 }
