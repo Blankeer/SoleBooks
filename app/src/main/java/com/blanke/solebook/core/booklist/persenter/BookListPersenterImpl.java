@@ -15,11 +15,11 @@ public class BookListPersenterImpl extends BookListPersenter {
     private boolean pullToRefresh;
 
     @Override
-    public void getBookData(BookColumn bookColumn, boolean isCache, boolean pullToRefresh, int skip, int limit) {
+    public void getBookData(BookColumn bookColumn, boolean pullToRefresh, int skip, int limit) {
         this.pullToRefresh = pullToRefresh;
         getView().showLoading(pullToRefresh);
         RxBookColumn.getBookListData(
-                bookColumn, isCache ? AVQuery.CachePolicy.CACHE_ELSE_NETWORK : AVQuery.CachePolicy.NETWORK_ONLY
+                bookColumn, AVQuery.CachePolicy.NETWORK_ELSE_CACHE
                 , limit, skip)
                 .subscribe(this::onSuccess, this::onFail);
     }

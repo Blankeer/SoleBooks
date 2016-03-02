@@ -13,5 +13,5 @@ import java.util.List;
  */
 public abstract class BookListPersenter extends BaseRxPresenter<BookListView, List<Book>> {
 
-    abstract public void getBookData(BookColumn bookColumn, boolean isCache, boolean pullToRefresh, int skip, int limit);
+    abstract public void getBookData(BookColumn bookColumn, boolean pullToRefresh, int skip, int limit);
 }

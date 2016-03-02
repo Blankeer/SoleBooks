@@ -27,7 +27,7 @@ public class SearchResPersenterImpl extends SearchResPersenter {
                         if (isViewAttached()) {
                             MvpLceView view = getView();
                             view.setData(list);
-                            KLog.d(list.size());
+                            KLog.d(list == null ? "null" : list.size());
                             if (e == null) {
                                 view.showContent();
                             } else {

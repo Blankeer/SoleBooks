@@ -10,11 +10,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
+        <com.blanke.hold.HoldScaleImageView
             android:id="@+id/item_book_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:holdWidth="true" />
 
         <TextView
             android:id="@+id/item_book_title"

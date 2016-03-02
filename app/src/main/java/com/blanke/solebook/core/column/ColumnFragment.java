@@ -1,11 +1,8 @@
 package com.blanke.solebook.core.column;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,15 +16,12 @@ import com.blanke.solebook.core.column.persenter.ColumnPersenterImpl;
 import com.blanke.solebook.core.column.view.ColumnView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
 import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,28 +107,29 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
         if (data == null || data.size() == 0) {
             return;
         }
+        long t1 = System.currentTimeMillis();
         this.subBookColumn = data;
-
         mTabLayout.removeAllTabs();
         pageAdapter.clear();
         for (BookColumn item : data) {
             mTabLayout.addTab(mTabLayout.newTab().setText(item.getName()));
             pageAdapter.addTab(item);
         }
+        KLog.d("setData time=" + (System.currentTimeMillis() - t1));
         pageAdapter.notifyDataSetChanged();
         mViewPager.setOffscreenPageLimit(data.size());
+        KLog.d("setData time=" + (System.currentTimeMillis() - t1));
         if (data.size() > 1) {
             mTabLayout.setVisibility(View.VISIBLE);
             mTabLayout.setupWithViewPager(mViewPager);
         } else {
             mTabLayout.setVisibility(View.GONE);
         }
+        KLog.d("setData time=" + (System.currentTimeMillis() - t1));
     }
 
     @Override
     public void loadData(boolean pullToRefresh) {
         getPresenter().getColumnData(mCurrentBookColumn, pullToRefresh);
     }
-
-
 }

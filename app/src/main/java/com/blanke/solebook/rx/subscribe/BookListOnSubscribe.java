@@ -26,6 +26,7 @@ public class BookListOnSubscribe extends BaseCloudOnSubscribe<List<Book>> {
         return prepare(column.getBooks().getQuery(Book.class))
                 .limit(limit)
                 .skip(skip)
+                .order("top,-updatedAt")
                 .find();
     }
 }

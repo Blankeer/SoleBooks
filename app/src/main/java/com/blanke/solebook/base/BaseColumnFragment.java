@@ -17,7 +17,7 @@ import com.melnykov.fab.FloatingActionButton;
  * Created by Blanke on 16-2-23.
  */
 public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceView<M>, P extends MvpPresenter<V>>
-        extends MvpLceViewStateFragment<CV, M, V, P> {
+        extends MvpLceFragment<CV, M, V, P> {
     public static final String ARG_BOOKCOLUMN = "BaseColumnFragment_BookColumn";
     protected BookColumn mCurrentBookColumn;
     protected FloatingActionButton fab;

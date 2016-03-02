@@ -49,7 +49,6 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
 
     @ViewById(R.id.contentView)
     NeuSwipeRefreshLayout mSwipeRefreshLayout;
-    private List<Book> books;
     private BookItemAdapter mAdapter;
 
     private int currentPage = 0;
@@ -112,11 +111,10 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
         mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
-                Book book = getData().get(position);
+                Book book = mAdapter.getBooks().get(position);
 //                DetailsActivity_.intent(getActivity()).book(book).start();
                 DetailsActivity_.start(getActivity(),
-                        view,
-                        book);
+                        (ImageView) view.findViewById(R.id.item_book_image), book);
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
@@ -142,14 +140,14 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
         }
     }
 
-    @Override
-    public LceViewState<List<Book>, BookListView> createViewState() {
-        return new CastedArrayListLceViewState<>();
-    }
+//    @Override
+//    public LceViewState<List<Book>, BookListView> createViewState() {
+//        return new CastedArrayListLceViewState<>();
+//    }
 
-    @Override
+    //    @Override
     public List<Book> getData() {
-        return books == null ? null : new ArrayList<>(books);
+        return mAdapter.getBooks() == null ? null : new ArrayList<>(mAdapter.getBooks());
     }
 
     @Override
@@ -169,11 +167,11 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
         if (data == null || data.size() == 0) {
             return;
         }
-        books = data;
         if (currentPage == 0) {
-            mAdapter.setData(books);
+            mAdapter.setData(data);
+            mRecyclerView.smoothScrollToPosition(0);
         } else {
-            mAdapter.addData(books);
+            mAdapter.addData(data);
         }
         currentPage++;
     }
@@ -186,7 +184,7 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
 
     @Override
     public void loadData(boolean pullToRefresh) {
-        getPresenter().getBookData(mCurrentBookColumn, !pullToRefresh, pullToRefresh, PAGE_COUNT * currentPage, PAGE_COUNT);
+        getPresenter().getBookData(mCurrentBookColumn, pullToRefresh, PAGE_COUNT * currentPage, PAGE_COUNT);
     }
 
     @Override
