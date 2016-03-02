@@ -72,6 +72,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
 
     @AfterViews
     void init() {
+        long t1 = System.currentTimeMillis();
         setSupportActionBar(toolbar);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -97,9 +98,11 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                 searchView.closeSearch();
             }
         });
+        KLog.d("init time:" + (System.currentTimeMillis() - t1));
     }
 
     private void replaceFragment(int position) {
+        long t1 = System.currentTimeMillis();
         if (position != mSelectPostion) {
             mSelectPostion = position;
             BookColumn item = bookColumns.get(position);
@@ -114,6 +117,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
             trans.commit();
             mSelectFragment = fragments[position];
         }
+        KLog.d("replaceFragment time:" + (System.currentTimeMillis() - t1));
     }
 
     private void hideAllFragment(FragmentTransaction trans) {
@@ -132,6 +136,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     }
 
     private void initNavigationMenu() {
+        long t1 = System.currentTimeMillis();
         currentUser = SoleUser.getCurrentUser(SoleUser.class);
         Menu menu = navigationView.getMenu();
         int random = (int) (Math.random() * 9 + 1);
@@ -165,10 +170,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                 ImageLoader.getInstance().displayImage(currentUser.getIconurl(), mImageIcon, Constants.getImageOptions());
             });
         }
-        new Handler().postDelayed(() -> {
-            replaceFragment(0);
-            showContent();
-        }, 500);
+        KLog.d("initNavigationMenu time:" + (System.currentTimeMillis() - t1));
     }
 
     @Override
@@ -232,6 +234,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     public void setData(List<BookColumn> data) {
         this.bookColumns = data;
         initNavigationMenu();
+        replaceFragment(0);
     }
 
     @Override
