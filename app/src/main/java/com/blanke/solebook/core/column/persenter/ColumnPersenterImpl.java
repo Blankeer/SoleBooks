@@ -1,13 +1,7 @@
 package com.blanke.solebook.core.column.persenter;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.FindCallback;
 import com.blanke.solebook.bean.BookColumn;
-import com.blanke.solebook.constants.Constants;
-import com.blanke.solebook.core.column.view.ColumnView;
-import com.blanke.solebook.utils.AvosCacheUtils;
-import com.socks.library.KLog;
+import com.blanke.solebook.rx.RxBookColumn;
 
 import java.util.List;
 
@@ -15,25 +9,28 @@ import java.util.List;
  * Created by Blanke on 16-2-22.
  */
 public class ColumnPersenterImpl extends ColumnPersenter {
+    private boolean pullToRefresh;
+
     @Override
     public void getColumnData(BookColumn parentBookColumn, boolean pullToRefresh) {
+        this.pullToRefresh = pullToRefresh;
         getView().showLoading(pullToRefresh);
-        AvosCacheUtils.CacheELseNetwork(parentBookColumn.getSubs().getQuery(BookColumn.class))
-                .orderByAscending("order")
-                .findInBackground(new FindCallback<BookColumn>() {
-                    @Override
-                    public void done(List<BookColumn> list, AVException e) {
-//                        KLog.json(list.toString());
-                        if (isViewAttached()) {
-                            ColumnView view = getView();
-                            view.setData(list);
-                            if (e == null) {
-                                view.showContent();
-                            } else {
-                                view.showError(e, pullToRefresh);
-                            }
-                        }
-                    }
-                });
+        RxBookColumn.getSubColumnData(parentBookColumn)
+                .subscribe(this::onSuccess, this::onFail);
+    }
+
+    @Override
+    protected void onSuccess(List<BookColumn> data) {
+        if (isViewAttached()) {
+            getView().setData(data);
+            getView().showContent();
+        }
+    }
+
+    @Override
+    protected void onFail(Throwable e) {
+        if (isViewAttached()) {
+            getView().showError(e, pullToRefresh);
+        }
     }
 }

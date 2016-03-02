@@ -175,11 +175,12 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
         } else {
             mAdapter.addData(books);
         }
-//        mAdapter.notifyDataSetChanged();
         currentPage++;
     }
 
+    @Override
     protected void showLightError(String msg) {
+        mSwipeRefreshLayout.setRefreshing(false);
         SnackUtils.show(mRecyclerView, msg);
     }
 

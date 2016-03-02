@@ -1,12 +1,9 @@
 package com.blanke.solebook.core.booklist.persenter;
 
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.FindCallback;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.BookColumn;
-import com.blanke.solebook.core.booklist.view.BookListView;
-import com.blanke.solebook.utils.AvosCacheUtils;
+import com.blanke.solebook.rx.RxBookColumn;
 
 import java.util.List;
 
@@ -15,26 +12,30 @@ import java.util.List;
  */
 public class BookListPersenterImpl extends BookListPersenter {
 
+    private boolean pullToRefresh;
+
     @Override
     public void getBookData(BookColumn bookColumn, boolean isCache, boolean pullToRefresh, int skip, int limit) {
+        this.pullToRefresh = pullToRefresh;
         getView().showLoading(pullToRefresh);
-        AvosCacheUtils.CacheELseNetwork(bookColumn.getBooks().getQuery(Book.class))
-                .setPolicy(isCache ? AVQuery.CachePolicy.CACHE_ELSE_NETWORK : AVQuery.CachePolicy.NETWORK_ONLY)
-                .limit(limit)
-                .skip(skip)
-                .findInBackground(new FindCallback<Book>() {
-                    @Override
-                    public void done(List<Book> list, AVException e) {
-                        if (isViewAttached()) {
-                            BookListView view = getView();
-                            view.setData(list);
-                            if (e == null) {
-                                view.showContent();
-                            } else {
-                                view.showError(e, pullToRefresh);
-                            }
-                        }
-                    }
-                });
+        RxBookColumn.getBookListData(
+                bookColumn, isCache ? AVQuery.CachePolicy.CACHE_ELSE_NETWORK : AVQuery.CachePolicy.NETWORK_ONLY
+                , limit, skip)
+                .subscribe(this::onSuccess, this::onFail);
+    }
+
+    @Override
+    protected void onSuccess(List<Book> data) {
+        if (isViewAttached()) {
+            getView().setData(data);
+            getView().showContent();
+        }
+    }
+
+    @Override
+    protected void onFail(Throwable e) {
+        if (isViewAttached()) {
+            getView().showError(e, pullToRefresh);
+        }
     }
 }

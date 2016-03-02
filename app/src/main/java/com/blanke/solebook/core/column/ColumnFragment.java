@@ -113,9 +113,10 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
         if (data == null || data.size() == 0) {
             return;
         }
+        this.subBookColumn = data;
+
         mTabLayout.removeAllTabs();
         pageAdapter.clear();
-        this.subBookColumn = data;
         for (BookColumn item : data) {
             mTabLayout.addTab(mTabLayout.newTab().setText(item.getName()));
             pageAdapter.addTab(item);
