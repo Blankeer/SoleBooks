@@ -20,13 +20,16 @@ public class Constants {
     public static final String APPSEC_SINA = "8d766414552a564a15bc4db2bbacc437";
     public static final String REDIRECTURL_SINA = "https://leancloud.cn/1.1/sns/callback/1k4u78lawq2pvrjr";
     public static final String REDIRECTURL_QQ = "https://leancloud.cn/1.1/sns/callback/lljmk2jy0vqme5vh";
-    public static final String CLOUD_MOTHOD_SEARCH_KEY="cloud_search_key";
-    public static final String CLOUD_MOTHOD_SEARCH_ISBN="cloud_search_isbn";
+    public static final String CLOUD_MOTHOD_SEARCH_KEY = "cloud_search_key";
+    public static final String CLOUD_MOTHOD_SEARCH_ISBN = "cloud_search_isbn";
+    public static final long DELAY_NETWORK = 1000;
+    public static final int CLOUD_MAIN_COLUMN_MAX_ORDER = 10;
     public static final long DAY_AGE = 24 * 60 * 60 * 1000;
     public static final int PAGE_COUNT = 20;
     private static DisplayImageOptions options;
-    public static final int TYPE_COLUMN_BOOK=1;
-    public static final long LAZY_DELAY_TIME=500;
+    public static final int TYPE_COLUMN_BOOK = 1;
+    public static final long LAZY_DELAY_TIME = 500;
+
     public static String getSinaIconUrl(String uid) {
         return "http://tp1.sinaimg.cn/" + uid + "/180/0/1";
     }
