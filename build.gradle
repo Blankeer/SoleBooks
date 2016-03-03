@@ -5,6 +5,7 @@ buildscript {
         jcenter()
         maven { url 'http://mvn.leancloud.cn/nexus/content/repositories/releases' }
         maven { url "https://jitpack.io" }
+        maven { url "https://dl.bintray.com/blogcat/maven" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
@@ -20,6 +21,7 @@ allprojects {
         jcenter()
         maven { url 'http://mvn.leancloud.cn/nexus/content/repositories/releases' }
         maven { url "https://jitpack.io" }
+        maven { url "https://dl.bintray.com/blogcat/maven" }
     }
 }
 

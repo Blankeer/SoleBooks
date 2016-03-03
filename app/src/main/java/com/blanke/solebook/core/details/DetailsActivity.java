@@ -10,7 +10,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -20,8 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseActivity;
@@ -31,12 +30,15 @@ import com.blanke.solebook.utils.FastBlur;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
+
+import at.blogc.android.views.ExpandableTextView;
 
 @EActivity(R.layout.activity_details)
 public class DetailsActivity extends BaseActivity {
@@ -45,9 +47,9 @@ public class DetailsActivity extends BaseActivity {
     @ViewById(R.id.activity_details_img)
     ImageView mIcon;
     @ViewById(R.id.activity_details_book_info)
-    TextView mBookTextInfo;
+    ExpandableTextView mBookTextInfo;
     @ViewById(R.id.activity_details_author_info)
-    TextView mAuthorTextInfo;
+    ExpandableTextView mAuthorTextInfo;
     @ViewById(R.id.toolbar2)
     Toolbar toolbar;
     @ViewById(R.id.activity_details_toolbar_layout)
@@ -69,6 +71,13 @@ public class DetailsActivity extends BaseActivity {
         intent2.putExtras(bundle);
         activity.startActivity(intent2, options.toBundle());
 //        ActivityTransitionLauncher.with(activity).from(view).launch(intent2);
+    }
+
+    @Click(R.id.button_toggle)
+    void toggle(View v) {
+        mBookTextInfo.toggle();
+        mAuthorTextInfo.toggle();
+        ((Button) v).setText(mAuthorTextInfo.isExpanded() ? R.string.collapse : R.string.expand);
     }
 
 
@@ -127,12 +136,11 @@ public class DetailsActivity extends BaseActivity {
         new Palette.Builder(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-                Palette.Swatch swatch =
-                        palette.getVibrantSwatch();
+                Palette.Swatch swatch = palette.getVibrantSwatch();
                 if (swatch != null) {
                     int nrgb = colorBurn(swatch.getRgb());
                     mCollapsingToolbarLayout.setExpandedTitleColor(nrgb);
-                    mCollapsingToolbarLayout.setCollapsedTitleTextColor(nrgb);
+                    mCollapsingToolbarLayout.setCollapsedTitleTextColor(swatch.getRgb());
                     final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
                     upArrow.setColorFilter(nrgb, PorterDuff.Mode.SRC_ATOP);
                     getSupportActionBar().setHomeAsUpIndicator(upArrow);
@@ -142,14 +150,19 @@ public class DetailsActivity extends BaseActivity {
     }
 
     private int colorBurn(int RGBValues) {
+        KLog.d(RGBValues);
         int alpha = RGBValues >> 24;
         int red = RGBValues >> 16 & 0xFF;
         int green = RGBValues >> 8 & 0xFF;
         int blue = RGBValues & 0xFF;
-        red = (int) Math.floor(red * (1 - 0.1));
-        green = (int) Math.floor(green * (1 - 0.1));
-        blue = (int) Math.floor(blue * (1 - 0.1));
-        return Color.rgb(red, green, blue);
+//        red = (int) Math.floor(red * (1 - 0.1));
+//        green = (int) Math.floor(green * (1 - 0.1));
+//        blue = (int) Math.floor(blue * (1 - 0.1));
+        alpha = 0xFF;
+        KLog.d(red + "," + green + "," + blue);
+        int i = red / 127 + green / 127 + blue / 127;
+//        return Color.argb(alpha, red, green, blue);
+        return i > 0 ? Color.BLACK : Color.WHITE;
     }
 
     @Override

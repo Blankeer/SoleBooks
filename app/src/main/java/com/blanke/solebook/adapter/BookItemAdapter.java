@@ -84,16 +84,16 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.BookVi
 
                             @Override
                             public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                                new Palette.Builder(bitmap).generate(new Palette.PaletteAsyncListener() {
-                                    @Override
-                                    public void onGenerated(Palette palette) {
-                                        Palette.Swatch swatch =
-                                                palette.getVibrantSwatch();
-                                        if (swatch != null) {
-                                            holder.textView.setBackgroundColor(swatch.getRgb());
-                                        }
-                                    }
-                                });
+//                                new Palette.Builder(bitmap).generate(new Palette.PaletteAsyncListener() {
+//                                    @Override
+//                                    public void onGenerated(Palette palette) {
+//                                        Palette.Swatch swatch =
+//                                                palette.getVibrantSwatch();
+//                                        if (swatch != null) {
+//                                            holder.textView.setBackgroundColor(swatch.getRgb());
+//                                        }
+//                                    }
+//                                });
                             }
 
                             @Override
