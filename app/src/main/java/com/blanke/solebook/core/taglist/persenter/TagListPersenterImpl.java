@@ -1,8 +1,8 @@
-package com.blanke.solebook.core.booklist.persenter;
+package com.blanke.solebook.core.taglist.persenter;
 
 import com.avos.avoscloud.AVQuery;
-import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.BookColumn;
+import com.blanke.solebook.bean.Tag;
 import com.blanke.solebook.rx.RxBookColumn;
 
 import java.util.List;
@@ -10,22 +10,21 @@ import java.util.List;
 /**
  * Created by Blanke on 16-2-22.
  */
-public class BookListPersenterImpl extends BookListPersenter {
+public class TagListPersenterImpl extends TagListPersenter {
 
     private boolean pullToRefresh;
 
     @Override
-    public void getBookData(BookColumn bookColumn, boolean pullToRefresh, int skip, int limit) {
+    public void getTagData(boolean pullToRefresh, int skip, int limit) {
         this.pullToRefresh = pullToRefresh;
         getView().showLoading(pullToRefresh);
-        RxBookColumn.getBookListData(
-                bookColumn, AVQuery.CachePolicy.NETWORK_ELSE_CACHE
+        RxBookColumn.getTagListData(
+                AVQuery.CachePolicy.CACHE_ELSE_NETWORK
                 , limit, skip)
                 .subscribe(this::onSuccess, this::onFail);
     }
 
-    @Override
-    public boolean getPullToRefresh(){
+    public boolean getPullToRefresh() {
         return pullToRefresh;
     }
 }

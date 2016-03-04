@@ -19,18 +19,8 @@ public class MainPersenterImpl extends MainPersenter {
                 .subscribe(this::onSuccess, this::onFail);
     }
 
-    @Override
-    protected void onSuccess(List<BookColumn> data) {
-        if (isViewAttached()) {
-            getView().setData(data);
-            getView().showContent();
-        }
-    }
 
-    @Override
-    protected void onFail(Throwable e) {
-        if (isViewAttached()) {
-            getView().showError(e, pullToRefresh);
-        }
+    public boolean getPullToRefresh(){
+        return pullToRefresh;
     }
 }

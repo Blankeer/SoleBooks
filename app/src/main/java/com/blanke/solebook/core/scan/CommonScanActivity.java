@@ -97,8 +97,8 @@ public class CommonScanActivity extends Activity implements ScanListener, View.O
             if (compressedBitmap != null) {
                 barcode = BitmapFactory.decodeByteArray(compressedBitmap, 0, compressedBitmap.length, null);
                 barcode = barcode.copy(Bitmap.Config.ARGB_8888, true);
+                scan_image.setImageBitmap(barcode);
             }
-            scan_image.setImageBitmap(barcode);
             scanLine.setVisibility(View.GONE);
         }
         scan_image.setVisibility(View.VISIBLE);

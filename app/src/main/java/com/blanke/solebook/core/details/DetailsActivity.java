@@ -58,7 +58,6 @@ public class DetailsActivity extends BaseActivity {
     AppBarLayout mAppBarLayout;
     @Extra
     Book book;
-    private Bundle savedInstanceState;
     private double h = 0;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -70,21 +69,23 @@ public class DetailsActivity extends BaseActivity {
         bundle.putParcelable(ARG_NAME_BEAN, book);
         intent2.putExtras(bundle);
         activity.startActivity(intent2, options.toBundle());
-//        ActivityTransitionLauncher.with(activity).from(view).launch(intent2);
     }
 
-    @Click(R.id.button_toggle)
-    void toggle(View v) {
-        mBookTextInfo.toggle();
+    @Click(R.id.button_toggle_author)
+    void toggle_author(View v) {
         mAuthorTextInfo.toggle();
         ((Button) v).setText(mAuthorTextInfo.isExpanded() ? R.string.collapse : R.string.expand);
+    }
+
+    @Click(R.id.button_toggle_book)
+    void toggle_book(View v) {
+        mBookTextInfo.toggle();
+        ((Button) v).setText(mBookTextInfo.isExpanded() ? R.string.collapse : R.string.expand);
     }
 
 
     @AfterViews
     void init() {
-
-
         Bundle bundle = getIntent().getExtras();
         book = bundle.getParcelable(ARG_NAME_BEAN);
         setSupportActionBar(toolbar);
@@ -179,7 +180,6 @@ public class DetailsActivity extends BaseActivity {
             window.setStatusBarColor(Color.TRANSPARENT);
             window.setNavigationBarColor(Color.TRANSPARENT);
         }
-        this.savedInstanceState = savedInstanceState;
     }
 
 }

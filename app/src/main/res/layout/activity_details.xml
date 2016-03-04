@@ -70,9 +70,10 @@
                 android:ellipsize="end"
                 app:animation_duration="1000" />
 
-            <Button
-                android:id="@+id/button_toggle"
+            <TextView
+                android:id="@+id/button_toggle_book"
                 android:layout_width="wrap_content"
+                android:textColor="@color/colorAccent"
                 android:layout_height="wrap_content"
                 android:text="@string/expand" />
 
@@ -84,7 +85,12 @@
                 android:ellipsize="end"
                 app:animation_duration="1000" />
 
-
+            <TextView
+                android:id="@+id/button_toggle_author"
+                android:layout_width="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:layout_height="wrap_content"
+                android:text="@string/expand" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
