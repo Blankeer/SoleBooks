@@ -13,12 +13,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
+        <com.blanke.hold.HoldScaleImageView
             android:id="@+id/item_search_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:scaleType="fitXY" />
+            android:scaleType="centerCrop"
+            app:holdWidth="true" />
 
         <TextView
             android:id="@+id/item_search_title"

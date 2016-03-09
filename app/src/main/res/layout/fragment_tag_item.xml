@@ -12,7 +12,7 @@
         app:frv_itemViewBothSidesMargin="4dp"
         app:frv_layoutManager="staggeredGrid"
         app:frv_layoutManagerOrientation="vertical"
-        app:frv_spanCount="3"
+        app:frv_spanCount="5"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
