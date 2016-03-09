@@ -8,7 +8,7 @@ import com.avos.avoscloud.AVObject;
  */
 @AVClassName("Tag")
 public class Tag extends AVObject {
-    public static final String NAME = "title";
+    public static final String NAME = "name";
 
     public String getName() {
         return getString(NAME);
