@@ -10,14 +10,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <cn.iwgang.familiarrecyclerview.FamiliarRecyclerView
+        <com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
             android:id="@+id/fragment_searchres_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:frv_dividerHeight="7dp"
-            app:frv_itemViewBothSidesMargin="4dp"
-            app:frv_layoutManager="linear"
-            app:frv_layoutManagerOrientation="horizontal" />
+            app:rvp_flingFactor="0.8"
+            app:rvp_singlePageFling="true"
+            app:rvp_triggerOffset="0.5" />
 
     </LinearLayout>
 
