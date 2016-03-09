@@ -28,6 +28,7 @@ public class Constants {
     public static final int PAGE_COUNT = 20;
     private static DisplayImageOptions options;
     public static final int TYPE_COLUMN_BOOK = 1;
+    public static final int TYPE_COLUMN_TAG = 2;
     public static final long LAZY_DELAY_TIME = 100;
 
     public static String getSinaIconUrl(String uid) {
