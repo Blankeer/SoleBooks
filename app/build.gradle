@@ -41,9 +41,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    dataBinding {
-        enabled = true
-    }
+
 }
 apt {
     arguments {
@@ -101,6 +99,6 @@ dependencies {
     compile 'com.github.Blankeer:HoldScaleImageView:0.1.3'
     compile ('at.blogc:expandabletextview:1.0.0@aar')
 
-    compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
-    compile 'com.minimize.android:rxrecycler-adapter:1.2.1'
+    compile 'com.github.Blankeer:baseadapterhelper:1.0'
+    compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.0-beta5'
 }
