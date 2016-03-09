@@ -118,8 +118,6 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
-
-
     }
 
     @Override

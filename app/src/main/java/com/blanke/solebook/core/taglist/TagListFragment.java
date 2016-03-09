@@ -1,42 +1,34 @@
 package com.blanke.solebook.core.taglist;
 
 import android.content.res.Configuration;
-import android.databinding.ViewDataBinding;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseColumnFragment;
+import com.blanke.solebook.base.BaseRecyclerAdapter;
 import com.blanke.solebook.bean.Tag;
-import com.blanke.solebook.constants.Constants;
-import com.blanke.solebook.core.details.DetailsActivity_;
+import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.core.taglist.persenter.TagListPersenter;
 import com.blanke.solebook.core.taglist.persenter.TagListPersenterImpl;
 import com.blanke.solebook.core.taglist.view.TagListView;
 import com.blanke.solebook.utils.SnackUtils;
-import com.minimize.android.rxrecycleradapter.RxDataSource;
-import com.minimize.android.rxrecycleradapter.SimpleViewHolder;
-import com.neu.refresh.NeuSwipeRefreshLayout;
-import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
+import com.joanzapata.android.recyclerview.BaseAdapterHelper;
+import com.joanzapata.android.recyclerview.BaseQuickAdapter;
+import com.joanzapata.android.recyclerview.QuickAdapter;
 import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
-import rx.functions.Action1;
 
 /**
  * Tag  fragment
@@ -47,9 +39,8 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
         implements TagListView {
     @ViewById(R.id.fragment_tag_recyclerview)
     FamiliarRecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private BaseRecyclerAdapter<Tag> mAdapter;
 
-    private List<Tag> datas;
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -59,20 +50,22 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
 
     @AfterViews
     void init() {
-        RxDataSource<Tag> rxDataSource=new RxDataSource<>(datas);
-        rxDataSource.bindRecyclerView(mRecyclerView,R.layout.item_recyclerview_tag)
-                .subscribe(new Action1<SimpleViewHolder<Tag, ViewDataBinding>>() {
-                    @Override
-                    public void call(SimpleViewHolder<Tag, ViewDataBinding> holder) {
-                        ItemLayoutBinding b = viewHolder.getViewDataBinding();
-                    }
-                });
+        mAdapter = new BaseRecyclerAdapter<Tag>(getActivity(), R.layout.item_recyclerview_tag) {
+            @Override
+            protected void convert(BaseAdapterHelper helper, Tag item) {
+                helper.getTextView(R.id.item_tag_title).setText(item.getName());
+            }
+        };
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
+                SearchResActivity_.intent(TagListFragment.this)
+                        .key(mAdapter.getItem(position).getName()).start();
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
+        loadData(false);
     }
 
     @Override
@@ -87,7 +80,7 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
 
     @Override
     public void setData(List<Tag> data) {
-        datas=data;
+        mAdapter.addAll(data);
     }
 
     @Override
@@ -97,7 +90,7 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
 
     @Override
     public void loadData(boolean pullToRefresh) {
-//        getPresenter().getTagData(mCurrentTagColumn, pullToRefresh, PAGE_COUNT * currentPage, PAGE_COUNT);
+        getPresenter().getTagData(pullToRefresh, 0, 100);
     }
 
 }
