@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseActivity;
@@ -62,25 +63,30 @@ public class DetailsActivity extends BaseActivity {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void start(Activity activity, ImageView imageview, Book book) {
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-                imageview, activity.getResources().getString(R.string.share_img));
         Intent intent2 = new Intent(activity, DetailsActivity_.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARG_NAME_BEAN, book);
         intent2.putExtras(bundle);
-        activity.startActivity(intent2, options.toBundle());
+        if (imageview != null) {
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                    imageview, activity.getResources().getString(R.string.share_img));
+            activity.startActivity(intent2, options.toBundle());
+        } else {
+            activity.startActivity(intent2);
+        }
+
     }
 
     @Click(R.id.button_toggle_author)
     void toggle_author(View v) {
+        ((TextView) v).setText(mAuthorTextInfo.isExpanded() ? R.string.expand : R.string.collapse);
         mAuthorTextInfo.toggle();
-        ((Button) v).setText(mAuthorTextInfo.isExpanded() ? R.string.collapse : R.string.expand);
     }
 
     @Click(R.id.button_toggle_book)
     void toggle_book(View v) {
         mBookTextInfo.toggle();
-        ((Button) v).setText(mBookTextInfo.isExpanded() ? R.string.collapse : R.string.expand);
+        ((TextView) v).setText(mBookTextInfo.isExpanded() ? R.string.collapse : R.string.expand);
     }
 
 
