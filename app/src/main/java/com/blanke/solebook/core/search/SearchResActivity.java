@@ -1,5 +1,9 @@
 package com.blanke.solebook.core.search;
 
+import android.media.Image;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.blanke.solebook.R;
@@ -7,11 +11,13 @@ import com.blanke.solebook.adapter.SearchResAdapter;
 import com.blanke.solebook.base.BaseMvpLceViewStateActivity;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.constants.Constants;
+import com.blanke.solebook.core.details.DetailsActivity;
 import com.blanke.solebook.core.search.persenter.SearchResPersenter;
 import com.blanke.solebook.core.search.persenter.SearchResPersenterImpl;
 import com.blanke.solebook.core.search.view.SearchResView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
+import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -29,7 +35,7 @@ import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 public class SearchResActivity extends BaseMvpLceViewStateActivity<LinearLayout, List<Book>, SearchResView, SearchResPersenter>
         implements SearchResView {
     @ViewById(R.id.fragment_searchres_recyclerview)
-    FamiliarRecyclerView mRecyclerView;
+    RecyclerViewPager mRecyclerView;
 
     private List<Book> books;
     @Extra
@@ -40,7 +46,20 @@ public class SearchResActivity extends BaseMvpLceViewStateActivity<LinearLayout,
     @AfterViews
     void init() {
         mAdapter = new SearchResAdapter(this);
+        LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(layout);
         mRecyclerView.setAdapter(mAdapter);
+//        mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
+//                startDetails((ImageView) view.findViewById(R.id.item_search_image),
+//                        books.get(position));
+//            }
+//        });
+    }
+
+    private void startDetails(ImageView imageView, Book b) {
+        DetailsActivity.start(SearchResActivity.this, imageView, b);
     }
 
     @Override
@@ -68,8 +87,13 @@ public class SearchResActivity extends BaseMvpLceViewStateActivity<LinearLayout,
         if (data == null || data.size() == 0) {
             return;
         }
-        this.books = data;
-        mAdapter.setData(data);
+        if (data.size() == 1) {
+            startDetails(null, data.get(0));
+            finish();
+        } else {
+            this.books = data;
+            mAdapter.setData(data);
+        }
     }
 
     @Override
