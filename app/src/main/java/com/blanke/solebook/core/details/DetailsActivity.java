@@ -74,7 +74,6 @@ public class DetailsActivity extends BaseActivity {
         } else {
             activity.startActivity(intent2);
         }
-
     }
 
     @Click(R.id.button_toggle_author)
@@ -85,8 +84,8 @@ public class DetailsActivity extends BaseActivity {
 
     @Click(R.id.button_toggle_book)
     void toggle_book(View v) {
+        ((TextView) v).setText(mAuthorTextInfo.isExpanded() ? R.string.expand : R.string.collapse);
         mBookTextInfo.toggle();
-        ((TextView) v).setText(mBookTextInfo.isExpanded() ? R.string.collapse : R.string.expand);
     }
 
 
