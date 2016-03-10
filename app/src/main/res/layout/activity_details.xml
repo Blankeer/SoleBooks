@@ -30,7 +30,7 @@
                 android:orientation="horizontal"
                 android:padding="30dp"
                 app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.5">
+                app:layout_collapseParallaxMultiplier="0.8">
 
                 <com.blanke.hold.HoldScaleImageView
                     android:id="@+id/activity_details_img"
@@ -66,31 +66,31 @@
                 android:id="@+id/activity_details_book_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="5"
                 android:ellipsize="end"
+                android:maxLines="5"
                 app:animation_duration="1000" />
 
             <TextView
                 android:id="@+id/button_toggle_book"
                 android:layout_width="wrap_content"
-                android:textColor="@color/colorAccent"
                 android:layout_height="wrap_content"
-                android:text="@string/expand" />
+                android:text="@string/expand"
+                android:textColor="@color/colorAccent" />
 
             <at.blogc.android.views.ExpandableTextView
                 android:id="@+id/activity_details_author_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="5"
                 android:ellipsize="end"
+                android:maxLines="5"
                 app:animation_duration="1000" />
 
             <TextView
                 android:id="@+id/button_toggle_author"
                 android:layout_width="wrap_content"
-                android:textColor="@color/colorAccent"
                 android:layout_height="wrap_content"
-                android:text="@string/expand" />
+                android:text="@string/expand"
+                android:textColor="@color/colorAccent" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
