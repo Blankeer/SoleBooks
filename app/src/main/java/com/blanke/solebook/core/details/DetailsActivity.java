@@ -27,6 +27,7 @@ import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseActivity;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.constants.Constants;
+import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.FastBlur;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -97,6 +98,8 @@ public class DetailsActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
         mCollapsingToolbarLayout.setTitle(book.getTitle());
+        mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
+        mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
         mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.Toolbar_expanded_text);//展开后的字体大小等
 
         ImageLoader.getInstance().displayImage(book.getImgL(), mIcon, Constants.getImageOptions(), new ImageLoadingListener() {
@@ -124,51 +127,23 @@ public class DetailsActivity extends BaseActivity {
         mBookTextInfo.setText(book.getIntroContent());
         mAuthorTextInfo.setText(book.getIntroAuthor());
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (h == 0) {
-                    h = mCollapsingToolbarLayout.getMeasuredHeight() * 0.8;
-                }
-                mIcon.setAlpha((float) ((h + verticalOffset) / h));
+                h = mCollapsingToolbarLayout.getMeasuredHeight()
+                        - mCollapsingToolbarLayout.getMinimumHeight();
+                h *= 0.9;
+                float a = (float) ((h + verticalOffset) / h);
+//                KLog.d(h + "," + verticalOffset + "," + a);
+                mIcon.setAlpha(a);
             }
         });
-
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void onImageComplete(Bitmap bitmap) {
         mCollapsingToolbarLayout.setBackground(new BitmapDrawable(getResources(),
-                FastBlur.doBlur(bitmap, 100, false)));
-        new Palette.Builder(bitmap).generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                Palette.Swatch swatch = palette.getVibrantSwatch();
-                if (swatch != null) {
-                    int nrgb = colorBurn(swatch.getRgb());
-                    mCollapsingToolbarLayout.setExpandedTitleColor(nrgb);
-                    mCollapsingToolbarLayout.setCollapsedTitleTextColor(swatch.getRgb());
-                    final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-                    upArrow.setColorFilter(nrgb, PorterDuff.Mode.SRC_ATOP);
-                    getSupportActionBar().setHomeAsUpIndicator(upArrow);
-                }
-            }
-        });
-    }
-
-    private int colorBurn(int RGBValues) {
-        KLog.d(RGBValues);
-        int alpha = RGBValues >> 24;
-        int red = RGBValues >> 16 & 0xFF;
-        int green = RGBValues >> 8 & 0xFF;
-        int blue = RGBValues & 0xFF;
-//        red = (int) Math.floor(red * (1 - 0.1));
-//        green = (int) Math.floor(green * (1 - 0.1));
-//        blue = (int) Math.floor(blue * (1 - 0.1));
-        alpha = 0xFF;
-        KLog.d(red + "," + green + "," + blue);
-        int i = red / 127 + green / 127 + blue / 127;
-//        return Color.argb(alpha, red, green, blue);
-        return i > 0 ? Color.BLACK : Color.WHITE;
+                FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), 100, false)));
     }
 
     @Override
@@ -186,5 +161,4 @@ public class DetailsActivity extends BaseActivity {
             window.setNavigationBarColor(Color.TRANSPARENT);
         }
     }
-
 }
