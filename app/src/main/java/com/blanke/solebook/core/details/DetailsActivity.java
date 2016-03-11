@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseActivity;
+import com.blanke.solebook.base.BaseSwipeBackActivity;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.utils.BitmapUtils;
@@ -41,9 +42,10 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import at.blogc.android.views.ExpandableTextView;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 @EActivity(R.layout.activity_details)
-public class DetailsActivity extends BaseActivity {
+public class DetailsActivity extends BaseSwipeBackActivity {
 
     public static final String ARG_NAME_BEAN = "DetailsActivity_bean";
     @ViewById(R.id.activity_details_img)
@@ -75,6 +77,11 @@ public class DetailsActivity extends BaseActivity {
         } else {
             activity.startActivity(intent2);
         }
+    }
+
+    @Override
+    public void scrollToFinishActivity() {
+        super.scrollToFinishActivity();
     }
 
     @Click(R.id.button_toggle_author)
