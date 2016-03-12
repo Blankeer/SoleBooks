@@ -56,7 +56,8 @@ public class BookItemAdapter extends RecyclerView.Adapter<BookItemAdapter.BookVi
         }
         int temp = getItemCount();
         this.books.addAll(data);
-        notifyItemRangeInserted(temp, data.size());
+//        notifyItemRangeInserted(temp, data.size());
+        notifyDataSetChanged();
     }
 
     @Override

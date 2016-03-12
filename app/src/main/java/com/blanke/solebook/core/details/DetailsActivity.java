@@ -79,11 +79,6 @@ public class DetailsActivity extends BaseSwipeBackActivity {
         }
     }
 
-    @Override
-    public void scrollToFinishActivity() {
-        super.scrollToFinishActivity();
-    }
-
     @Click(R.id.button_toggle_author)
     void toggle_author(View v) {
         ((TextView) v).setText(mAuthorTextInfo.isExpanded() ? R.string.expand : R.string.collapse);

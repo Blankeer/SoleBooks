@@ -1,5 +1,9 @@
 package com.blanke.solebook.base;
 
+import android.annotation.TargetApi;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -15,11 +19,13 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
 public class BaseSwipeBackActivity extends BaseActivity implements SwipeBackActivityBase {
     private SwipeBackActivityHelper mHelper;
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
+        getWindow().getDecorView().setBackground(new ColorDrawable(Color.TRANSPARENT));
     }
 
     @Override

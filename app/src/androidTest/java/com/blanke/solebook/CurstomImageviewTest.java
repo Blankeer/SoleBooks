@@ -1,10 +1,13 @@
 package com.blanke.solebook;
 
 import android.app.Instrumentation;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.test.InstrumentationTestCase;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.blanke.solebook.test.TestCurstomImageviewActivity;

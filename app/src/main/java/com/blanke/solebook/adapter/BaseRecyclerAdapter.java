@@ -1,4 +1,4 @@
-package com.blanke.solebook.base;
+package com.blanke.solebook.adapter;
 
 import android.content.Context;
 

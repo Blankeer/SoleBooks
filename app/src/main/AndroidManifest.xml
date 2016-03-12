@@ -50,7 +50,9 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".core.login.LoginActivity_" />
-        <activity android:name=".core.details.DetailsActivity_" />
+        <activity
+            android:name=".core.details.DetailsActivity_"
+            android:theme="@style/SwipeBackTheme" />
         <activity android:name=".core.search.SearchResActivity_" />
         <activity android:name=".core.random.RandomActivity_" />
         <activity android:name=".core.scan.CommonScanActivity_" />

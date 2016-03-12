@@ -2,14 +2,13 @@ package com.blanke.solebook.core.taglist;
 
 import android.content.res.Configuration;
 import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseColumnFragment;
-import com.blanke.solebook.base.BaseRecyclerAdapter;
+import com.blanke.solebook.adapter.BaseRecyclerAdapter;
 import com.blanke.solebook.bean.Tag;
 import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.core.taglist.persenter.TagListPersenter;
@@ -17,9 +16,6 @@ import com.blanke.solebook.core.taglist.persenter.TagListPersenterImpl;
 import com.blanke.solebook.core.taglist.view.TagListView;
 import com.blanke.solebook.utils.SnackUtils;
 import com.joanzapata.android.recyclerview.BaseAdapterHelper;
-import com.joanzapata.android.recyclerview.BaseQuickAdapter;
-import com.joanzapata.android.recyclerview.QuickAdapter;
-import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
