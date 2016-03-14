@@ -102,4 +102,9 @@ dependencies {
     compile 'com.github.Blankeer:baseadapterhelper:1.0'
     compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.0-beta5'
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+
+
+    compile 'com.github.Blankeer:ScrollHideView:V0.1'
+
+    compile 'com.github.jd-alexander:LikeButton:0.1.8'
 }
