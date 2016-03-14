@@ -5,26 +5,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blanke.solebook.R;
-import com.blanke.solebook.base.BaseActivity;
 import com.blanke.solebook.base.BaseSwipeBackActivity;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.constants.Constants;
@@ -33,7 +28,6 @@ import com.blanke.solebook.utils.FastBlur;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -42,7 +36,6 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import at.blogc.android.views.ExpandableTextView;
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 @EActivity(R.layout.activity_details)
 public class DetailsActivity extends BaseSwipeBackActivity {
@@ -145,7 +138,7 @@ public class DetailsActivity extends BaseSwipeBackActivity {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void onImageComplete(Bitmap bitmap) {
         mCollapsingToolbarLayout.setBackground(new BitmapDrawable(getResources(),
-                FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), 100, false)));
+                FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), 80, false)));
     }
 
     @Override
@@ -160,7 +153,7 @@ public class DetailsActivity extends BaseSwipeBackActivity {
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
-            window.setNavigationBarColor(Color.TRANSPARENT);
+//            window.setNavigationBarColor(Color.TRANSPARENT);
         }
     }
 }
