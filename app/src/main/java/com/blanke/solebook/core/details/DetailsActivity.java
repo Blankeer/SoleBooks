@@ -23,8 +23,13 @@ import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseSwipeBackActivity;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.constants.Constants;
+import com.blanke.solebook.core.details.persenter.DetailsPersenter;
+import com.blanke.solebook.core.details.persenter.DetailsPersenterImpl;
+import com.blanke.solebook.core.details.view.DetailsView;
 import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.FastBlur;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -38,7 +43,7 @@ import org.androidannotations.annotations.ViewById;
 import at.blogc.android.views.ExpandableTextView;
 
 @EActivity(R.layout.activity_details)
-public class DetailsActivity extends BaseSwipeBackActivity {
+public class DetailsActivity extends BaseSwipeBackActivity implements DetailsView{
 
     public static final String ARG_NAME_BEAN = "DetailsActivity_bean";
     @ViewById(R.id.activity_details_img)
@@ -53,6 +58,10 @@ public class DetailsActivity extends BaseSwipeBackActivity {
     CollapsingToolbarLayout mCollapsingToolbarLayout;
     @ViewById(R.id.activity_details_appbar)
     AppBarLayout mAppBarLayout;
+    @ViewById(R.id.activity_details_like)
+    LikeButton mLikeButton;
+
+    private DetailsPersenter mPersenter;
     @Extra
     Book book;
     private double h = 0;
@@ -133,6 +142,19 @@ public class DetailsActivity extends BaseSwipeBackActivity {
                 mIcon.setAlpha(a);
             }
         });
+        mLikeButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+
+            }
+        });
+        mPersenter=new DetailsPersenterImpl(this,book);
+        mPersenter.initLikeState();
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -155,5 +177,10 @@ public class DetailsActivity extends BaseSwipeBackActivity {
             window.setStatusBarColor(Color.TRANSPARENT);
 //            window.setNavigationBarColor(Color.TRANSPARENT);
         }
+    }
+
+    @Override
+    public void setLike(boolean isLike) {
+        mLikeButton.setLiked(isLike);
     }
 }

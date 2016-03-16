@@ -1,5 +1,6 @@
 package com.blanke.solebook.bean;
 
+import com.avos.avoscloud.AVRelation;
 import com.avos.avoscloud.AVUser;
 
 /**
@@ -8,6 +9,7 @@ import com.avos.avoscloud.AVUser;
 public class SoleUser extends AVUser {
     public static final String NICKNAME = "nickname";
     public static final String ICONURL = "iconurl";
+    public static final String LIKES = "likes";
 
     public String getNickname() {
         return getString(NICKNAME);
@@ -24,4 +26,9 @@ public class SoleUser extends AVUser {
     public void setIconurl(String iconurl) {
         put(ICONURL, iconurl);
     }
+
+    public AVRelation<Book> getLikes() {
+        return getRelation(LIKES);
+    }
+
 }
