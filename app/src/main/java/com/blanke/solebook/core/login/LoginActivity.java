@@ -3,6 +3,10 @@ package com.blanke.solebook.core.login;
 import android.content.Intent;
 import android.view.View;
 
+import com.avos.avoscloud.AVAnonymousUtils;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.avos.sns.SNS;
 import com.avos.sns.SNSType;
 import com.blanke.solebook.R;
@@ -53,8 +57,12 @@ public class LoginActivity extends BaseActivity {
 
     @Click(R.id.activity_login_bu_anonymous)
     void anonymous() {
-
-        jumpMain();
+        AVAnonymousUtils.logIn(new LogInCallback<AVUser>() {
+            @Override
+            public void done(AVUser user, AVException e) {
+                jumpMain();
+            }
+        });
     }
 
     private void loading(boolean isshow) {

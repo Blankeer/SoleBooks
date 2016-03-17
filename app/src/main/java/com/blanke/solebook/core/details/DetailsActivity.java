@@ -43,7 +43,7 @@ import org.androidannotations.annotations.ViewById;
 import at.blogc.android.views.ExpandableTextView;
 
 @EActivity(R.layout.activity_details)
-public class DetailsActivity extends BaseSwipeBackActivity implements DetailsView{
+public class DetailsActivity extends BaseSwipeBackActivity implements DetailsView {
 
     public static final String ARG_NAME_BEAN = "DetailsActivity_bean";
     @ViewById(R.id.activity_details_img)
@@ -145,15 +145,15 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         mLikeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-
+                mPersenter.setLike(true);
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-
+                mPersenter.setLike(false);
             }
         });
-        mPersenter=new DetailsPersenterImpl(this,book);
+        mPersenter = new DetailsPersenterImpl(this, book);
         mPersenter.initLikeState();
     }
 

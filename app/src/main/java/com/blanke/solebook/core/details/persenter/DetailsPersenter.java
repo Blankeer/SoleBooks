@@ -16,4 +16,5 @@ public abstract class DetailsPersenter {
     }
 
     public abstract void initLikeState();
+    public abstract void setLike(boolean isLike);
 }
