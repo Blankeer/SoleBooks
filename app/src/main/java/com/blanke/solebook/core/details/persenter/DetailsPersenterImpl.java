@@ -20,7 +20,7 @@ public class DetailsPersenterImpl extends DetailsPersenter {
 
     @Override
     public void initLikeState() {
-        if (!user.isAnonymous()) {
+        if (user != null && !user.isAnonymous()) {
             user.getLikes().getQuery()
                     .whereEqualTo("objectId", book.getObjectId())
                     .getFirstInBackground(new GetCallback<Book>() {
@@ -36,7 +36,7 @@ public class DetailsPersenterImpl extends DetailsPersenter {
 
     @Override
     public void setLike(boolean isLike) {
-        if (!user.isAnonymous()) {
+        if (user != null && !user.isAnonymous()) {
             AVRelation<Book> likes = user.getLikes();
             if (isLike) {
                 likes.add(book);

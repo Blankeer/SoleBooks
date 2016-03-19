@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.blanke.solebook.core.details.persenter.DetailsPersenterImpl;
 import com.blanke.solebook.core.details.view.DetailsView;
 import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.FastBlur;
+import com.blanke.solebook.utils.SystemUiUtils;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -60,6 +62,8 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     AppBarLayout mAppBarLayout;
     @ViewById(R.id.activity_details_like)
     LikeButton mLikeButton;
+    @ViewById(R.id.activity_details_coordlayout)
+    CoordinatorLayout mCoordinatorLayout;
 
     private DetailsPersenter mPersenter;
     @Extra
@@ -101,6 +105,9 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        if (SystemUiUtils.checkDeviceHasNavigationBar(this)) {//判断是否有navigationbar
+            mCoordinatorLayout.setPadding(0, 0, 0, SystemUiUtils.getNavigationBarHeight(this));
+        }
         mCollapsingToolbarLayout.setTitle(book.getTitle());
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
@@ -153,6 +160,8 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
                 mPersenter.setLike(false);
             }
         });
+
+
         mPersenter = new DetailsPersenterImpl(this, book);
         mPersenter.initLikeState();
     }
@@ -178,6 +187,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
 //            window.setNavigationBarColor(Color.TRANSPARENT);
         }
     }
+
 
     @Override
     public void setLike(boolean isLike) {

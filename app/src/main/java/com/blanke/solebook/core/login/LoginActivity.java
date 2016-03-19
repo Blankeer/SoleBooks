@@ -60,6 +60,7 @@ public class LoginActivity extends BaseActivity {
         AVAnonymousUtils.logIn(new LogInCallback<AVUser>() {
             @Override
             public void done(AVUser user, AVException e) {
+                KLog.i("AVAnonymous  login success ");
                 jumpMain();
             }
         });

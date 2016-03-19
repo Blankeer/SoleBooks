@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_details_coordlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false">
@@ -26,6 +27,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="30dp"
@@ -97,27 +99,47 @@
 
     <com.blanke.lib.scrollholdview.ScrollHideView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:elevation="@dimen/m_elevation"
         app:targetView="@id/activity_details_scrollview">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="#22000000"
-            android:gravity="center">
 
-            <com.like.LikeButton
-                android:id="@+id/activity_details_like"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="2dp"
+            android:background="#ccc">
+
+            <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon_size="30dp"
-                app:dots_primary_color="@color/colorAccent"
-                app:circle_start_color="@color/colorPrimary"
-                app:icon_type="heart" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_gravity="left|center_vertical"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_shao" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right|center_vertical"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_shao" />
+        </FrameLayout>
+
+        <com.like.LikeButton
+            android:id="@+id/activity_details_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:circle_start_color="@color/colorPrimary"
+            app:dots_primary_color="@color/colorAccent"
+            app:icon_size="30dp"
+            app:icon_type="heart" />
+
     </com.blanke.lib.scrollholdview.ScrollHideView>
 </android.support.design.widget.CoordinatorLayout>

@@ -9,4 +9,5 @@
     <dimen name="toolbar_elevation">0dp</dimen>
     <dimen name="qrcode_crop_width">400dp</dimen>
     <dimen name="qrcode_crop_height">200dp</dimen>
+    <dimen name="m_elevation">40dp</dimen>
 </resources>
