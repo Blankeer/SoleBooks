@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseSwipeBackActivity;
 import com.blanke.solebook.bean.Book;
@@ -69,6 +70,20 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     @Extra
     Book book;
     private double h = 0;
+    @ViewById(R.id.activity_details_text_author)
+    TextView activity_details_text_author;
+    @ViewById(R.id.activity_details_text_publisher)
+    TextView activity_details_text_publisher;
+    @ViewById(R.id.activity_details_text_pubdate)
+    TextView activity_details_text_pubdate;
+    @ViewById(R.id.activity_details_text_page)
+    TextView activity_details_text_page;
+    @ViewById(R.id.activity_details_text_price)
+    TextView activity_details_text_price;
+    @ViewById(R.id.activity_details_text_binding)
+    TextView activity_details_text_binding;
+    @ViewById(R.id.activity_details_text_isbn)
+    TextView activity_details_text_isbn;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void start(Activity activity, ImageView imageview, Book book) {
@@ -135,6 +150,13 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
 
             }
         });
+        activity_details_text_author.setText(book.getAuthor());
+        activity_details_text_publisher.setText(book.getPublisher());
+        activity_details_text_pubdate.setText(book.getPubdate());
+        activity_details_text_page.setText(book.getPages());
+        activity_details_text_price.setText(book.getPrice());
+        activity_details_text_binding.setText(book.getBinding());
+        activity_details_text_isbn.setText(book.getIsbn());
         mBookTextInfo.setText(book.getIntroContent());
         mAuthorTextInfo.setText(book.getIntroAuthor());
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -172,6 +194,14 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
                 FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), 80, false)));
     }
 
+    @Click(R.id.activity_details_dir)
+    public void clickDir() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.title_dir)
+                .content(book.getDir())
+                .show();
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,4 +223,5 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     public void setLike(boolean isLike) {
         mLikeButton.setLiked(isLike);
     }
+
 }

@@ -1,9 +1,6 @@
 package com.blanke.solebook.view;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,10 +16,7 @@ import android.os.Parcelable;
 import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.TintableBackgroundView;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.TintManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -46,10 +40,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.miguelcatalan.materialsearchview.SearchAdapter;
 import com.miguelcatalan.materialsearchview.utils.AnimationUtil;
-import com.socks.library.KLog;
 
 import java.lang.reflect.Field;
 import java.util.List;
