@@ -48,11 +48,11 @@ public class Book extends AVObject {
     }
 
     public String getIntroAuthor() {
-        return getString(INTRO_AUTHOR);
+        return getString(INTRO_AUTHOR).trim();
     }
 
     public String getDir() {
-        return getString(DIR);
+        return getString(DIR).trim();
     }
 
     public String getPages() {

@@ -57,30 +57,35 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/activity_details_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_head"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="@string/title_author" />
 
                 <TextView
                     android:id="@+id/activity_details_text_author"
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_data"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center" />
+                    android:layout_weight="5"
+                    android:textColor="@color/colorAccent" />
             </LinearLayout>
 
             <LinearLayout
@@ -89,28 +94,32 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_head"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="@string/title_publisher" />
 
                 <TextView
                     android:id="@+id/activity_details_text_publisher"
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_data"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center" />
+                    android:layout_weight="2" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_head"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="@string/title_pubdate" />
 
                 <TextView
                     android:id="@+id/activity_details_text_pubdate"
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_data"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center" />
+                    android:layout_weight="2" />
             </LinearLayout>
 
             <LinearLayout
@@ -119,28 +128,32 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_head"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="@string/title_page" />
 
                 <TextView
                     android:id="@+id/activity_details_text_page"
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_data"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center" />
+                    android:layout_weight="2" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_head"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="@string/title_price" />
 
                 <TextView
                     android:id="@+id/activity_details_text_price"
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_data"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center" />
+                    android:layout_weight="2" />
             </LinearLayout>
 
             <LinearLayout
@@ -149,28 +162,32 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_head"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="@string/title_binding" />
 
                 <TextView
                     android:id="@+id/activity_details_text_binding"
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_data"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center" />
+                    android:layout_weight="2" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_head"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="@string/title_isbn" />
 
                 <TextView
                     android:id="@+id/activity_details_text_isbn"
-                    android:layout_width="wrap_content"
+                    style="@style/details_text_data"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center" />
+                    android:layout_weight="2" />
             </LinearLayout>
 
 
@@ -182,27 +199,6 @@
                 android:maxLines="5"
                 app:animation_duration="1000" />
 
-            <TextView
-                android:id="@+id/button_toggle_book"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/expand"
-                android:textColor="@color/colorAccent" />
-
-            <at.blogc.android.views.ExpandableTextView
-                android:id="@+id/activity_details_author_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="5"
-                app:animation_duration="1000" />
-
-            <TextView
-                android:id="@+id/button_toggle_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/expand"
-                android:textColor="@color/colorAccent" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

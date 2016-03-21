@@ -37,6 +37,24 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="details_text_data">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:lines">1</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">left|center_vertical</item>
+    </style>
+
+    <style name="details_text_head">
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">left|center_vertical</item>
+    </style>
+
     <style name="Button" parent="Base.TextAppearance.AppCompat.Button"></style>
 
     <style name="TabLayout" parent="Base.Widget.Design.TabLayout"></style>

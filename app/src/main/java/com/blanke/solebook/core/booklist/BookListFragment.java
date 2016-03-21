@@ -20,8 +20,6 @@ import com.blanke.solebook.core.booklist.persenter.BookListPersenterImpl;
 import com.blanke.solebook.core.booklist.view.BookListView;
 import com.blanke.solebook.core.details.DetailsActivity_;
 import com.blanke.solebook.utils.SnackUtils;
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
 import com.socks.library.KLog;
@@ -133,7 +131,7 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
             isNetworkFinish = true;
         }
         if (isVisible && isCreateView && fab != null) {
-            fab.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
+            fab.setOnClickListener(v -> scrollTop());
             fab.attachToRecyclerView(mRecyclerView);
         }
     }
@@ -167,11 +165,18 @@ public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, Lis
         }
         if (currentPage == 0) {
             mAdapter.setData(data);
-            mRecyclerView.smoothScrollToPosition(0);
+            KLog.d();
+            mRecyclerView.postDelayed(() -> scrollTop(), 800);
         } else {
             mAdapter.addData(data);
         }
         currentPage++;
+    }
+
+    private void scrollTop() {
+        if (mRecyclerView != null) {
+            mRecyclerView.smoothScrollToPosition(0);
+        }
     }
 
     @Override

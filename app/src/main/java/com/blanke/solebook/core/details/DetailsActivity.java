@@ -53,8 +53,6 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     ImageView mIcon;
     @ViewById(R.id.activity_details_book_info)
     ExpandableTextView mBookTextInfo;
-    @ViewById(R.id.activity_details_author_info)
-    ExpandableTextView mAuthorTextInfo;
     @ViewById(R.id.toolbar2)
     Toolbar toolbar;
     @ViewById(R.id.activity_details_toolbar_layout)
@@ -99,19 +97,6 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
             activity.startActivity(intent2);
         }
     }
-
-    @Click(R.id.button_toggle_author)
-    void toggle_author(View v) {
-        ((TextView) v).setText(mAuthorTextInfo.isExpanded() ? R.string.expand : R.string.collapse);
-        mAuthorTextInfo.toggle();
-    }
-
-    @Click(R.id.button_toggle_book)
-    void toggle_book(View v) {
-        ((TextView) v).setText(mAuthorTextInfo.isExpanded() ? R.string.expand : R.string.collapse);
-        mBookTextInfo.toggle();
-    }
-
 
     @AfterViews
     void init() {
@@ -158,7 +143,6 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         activity_details_text_binding.setText(book.getBinding());
         activity_details_text_isbn.setText(book.getIsbn());
         mBookTextInfo.setText(book.getIntroContent());
-        mAuthorTextInfo.setText(book.getIntroAuthor());
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -194,9 +178,19 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
                 FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), 80, false)));
     }
 
+    @Click(R.id.activity_details_book_info)
+    public void clickBookInfo() {
+        mBookTextInfo.toggle();
+    }
+
     @Click(R.id.activity_details_dir)
     public void clickDir() {
-        DialogUtils.show(this, book.getDir().split("\n"));
+        DialogUtils.show(this, R.string.title_dir, book.getDir().split("\n"));
+    }
+
+    @Click(R.id.activity_details_text_author)
+    public void clickAuthor() {
+        DialogUtils.show(this, R.string.title_author, book.getIntroAuthor().split("\n"));
     }
 
     @Override
