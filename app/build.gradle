@@ -99,5 +99,5 @@ dependencies {
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
     compile 'com.github.Blankeer:ScrollHideView:V0.1'
     compile 'com.github.jd-alexander:LikeButton:0.1.8'
-    compile('com.github.afollestad.material-dialogs:core:0.8.5.7@aar') { transitive = true }
+    compile 'com.orhanobut:dialogplus:1.11@aar'
 }

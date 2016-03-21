@@ -20,7 +20,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseSwipeBackActivity;
 import com.blanke.solebook.bean.Book;
@@ -29,6 +28,7 @@ import com.blanke.solebook.core.details.persenter.DetailsPersenter;
 import com.blanke.solebook.core.details.persenter.DetailsPersenterImpl;
 import com.blanke.solebook.core.details.view.DetailsView;
 import com.blanke.solebook.utils.BitmapUtils;
+import com.blanke.solebook.utils.DialogUtils;
 import com.blanke.solebook.utils.FastBlur;
 import com.blanke.solebook.utils.SystemUiUtils;
 import com.like.LikeButton;
@@ -196,10 +196,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
 
     @Click(R.id.activity_details_dir)
     public void clickDir() {
-        new MaterialDialog.Builder(this)
-                .title(R.string.title_dir)
-                .content(book.getDir())
-                .show();
+        DialogUtils.show(this, book.getDir().split("\n"));
     }
 
     @Override
