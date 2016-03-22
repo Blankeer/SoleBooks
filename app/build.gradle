@@ -44,7 +44,7 @@ android {
 
 }
 apt {
-    arguments {
+    arguments {//androidannotations
         androidManifestFile variant.outputs[0].processResources.manifestFile
 
         resourcePackageName android.defaultConfig.applicationId

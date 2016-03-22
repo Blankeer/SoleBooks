@@ -229,12 +229,13 @@
                 android:src="@mipmap/icon_shao" />
 
             <ImageView
+                android:id="@+id/activity_details_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right|center_vertical"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/icon_shao" />
+                android:src="@drawable/ic_chat_24dp" />
         </FrameLayout>
 
         <com.like.LikeButton

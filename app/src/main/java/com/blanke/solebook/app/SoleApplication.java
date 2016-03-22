@@ -8,6 +8,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.BookColumn;
+import com.blanke.solebook.bean.BookComment;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.bean.Tag;
 import com.blanke.solebook.constants.Constants;
@@ -31,6 +32,7 @@ public class SoleApplication extends Application {
         AVUser.alwaysUseSubUserClass(SoleUser.class);
         AVObject.registerSubclass(Book.class);
         AVObject.registerSubclass(Tag.class);
+        AVObject.registerSubclass(BookComment.class);
         AVObject.registerSubclass(BookColumn.class);
         AVOSCloud.initialize(this, Constants.APPID_AVOS, Constants.APPKEY_AVOS);
         AVOSCloud.setDebugLogEnabled(true);

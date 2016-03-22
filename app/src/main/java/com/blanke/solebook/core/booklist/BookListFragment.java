@@ -39,7 +39,8 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
  * Created by Blanke on 16-2-22.
  */
 @EFragment(R.layout.fragment_book_item)
-public class BookListFragment extends BaseColumnFragment<SwipeRefreshLayout, List<Book>, BookListView, BookListPersenter>
+public class BookListFragment extends
+        BaseColumnFragment<SwipeRefreshLayout, List<Book>, BookListView, BookListPersenter>
         implements BookListView, NeuSwipeRefreshLayout.OnRefreshListener {
     private static final long LAZY_DELAY_TIME = Constants.LAZY_DELAY_TIME;
     @ViewById(R.id.fragment_columnitem_recyclerview)

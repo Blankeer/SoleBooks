@@ -48,4 +48,5 @@
     <string name="title_price">价格</string>
     <string name="title_binding">装帧</string>
     <string name="title_isbn">ISBN</string>
+    <string name="msg_comment_add">添加评论</string>
 </resources>

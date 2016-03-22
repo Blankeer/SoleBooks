@@ -56,7 +56,8 @@
         <activity android:name=".core.search.SearchResActivity_" />
         <activity android:name=".core.random.RandomActivity_" />
         <activity android:name=".core.scan.CommonScanActivity_" />
-        <activity android:name=".test.TestCurstomImageviewActivity"></activity>
+        <activity android:name=".test.TestCurstomImageviewActivity" />
+        <activity android:name=".core.comment.CommentActivity_"></activity>
     </application>
 
 </manifest>

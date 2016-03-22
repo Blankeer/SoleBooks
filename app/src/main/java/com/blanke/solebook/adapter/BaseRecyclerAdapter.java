@@ -26,6 +26,10 @@ public abstract class BaseRecyclerAdapter<T> extends QuickAdapter<T> {
         notifyItemRangeInserted(temp, data.size());
     }
 
+    public List<T> getData() {
+        return mItems;
+    }
+
     @Override
     public void addItem(T item) {
         mItems.add(item);

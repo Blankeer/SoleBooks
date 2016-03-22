@@ -24,6 +24,7 @@ import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseSwipeBackActivity;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.constants.Constants;
+import com.blanke.solebook.core.comment.CommentActivity_;
 import com.blanke.solebook.core.details.persenter.DetailsPersenter;
 import com.blanke.solebook.core.details.persenter.DetailsPersenterImpl;
 import com.blanke.solebook.core.details.view.DetailsView;
@@ -191,6 +192,11 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     @Click(R.id.activity_details_text_author)
     public void clickAuthor() {
         DialogUtils.show(this, R.string.title_author, book.getIntroAuthor().split("\n"));
+    }
+
+    @Click(R.id.activity_details_comment)
+    public void clickCommentr() {
+        CommentActivity_.intent(this).book(book).start();
     }
 
     @Override
