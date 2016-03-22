@@ -4,13 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.blanke.solebook.core.comment.CommentActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="@dimen/toolbar_elevation">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
 
     <com.neu.refresh.NeuSwipeRefreshLayout
         android:id="@+id/contentView"
@@ -27,7 +36,8 @@
             app:frv_dividerHeight="7dp"
             app:frv_itemViewBothSidesMargin="4dp"
             app:frv_layoutManager="linear"
-            app:frv_layoutManagerOrientation="vertical" />
+            app:frv_layoutManagerOrientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,11 +45,13 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/activity_comment_edit_mycomment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/msg_comment_add" />
 
             <ImageView
+                android:id="@+id/activity_comment_bu_send"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="centerInside"

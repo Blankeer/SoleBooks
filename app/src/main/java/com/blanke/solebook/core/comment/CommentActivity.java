@@ -2,9 +2,10 @@ package com.blanke.solebook.core.comment;
 
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.adapter.BaseRecyclerAdapter;
@@ -15,15 +16,16 @@ import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.comment.persenter.CommentPersenter;
 import com.blanke.solebook.core.comment.persenter.CommentPersenterImpl;
 import com.blanke.solebook.core.comment.view.CommentView;
+import com.blanke.solebook.utils.ResUtils;
 import com.blanke.solebook.utils.SnackUtils;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
 import com.joanzapata.android.recyclerview.BaseAdapterHelper;
-import com.joanzapata.android.recyclerview.QuickAdapter;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
@@ -44,10 +46,13 @@ public class CommentActivity extends
     NeuSwipeRefreshLayout mSwipeRefreshLayout;
     @ViewById(R.id.toolbar)
     Toolbar toolbar;
+    @ViewById(R.id.activity_comment_edit_mycomment)
+    EditText mEditText;
 
     @Extra
     Book book;
 
+    private CommentPersenter mPersenter;
     private int currentPage = 0;
     private int PAGE_COUNT = Constants.PAGE_COUNT;
     private BaseRecyclerAdapter mAdapter;
@@ -55,7 +60,10 @@ public class CommentActivity extends
     @AfterViews
     void init() {
         setSupportActionBar(toolbar);
-        toolbar.setTitle(book.getTitle());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        setTitle(book.getTitle());
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter = new BaseRecyclerAdapter<BookComment>(this, R.layout.item_recyclerview_bookcomment) {
@@ -81,7 +89,7 @@ public class CommentActivity extends
     @NonNull
     @Override
     public CommentPersenter createPresenter() {
-        return new CommentPersenterImpl();
+        return mPersenter = new CommentPersenterImpl();
     }
 
     @Override
@@ -97,6 +105,16 @@ public class CommentActivity extends
             mAdapter.addAll(data);
         }
         currentPage++;
+    }
+
+    @Click(R.id.activity_comment_bu_send)
+    public void clickSendComment() {
+        String t = mEditText.getText().toString().trim();
+        if (TextUtils.isEmpty(t)) {
+            SnackUtils.show(mEditText, R.string.msg_comment_add_empty);
+            return;
+        }
+        mPersenter.sendBookComment(book, t);
     }
 
     @Override
@@ -129,4 +147,15 @@ public class CommentActivity extends
     public List<BookComment> getData() {
         return mAdapter.getData();
     }
+
+    @Override
+    public void showMsg(String msg) {
+        showLightError(msg);
+    }
+
+    @Override
+    public void sendSuccess() {
+        showLightError(ResUtils.getResString(this, R.string.msg_comment_send_ok));
+    }
+
 }

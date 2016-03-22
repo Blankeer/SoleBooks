@@ -23,10 +23,10 @@ public class BookListOnSubscribe extends BaseCloudOnSubscribe<List<Book>> {
 
     @Override
     protected List<Book> execute() throws Exception {
-        return prepare(column.getBooks().getQuery(Book.class))
+        return prepare(column.getBooks().getQuery(Book.class)
                 .limit(limit)
                 .skip(skip)
-                .order("top,-updatedAt")
+                .order("top,-updatedAt"))
                 .find();
     }
 }

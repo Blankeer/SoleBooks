@@ -9,4 +9,7 @@ import java.util.List;
  * Created by Blanke on 16-3-22.
  */
 public interface CommentView extends MvpLceView<List<BookComment>> {
+    public void showMsg(String msg);
+
+    public void sendSuccess();
 }

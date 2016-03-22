@@ -23,9 +23,9 @@ public class MainColumnOnSubscribe extends BaseCloudOnSubscribe<List<BookColumn>
 
     @Override
     protected List<BookColumn> execute() throws Exception {
-        return prepare(BookColumn.getQuery(BookColumn.class))
+        return prepare(BookColumn.getQuery(BookColumn.class)
                 .whereLessThan("order", Constants.CLOUD_MAIN_COLUMN_MAX_ORDER)
-                .orderByAscending("order")
+                .orderByAscending("order"))
                 .find();
     }
 }

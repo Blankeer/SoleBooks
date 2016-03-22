@@ -3,7 +3,11 @@ package com.blanke.solebook.rx;
 import com.avos.avoscloud.AVQuery;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.BookColumn;
+import com.blanke.solebook.bean.BookComment;
+import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.bean.Tag;
+import com.blanke.solebook.rx.subscribe.BookCommentListOnSubscribe;
+import com.blanke.solebook.rx.subscribe.BookCommentSendOnSubscribe;
 import com.blanke.solebook.rx.subscribe.BookListOnSubscribe;
 import com.blanke.solebook.rx.subscribe.MainColumnOnSubscribe;
 import com.blanke.solebook.rx.subscribe.SubColumnOnSubscribe;
@@ -19,9 +23,15 @@ import rx.Observable;
  */
 public class RxBookComment {
 
-    public static Observable<List<Book>> getBookListData(BookColumn column, AVQuery.CachePolicy cachePolicy, int limit, int skip) {
+    public static Observable<List<BookComment>> getBookCommentListData(Book book, AVQuery.CachePolicy cachePolicy, int limit, int skip) {
         return RxUtils.schedulerNewThread(
-                Observable.create(new BookListOnSubscribe(cachePolicy, column, limit, skip))
+                Observable.create(new BookCommentListOnSubscribe(cachePolicy, book, limit, skip))
+        );
+    }
+
+    public static Observable<List<BookComment>> sendBookComment(Book book, String comment, SoleUser user) {
+        return RxUtils.schedulerNewThread(
+                Observable.create(new BookCommentSendOnSubscribe(book, user, comment))
         );
     }
 

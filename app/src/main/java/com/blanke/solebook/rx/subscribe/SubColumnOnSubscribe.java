@@ -24,8 +24,8 @@ public class SubColumnOnSubscribe extends BaseCloudOnSubscribe<List<BookColumn>>
 
     @Override
     protected List<BookColumn> execute() throws Exception {
-        return prepare(columnParent.getSubs().getQuery(BookColumn.class))
-                .orderByAscending("order")
+        return prepare(columnParent.getSubs().getQuery(BookColumn.class)
+                .orderByAscending("order"))
                 .find();
     }
 }
