@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.blanke.solebook.core.comment.CommentActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    <com.neu.refresh.NeuSwipeRefreshLayout
+        android:id="@+id/contentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        app:direction="both">
+
+        <cn.iwgang.familiarrecyclerview.FamiliarRecyclerView
+            android:id="@+id/activity_comment_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:frv_dividerHeight="7dp"
+            app:frv_itemViewBothSidesMargin="4dp"
+            app:frv_layoutManager="linear"
+            app:frv_layoutManagerOrientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/msg_comment_add" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_chat_24dp" />
+        </LinearLayout>
+    </com.neu.refresh.NeuSwipeRefreshLayout>
+
+    <include layout="@layout/view_loading" />
+
+    <include layout="@layout/view_error" />
+</android.support.design.widget.CoordinatorLayout>
