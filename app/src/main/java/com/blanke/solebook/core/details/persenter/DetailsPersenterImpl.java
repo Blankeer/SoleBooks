@@ -1,10 +1,10 @@
 package com.blanke.solebook.core.details.persenter;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVRelation;
 import com.avos.avoscloud.GetCallback;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.SoleUser;
+import com.blanke.solebook.bean.UserBookLike;
 import com.blanke.solebook.core.details.view.DetailsView;
 
 /**
@@ -21,12 +21,13 @@ public class DetailsPersenterImpl extends DetailsPersenter {
     @Override
     public void initLikeState() {
         if (user != null && !user.isAnonymous()) {
-            user.getLikes().getQuery()
-                    .whereEqualTo("objectId", book.getObjectId())
-                    .getFirstInBackground(new GetCallback<Book>() {
+            UserBookLike.getQuery(UserBookLike.class)
+                    .whereEqualTo(UserBookLike.USER, user)
+                    .whereEqualTo(UserBookLike.BOOK, book)
+                    .getFirstInBackground(new GetCallback<UserBookLike>() {
                         @Override
-                        public void done(Book book, AVException e) {
-                            if (e == null && book != null) {
+                        public void done(UserBookLike userBookLike, AVException e) {
+                            if (e == null && userBookLike != null) {
                                 view.setLike(true);
                             }
                         }
@@ -37,14 +38,14 @@ public class DetailsPersenterImpl extends DetailsPersenter {
     @Override
     public void setLike(boolean isLike) {
         if (user != null && !user.isAnonymous()) {
-            AVRelation<Book> likes = user.getLikes();
+            UserBookLike t = new UserBookLike();
+            t.setBook(book);
+            t.setUser(user);
             if (isLike) {
-                likes.add(book);
+                t.saveInBackground();
             } else {
-                likes.remove(book);
+                t.deleteInBackground();
             }
-            user.saveInBackground();
         }
     }
-
 }

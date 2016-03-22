@@ -14,6 +14,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -105,7 +106,6 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         book = bundle.getParcelable(ARG_NAME_BEAN);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
         if (SystemUiUtils.checkDeviceHasNavigationBar(this)) {//判断是否有navigationbar
             mCoordinatorLayout.setPadding(0, 0, 0, SystemUiUtils.getNavigationBarHeight(this));
         }
@@ -215,6 +215,14 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void setLike(boolean isLike) {

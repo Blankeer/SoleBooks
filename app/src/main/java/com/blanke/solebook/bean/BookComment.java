@@ -23,4 +23,12 @@ public class BookComment extends AVObject {
     public void setUser(SoleUser user) {
         put(USER, user);
     }
+
+    public String getContent() {
+        return getString(CONTENT);
+    }
+
+    public SoleUser getUser() {
+        return getAVObject(USER);
+    }
 }

@@ -11,6 +11,7 @@ import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.bean.BookComment;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.bean.Tag;
+import com.blanke.solebook.bean.UserBookLike;
 import com.blanke.solebook.constants.Constants;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -34,6 +35,7 @@ public class SoleApplication extends Application {
         AVObject.registerSubclass(Tag.class);
         AVObject.registerSubclass(BookComment.class);
         AVObject.registerSubclass(BookColumn.class);
+        AVObject.registerSubclass(UserBookLike.class);
         AVOSCloud.initialize(this, Constants.APPID_AVOS, Constants.APPKEY_AVOS);
         AVOSCloud.setDebugLogEnabled(true);
         AVCloud.setProductionMode(false);

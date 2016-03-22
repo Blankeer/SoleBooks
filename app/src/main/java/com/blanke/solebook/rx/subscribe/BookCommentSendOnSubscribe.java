@@ -11,7 +11,7 @@ import java.util.List;
  * 发送评论
  * Created by Blanke on 16-3-2.
  */
-public class BookCommentSendOnSubscribe extends BaseCloudOnSubscribe<List<Book>> {
+public class BookCommentSendOnSubscribe extends BaseCloudOnSubscribe<List<BookComment>> {
     private Book book;
     private SoleUser user;
     private String content;
@@ -23,7 +23,7 @@ public class BookCommentSendOnSubscribe extends BaseCloudOnSubscribe<List<Book>>
     }
 
     @Override
-    protected List<Book> execute() throws Exception {
+    protected List<BookComment> execute() throws Exception {
         BookComment bookComment=new BookComment();
         bookComment.setBook(book);
         bookComment.setContent(content);

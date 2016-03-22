@@ -2,7 +2,6 @@ package com.blanke.solebook.rx.subscribe;
 
 import com.avos.avoscloud.AVQuery;
 import com.blanke.solebook.bean.Book;
-import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.bean.BookComment;
 import com.blanke.solebook.rx.subscribe.base.BaseCloudOnSubscribe;
 
@@ -11,7 +10,7 @@ import java.util.List;
 /**
  * Created by Blanke on 16-3-2.
  */
-public class BookCommentListOnSubscribe extends BaseCloudOnSubscribe<List<Book>> {
+public class BookCommentListOnSubscribe extends BaseCloudOnSubscribe<List<BookComment>> {
     private Book book;
     private int limit, skip;
 
@@ -23,10 +22,11 @@ public class BookCommentListOnSubscribe extends BaseCloudOnSubscribe<List<Book>>
     }
 
     @Override
-    protected List<Book> execute() throws Exception {
+    protected List<BookComment> execute() throws Exception {
         return prepare(BookComment.getQuery(BookComment.class)
-                .whereEqualTo("book", book)
+                .whereEqualTo(BookComment.BOOK, book)
                 .limit(limit)
+                .include(BookComment.USER)
                 .skip(skip)
                 .order("-updatedAt"))
                 .find();

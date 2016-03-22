@@ -1,6 +1,5 @@
 package com.blanke.solebook.core.comment.persenter;
 
-import com.avos.avoscloud.AVQuery;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.rx.RxBookComment;
@@ -18,8 +17,7 @@ public class CommentPersenterImpl extends CommentPersenter {
         this.pullToRefresh = pullToRefresh;
         getView().showLoading(pullToRefresh);
         RxBookComment.getBookCommentListData(
-                book, AVQuery.CachePolicy.NETWORK_ELSE_CACHE
-                , limit, skip).subscribe(this::onSuccess, this::onFail);
+                book, limit, skip).subscribe(this::onSuccess, this::onFail);
     }
 
     @Override

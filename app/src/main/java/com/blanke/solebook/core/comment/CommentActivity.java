@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -12,10 +13,12 @@ import com.blanke.solebook.adapter.BaseRecyclerAdapter;
 import com.blanke.solebook.base.BaseSwipeMvpLceStateActivity;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.BookComment;
+import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.comment.persenter.CommentPersenter;
 import com.blanke.solebook.core.comment.persenter.CommentPersenterImpl;
 import com.blanke.solebook.core.comment.view.CommentView;
+import com.blanke.solebook.utils.DateUtils;
 import com.blanke.solebook.utils.ResUtils;
 import com.blanke.solebook.utils.SnackUtils;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
@@ -23,6 +26,7 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewSta
 import com.joanzapata.android.recyclerview.BaseAdapterHelper;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -62,16 +66,23 @@ public class CommentActivity extends
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
         setTitle(book.getTitle());
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter = new BaseRecyclerAdapter<BookComment>(this, R.layout.item_recyclerview_bookcomment) {
             @Override
             protected void convert(BaseAdapterHelper helper, BookComment item) {
-//                helper.getTextView(R.id.item_tag_title).setText(item.getName());
+                SoleUser user = item.getUser();
+                helper.getTextView(R.id.item_comment_user).setText(user.getNickname());
+                helper.getTextView(R.id.item_comment_content).setText(item.getContent());
+                helper.getTextView(R.id.item_comment_time)
+                        .setText(DateUtils.getTimestampString(item.getCreatedAt()));
+                ImageLoader.getInstance()
+                        .displayImage(user.getIconurl()
+                                , helper.getImageView(R.id.item_comment_icon));
             }
         };
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
@@ -158,4 +169,12 @@ public class CommentActivity extends
         showLightError(ResUtils.getResString(this, R.string.msg_comment_send_ok));
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

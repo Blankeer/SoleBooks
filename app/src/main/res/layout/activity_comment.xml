@@ -25,37 +25,47 @@
         android:id="@+id/contentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         app:direction="both">
 
-        <cn.iwgang.familiarrecyclerview.FamiliarRecyclerView
-            android:id="@+id/activity_comment_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:frv_dividerHeight="7dp"
-            app:frv_itemViewBothSidesMargin="4dp"
-            app:frv_layoutManager="linear"
-            app:frv_layoutManagerOrientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/activity_comment_edit_mycomment"
+            <cn.iwgang.familiarrecyclerview.FamiliarRecyclerView
+                android:id="@+id/activity_comment_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/msg_comment_add" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:frv_dividerHeight="7dp"
+                app:frv_itemViewBothSidesMargin="4dp"
+                app:frv_layoutManager="linear"
+                app:frv_layoutManagerOrientation="vertical" />
 
-            <ImageView
-                android:id="@+id/activity_comment_bu_send"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_chat_24dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/activity_comment_edit_mycomment"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="@string/msg_comment_add" />
+
+                <ImageView
+                    android:id="@+id/activity_comment_bu_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_chat_24dp" />
+            </LinearLayout>
         </LinearLayout>
     </com.neu.refresh.NeuSwipeRefreshLayout>
 

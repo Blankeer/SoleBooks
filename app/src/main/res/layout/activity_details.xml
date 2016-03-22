@@ -218,7 +218,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="2dp"
-            android:background="#ccc">
+            android:padding="5dp"
+            android:background="#eee">
 
             <ImageView
                 android:id="@+id/activity_details_dir"
@@ -228,14 +229,15 @@
                 android:scaleType="centerCrop"
                 android:src="@mipmap/icon_shao" />
 
-            <ImageView
+            <com.blanke.hold.HoldScaleImageView
                 android:id="@+id/activity_details_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right|center_vertical"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_chat_24dp" />
+                android:src="@drawable/ic_chat_24dp"
+                app:holdHeight="true" />
         </FrameLayout>
 
         <com.like.LikeButton
