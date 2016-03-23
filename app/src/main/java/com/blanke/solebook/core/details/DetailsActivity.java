@@ -35,6 +35,7 @@ import com.blanke.solebook.utils.FastBlur;
 import com.blanke.solebook.utils.SystemUiUtils;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -45,7 +46,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
-import at.blogc.android.views.ExpandableTextView;
 
 @EActivity(R.layout.activity_details)
 public class DetailsActivity extends BaseSwipeBackActivity implements DetailsView {
@@ -53,8 +53,10 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     public static final String ARG_NAME_BEAN = "DetailsActivity_bean";
     @ViewById(R.id.activity_details_img)
     ImageView mIcon;
-    @ViewById(R.id.activity_details_book_info)
+    @ViewById(R.id.activity_details_text_book_info)
     ExpandableTextView mBookTextInfo;
+    @ViewById(R.id.activity_details_text_dir)
+    ExpandableTextView mBookTextDir;
     @ViewById(R.id.toolbar2)
     Toolbar toolbar;
     @ViewById(R.id.activity_details_toolbar_layout)
@@ -144,6 +146,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         activity_details_text_binding.setText(book.getBinding());
         activity_details_text_isbn.setText(book.getIsbn());
         mBookTextInfo.setText(book.getIntroContent());
+        mBookTextDir.setText(book.getDir());
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -179,10 +182,10 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
                 FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), 80, false)));
     }
 
-    @Click(R.id.activity_details_book_info)
-    public void clickBookInfo() {
-        mBookTextInfo.toggle();
-    }
+//    @Click(R.id.activity_details_book_info)
+//    public void clickBookInfo() {
+//        mBookTextInfo.toggle();
+//    }
 
     @Click(R.id.activity_details_dir)
     public void clickDir() {

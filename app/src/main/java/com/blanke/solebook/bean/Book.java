@@ -27,7 +27,7 @@ public class Book extends AVObject {
     public static final String PUBDATE = "pubdate";
 
     public String getTitle() {
-        return getString(TITLE);
+        return getString(TITLE).trim();
     }
 
 
@@ -44,42 +44,42 @@ public class Book extends AVObject {
     }
 
     public String getIntroContent() {
-        return getString(INTRO_CONTENT);
+        return getString(INTRO_CONTENT).trim();
     }
 
     public String getIntroAuthor() {
-        return getString(INTRO_AUTHOR).trim();
+        return getString(INTRO_AUTHOR).trim().trim();
     }
 
     public String getDir() {
-        return getString(DIR).trim();
+        return getString(DIR).trim().trim();
     }
 
     public String getPages() {
-        return getString(PAGES);
+        return getString(PAGES).trim();
     }
 
     public String getAuthor() {
-        return getString(AUTHOR);
+        return getString(AUTHOR).trim();
     }
 
     public String getBinding() {
-        return getString(BINDING);
+        return getString(BINDING).trim();
     }
 
     public String getIsbn() {
-        return getString(ISBN);
+        return getString(ISBN).trim();
     }
 
     public String getPrice() {
-        return getString(PRICE);
+        return getString(PRICE).trim();
     }
 
     public String getPublisher() {
-        return getString(PUBLISHER);
+        return getString(PUBLISHER).trim();
     }
 
     public String getPubdate() {
-        return getString(PUBDATE);
+        return getString(PUBDATE).trim();
     }
 }

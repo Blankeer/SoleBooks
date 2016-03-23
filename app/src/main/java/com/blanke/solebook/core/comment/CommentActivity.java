@@ -19,6 +19,7 @@ import com.blanke.solebook.core.comment.persenter.CommentPersenter;
 import com.blanke.solebook.core.comment.persenter.CommentPersenterImpl;
 import com.blanke.solebook.core.comment.view.CommentView;
 import com.blanke.solebook.utils.DateUtils;
+import com.blanke.solebook.utils.InputModeUtils;
 import com.blanke.solebook.utils.ResUtils;
 import com.blanke.solebook.utils.SnackUtils;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
@@ -27,6 +28,7 @@ import com.joanzapata.android.recyclerview.BaseAdapterHelper;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tencent.qc.stat.common.User;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -59,7 +61,7 @@ public class CommentActivity extends
     private CommentPersenter mPersenter;
     private int currentPage = 0;
     private int PAGE_COUNT = Constants.PAGE_COUNT;
-    private BaseRecyclerAdapter mAdapter;
+    private BaseRecyclerAdapter<BookComment> mAdapter;
 
     @AfterViews
     void init() {
@@ -86,7 +88,13 @@ public class CommentActivity extends
         mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
-
+                BookComment toComment = mAdapter.getItem(position);
+                mEditText.setFocusable(true);
+                mEditText.setFocusableInTouchMode(true);
+                mEditText.requestFocus();
+                InputModeUtils.openInputMode(mEditText);
+//                InputModeUtils.toggleInputMode(CommentActivity.this);
+                mEditText.setHint("回复" + toComment.getUser().getNickname());
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
@@ -125,6 +133,7 @@ public class CommentActivity extends
             SnackUtils.show(mEditText, R.string.msg_comment_add_empty);
             return;
         }
+        InputModeUtils.closeInputMode(mEditText);
         mPersenter.sendBookComment(book, t);
     }
 

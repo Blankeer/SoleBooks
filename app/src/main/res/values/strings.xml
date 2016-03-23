@@ -51,4 +51,5 @@
     <string name="msg_comment_add">添加评论</string>
     <string name="msg_comment_add_empty">评论不能为空</string>
     <string name="msg_comment_send_ok">发送评论成功</string>
+    <string name="title_book_info">图书简介</string>
 </resources>
