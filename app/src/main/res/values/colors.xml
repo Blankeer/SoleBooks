@@ -6,4 +6,5 @@
     <color name="colorAccent">#559688</color>
     <color name="alpha_80_black">#CC000000</color>
     <color name="transparent">#00000000</color>
+    <color name="color_divideline">#ddd</color>
 </resources>

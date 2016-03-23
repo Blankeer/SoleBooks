@@ -1,12 +1,12 @@
 package com.blanke.solebook.core.comment;
 
 import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.adapter.BaseRecyclerAdapter;
@@ -41,12 +41,12 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 @EActivity(R.layout.activity_comment)
 public class CommentActivity extends
-        BaseSwipeMvpLceStateActivity<SwipeRefreshLayout, List<BookComment>, CommentView, CommentPersenter>
+        BaseSwipeMvpLceStateActivity<LinearLayout, List<BookComment>, CommentView, CommentPersenter>
         implements CommentView, NeuSwipeRefreshLayout.OnRefreshListener {
 
     @ViewById(R.id.activity_comment_recyclerview)
     FamiliarRecyclerView mRecyclerView;
-    @ViewById(R.id.contentView)
+    @ViewById(R.id.activity_comment_swipelayout)
     NeuSwipeRefreshLayout mSwipeRefreshLayout;
     @ViewById(R.id.toolbar)
     Toolbar toolbar;
@@ -177,4 +177,5 @@ public class CommentActivity extends
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
