@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.adapter.BaseRecyclerAdapter;
@@ -62,6 +63,7 @@ public class CommentActivity extends
     private int currentPage = 0;
     private int PAGE_COUNT = Constants.PAGE_COUNT;
     private BaseRecyclerAdapter<BookComment> mAdapter;
+    private BookComment reply;
 
     @AfterViews
     void init() {
@@ -76,9 +78,16 @@ public class CommentActivity extends
             protected void convert(BaseAdapterHelper helper, BookComment item) {
                 SoleUser user = item.getUser();
                 helper.getTextView(R.id.item_comment_user).setText(user.getNickname());
-                helper.getTextView(R.id.item_comment_content).setText(item.getContent());
                 helper.getTextView(R.id.item_comment_time)
                         .setText(DateUtils.getTimestampString(item.getCreatedAt()));
+                BookComment reply = item.getReply();
+                TextView tv = helper.getTextView(R.id.item_comment_content);
+                if (reply != null) {
+                    tv.setText(ResUtils.getResString(CommentActivity.this, R.string.title_reply)
+                            + ":" + item.getContent());
+                } else {
+                    helper.getTextView(R.id.item_comment_content).setText(item.getContent());
+                }
                 ImageLoader.getInstance()
                         .displayImage(user.getIconurl()
                                 , helper.getImageView(R.id.item_comment_icon));
@@ -89,12 +98,13 @@ public class CommentActivity extends
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
                 BookComment toComment = mAdapter.getItem(position);
+                reply = toComment;
                 mEditText.setFocusable(true);
                 mEditText.setFocusableInTouchMode(true);
                 mEditText.requestFocus();
                 InputModeUtils.openInputMode(mEditText);
-//                InputModeUtils.toggleInputMode(CommentActivity.this);
-                mEditText.setHint("回复" + toComment.getUser().getNickname());
+                mEditText.setHint(ResUtils.getResString(CommentActivity.this, R.string.title_reply)
+                        + ":" + toComment.getUser().getNickname());
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
@@ -134,7 +144,7 @@ public class CommentActivity extends
             return;
         }
         InputModeUtils.closeInputMode(mEditText);
-        mPersenter.sendBookComment(book, t);
+        mPersenter.sendBookComment(book, reply, t);
     }
 
     @Override

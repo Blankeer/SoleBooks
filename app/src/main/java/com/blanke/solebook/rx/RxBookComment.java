@@ -23,9 +23,9 @@ public class RxBookComment {
         );
     }
 
-    public static Observable<List<BookComment>> sendBookComment(Book book, String comment, SoleUser user) {
+    public static Observable<List<BookComment>> sendBookComment(Book book, BookComment reply, String comment, SoleUser user) {
         return RxUtils.schedulerNewThread(
-                Observable.create(new BookCommentSendOnSubscribe(book, user, comment))
+                Observable.create(new BookCommentSendOnSubscribe(book,reply, user, comment))
         );
     }
 

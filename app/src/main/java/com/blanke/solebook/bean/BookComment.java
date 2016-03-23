@@ -11,6 +11,7 @@ public class BookComment extends AVObject {
     public static final String CONTENT = "content";
     public static final String BOOK = "book";
     public static final String USER = "user";
+    public static final String REPLY = "reply";
 
     public void setContent(String content) {
         put(CONTENT, content);
@@ -24,11 +25,19 @@ public class BookComment extends AVObject {
         put(USER, user);
     }
 
+    public void setReply(BookComment comment) {
+        put(REPLY, comment);
+    }
+
     public String getContent() {
         return getString(CONTENT);
     }
 
     public SoleUser getUser() {
         return getAVObject(USER);
+    }
+
+    public BookComment getReply() {
+        return getAVObject(REPLY);
     }
 }

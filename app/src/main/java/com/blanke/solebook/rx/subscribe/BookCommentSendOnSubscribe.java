@@ -15,19 +15,22 @@ public class BookCommentSendOnSubscribe extends BaseCloudOnSubscribe<List<BookCo
     private Book book;
     private SoleUser user;
     private String content;
+    private BookComment reply;
 
-    public BookCommentSendOnSubscribe(Book book, SoleUser user, String content) {
+    public BookCommentSendOnSubscribe(Book book, BookComment reply, SoleUser user, String content) {
         this.book = book;
         this.user = user;
         this.content = content;
+        this.reply = reply;
     }
 
     @Override
     protected List<BookComment> execute() throws Exception {
-        BookComment bookComment=new BookComment();
+        BookComment bookComment = new BookComment();
         bookComment.setBook(book);
         bookComment.setContent(content);
         bookComment.setUser(user);
+        bookComment.setReply(reply);
         bookComment.save();
         return null;
     }

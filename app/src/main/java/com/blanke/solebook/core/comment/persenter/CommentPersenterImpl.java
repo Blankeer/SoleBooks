@@ -1,6 +1,7 @@
 package com.blanke.solebook.core.comment.persenter;
 
 import com.blanke.solebook.bean.Book;
+import com.blanke.solebook.bean.BookComment;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.rx.RxBookComment;
 
@@ -21,7 +22,7 @@ public class CommentPersenterImpl extends CommentPersenter {
     }
 
     @Override
-    public void sendBookComment(Book book, String content) {
+    public void sendBookComment(Book book, BookComment reply, String content) {
         if (getView() == null) {
             return;
         }
@@ -29,7 +30,7 @@ public class CommentPersenterImpl extends CommentPersenter {
         if (user == null || user.isAnonymous()) {
             return;
         }
-        RxBookComment.sendBookComment(book, content, user)
+        RxBookComment.sendBookComment(book,reply,content, user)
                 .subscribe(bookComments -> getView().sendSuccess()
                         , this::onFail);
     }

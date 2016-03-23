@@ -27,6 +27,7 @@ public class BookCommentListOnSubscribe extends BaseCloudOnSubscribe<List<BookCo
                 .whereEqualTo(BookComment.BOOK, book)
                 .limit(limit)
                 .include(BookComment.USER)
+                .include(BookComment.REPLY)
                 .skip(skip)
                 .order("-updatedAt"))
                 .find();
