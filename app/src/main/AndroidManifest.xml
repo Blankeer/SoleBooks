@@ -58,6 +58,7 @@
         <activity android:name=".core.scan.CommonScanActivity_" />
         <activity android:name=".test.TestCurstomImageviewActivity" />
         <activity android:name=".core.comment.CommentActivity_"></activity>
+        <activity android:name=".core.bookimage.BookImageActivity_"></activity>
     </application>
 
 </manifest>

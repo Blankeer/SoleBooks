@@ -40,6 +40,7 @@
     <string name="msg_switch_email">不想用手机号?\n换用邮箱吧。</string>
     <string name="search_hint">书名/作者</string>
     <string name="share_img">share_image</string>
+    <string name="share_img2">share_image2</string>
     <string name="title_dir">目录</string>
     <string name="title_author">作者</string>
     <string name="title_publisher">出版社</string>
@@ -53,4 +54,9 @@
     <string name="msg_comment_send_ok">发送评论成功</string>
     <string name="title_book_info">图书简介</string>
     <string name="title_reply">回复</string>
+    <string name="title_comment">评论</string>
+    <string name="msg_down_img">是否要下载高清大图到相册?(⊙v⊙)</string>
+    <string name="msg_down_img_ok">保存成功.^_^</string>
+    <string name="msg_down_img_error">保存失败.T_T</string>
+    <string name="msg_network_error">获取数据失败.T_T</string>
 </resources>

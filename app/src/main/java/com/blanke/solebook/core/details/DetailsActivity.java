@@ -25,6 +25,7 @@ import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseSwipeBackActivity;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.constants.Constants;
+import com.blanke.solebook.core.bookimage.BookImageActivity_;
 import com.blanke.solebook.core.comment.CommentActivity_;
 import com.blanke.solebook.core.details.persenter.DetailsPersenter;
 import com.blanke.solebook.core.details.persenter.DetailsPersenterImpl;
@@ -145,7 +146,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         activity_details_text_price.setText(book.getPrice());
         activity_details_text_binding.setText(book.getBinding());
         activity_details_text_isbn.setText(book.getIsbn());
-        mBookTextInfo.setText(book.getIntroContent());
+        mBookTextInfo.setText(book.getTitle() + "\n" + book.getIntroContent());
         mBookTextDir.setText(book.getDir());
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -182,10 +183,14 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
                 FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), 80, false)));
     }
 
-//    @Click(R.id.activity_details_book_info)
+    //    @Click(R.id.activity_details_book_info)
 //    public void clickBookInfo() {
 //        mBookTextInfo.toggle();
 //    }
+    @Click(R.id.activity_details_img)
+    public void clickImage() {
+        BookImageActivity_.start(this, mIcon, book.getImgL(), book.getTitle());
+    }
 
     @Click(R.id.activity_details_dir)
     public void clickDir() {
