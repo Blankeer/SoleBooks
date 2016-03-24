@@ -1,9 +1,9 @@
 package com.blanke.solebook.core.main;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -21,18 +21,19 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.GetDataCallback;
+import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseMvpLceViewStateActivity;
 import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.column.ColumnFragment;
+import com.blanke.solebook.core.feedback.FeedActivity;
 import com.blanke.solebook.core.main.persenter.MainPersenter;
 import com.blanke.solebook.core.main.persenter.MainPersenterImpl;
 import com.blanke.solebook.core.main.view.MainView;
 import com.blanke.solebook.core.scan.CommonScanActivity_;
 import com.blanke.solebook.core.search.SearchResActivity_;
-import com.blanke.solebook.utils.SnackUtils;
 import com.blanke.solebook.view.CurstumSearchView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
@@ -69,6 +70,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     private ActionBarDrawerToggle toggle;
     private Fragment[] fragments;
     private boolean isVisible;
+    private FeedbackAgent agent;
 
     @AfterViews
     void init() {
@@ -99,6 +101,11 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
             }
         });
         KLog.d("init time:" + (System.currentTimeMillis() - t1));
+    }
+
+    private void initCloud() {
+        agent = new FeedbackAgent(this);
+        agent.sync();
     }
 
     private void replaceFragment(int position) {
@@ -150,8 +157,10 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                 iconfile.getDataInBackground(new GetDataCallback() {
                     @Override
                     public void done(byte[] bytes, AVException e) {
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        temp.setIcon(new BitmapDrawable(getResources(), bitmap));
+                        if (bytes != null) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            temp.setIcon(new BitmapDrawable(getResources(), bitmap));
+                        }
                     }
                 });
             }
@@ -206,9 +215,15 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         if (groupId == 0) {
             item.setChecked(true);
             drawer.postDelayed(() -> replaceFragment(item.getOrder()), 0);
-        }else if(groupId==R.id.navigation_group_setting){
+        } else if (groupId == R.id.navigation_group_setting) {
             int id = item.getItemId();
-
+            switch (id) {
+                case R.id.navigation_feedback:
+//                    agent.startDefaultThreadActivity();
+                    Intent intent=new Intent(this, FeedActivity.class);
+                    startActivity(intent);
+                    break;
+            }
         }
         drawer.closeDrawers();
         return true;
@@ -240,6 +255,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         this.bookColumns = data;
         initNavigationMenu();
         replaceFragment(0);
+        initCloud();
     }
 
     @Override

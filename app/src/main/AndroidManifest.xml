@@ -44,6 +44,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".core.feedback.FeedActivity"
+            android:theme="@style/SwipeBackTheme" />
+        <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
@@ -57,7 +60,9 @@
         <activity android:name=".core.random.RandomActivity_" />
         <activity android:name=".core.scan.CommonScanActivity_" />
         <activity android:name=".test.TestCurstomImageviewActivity" />
-        <activity android:name=".core.comment.CommentActivity_"></activity>
+        <activity
+            android:name=".core.comment.CommentActivity_"
+            android:theme="@style/SwipeBackTheme"></activity>
         <activity android:name=".core.bookimage.BookImageActivity_"></activity>
     </application>
 
