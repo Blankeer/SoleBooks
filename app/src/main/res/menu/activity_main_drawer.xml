@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/navigation_group_setting"
+        android:checkableBehavior="none"
+        android:orderInCategory="100">
+        <item
+            android:id="@+id/navigation_chose_theme"
+            android:icon="@null"
+            android:title="@string/navigation_chose_theme" />
+        <item
+            android:id="@+id/navigation_feedback"
+            android:icon="@null"
+            android:title="@string/navigation_feedback" />
 
+        <item
+            android:id="@+id/navigation_setting"
+            android:icon="@null"
+            android:title="@string/navigation_setting" />
+    </group>
 </menu>

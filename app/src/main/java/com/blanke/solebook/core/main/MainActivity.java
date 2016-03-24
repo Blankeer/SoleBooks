@@ -202,10 +202,15 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        item.setChecked(true);
+        int groupId = item.getGroupId();
+        if (groupId == 0) {
+            item.setChecked(true);
+            drawer.postDelayed(() -> replaceFragment(item.getOrder()), 0);
+        }else if(groupId==R.id.navigation_group_setting){
+            int id = item.getItemId();
+
+        }
         drawer.closeDrawers();
-        drawer.postDelayed(() -> replaceFragment(item.getOrder()), 0);
         return true;
     }
 
