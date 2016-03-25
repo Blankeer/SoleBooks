@@ -5,17 +5,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,17 +25,14 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVUser;
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseSwipeBackActivity;
-import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
-import com.blanke.solebook.core.bookimage.BookImageActivity_;
-import com.blanke.solebook.core.details.DetailsActivity_;
-import com.blanke.solebook.utils.SystemUiUtils;
+import com.blanke.solebook.utils.BitmapUtils;
+import com.blanke.solebook.utils.FastBlur;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.tencent.qc.stat.common.User;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -70,6 +64,7 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
     NeuSwipeRefreshLayout mSwipeRefreshLayout;
 
     private AVUser user;
+    private double h;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void start(Activity activity, ImageView imageview, SoleUser user) {
@@ -97,6 +92,7 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
         mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.Toolbar_expanded_text);//展开后的字体大小等
+//        mTextLocation.setText("武汉");
         ImageLoader.getInstance().displayImage(SoleUser.getIconurl(user), mIcon, Constants.getImageOptions(), new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
@@ -118,7 +114,17 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
 
             }
         });
-
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                h = mCollapsingToolbarLayout.getMeasuredHeight()
+                        - mCollapsingToolbarLayout.getMinimumHeight();
+                h *= 0.9;
+                float a = (float) ((h + verticalOffset) / h);
+                mIcon.setAlpha(a);
+            }
+        });
 
     }
 
@@ -143,16 +149,19 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
 
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void getMyColor(Bitmap bitmap) {
-        new Palette.Builder(bitmap).generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                Palette.Swatch swatch = palette.getVibrantSwatch();
-                if (swatch != null) {
-                    changeColor(swatch.getBodyTextColor());
-                }
-            }
-        });
+//        new Palette.Builder(bitmap).generate(new Palette.PaletteAsyncListener() {
+//            @Override
+//            public void onGenerated(Palette palette) {
+//                Palette.Swatch swatch = palette.getVibrantSwatch();
+//                if (swatch != null) {
+//                    changeColor(swatch.getBodyTextColor());
+//                }
+//            }
+//        });
+        mCollapsingToolbarLayout.setBackground(new BitmapDrawable(getResources(),
+                FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), Constants.BLUE_VALUE, false)));
     }
 
     @Override

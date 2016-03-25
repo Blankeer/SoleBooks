@@ -172,12 +172,13 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         }
         menu.setGroupCheckable(0, true, true);//single
         if (currentUser != null) {
-            navigationView.post(() -> {
+            navigationView.postDelayed(() -> {
                 mTvNickName = (TextView) navigationView.findViewById(R.id.nav_nickname);
                 mImageIcon = (ImageView) navigationView.findViewById(R.id.nav_icon);
-                mTvNickName.setText(currentUser.getNickname());
+                String nick = currentUser.getNickname();
+                mTvNickName.setText(nick == null ? "" : nick);
                 ImageLoader.getInstance().displayImage(currentUser.getIconurl(), mImageIcon, Constants.getImageOptions());
-            });
+            },800);
         }
         KLog.d("initNavigationMenu time:" + (System.currentTimeMillis() - t1));
     }
@@ -220,7 +221,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
             switch (id) {
                 case R.id.navigation_feedback:
 //                    agent.startDefaultThreadActivity();
-                    Intent intent=new Intent(this, FeedActivity.class);
+                    Intent intent = new Intent(this, FeedActivity.class);
                     startActivity(intent);
                     break;
             }

@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             app:contentScrim="@color/transparent"
             app:expandedTitleGravity="bottom|center_horizontal"
-            app:expandedTitleMarginBottom="5dp"
+            app:expandedTitleMarginBottom="10dp"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
             <LinearLayout
@@ -28,7 +28,7 @@
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="30dp"
+                android:padding="40dp"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.8">
 

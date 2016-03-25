@@ -4,7 +4,7 @@
     android:id="@+id/activity_details_coordlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="false">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/activity_details_appbar"
@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             app:contentScrim="@color/transparent"
             app:expandedTitleGravity="bottom|center_horizontal"
-            app:expandedTitleMarginBottom="5dp"
+            app:expandedTitleMarginBottom="10dp"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
             <LinearLayout
@@ -28,15 +28,15 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="30dp"
+                android:paddingBottom="55dp"
+                android:paddingTop="30dp"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.8">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/activity_userhome_icon"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:paddingTop="@dimen/nav_header_vertical_spacing"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:transitionName="@string/share_img3"
                     app:civ_border_color="@android:color/white"
                     app:civ_border_width="1dp" />
@@ -44,6 +44,7 @@
                 <TextView
                     android:id="@+id/activity_userhome_location"
                     android:layout_width="wrap_content"
+                    android:textAppearance="@style/Toolbar_expanded_text"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white" />
 
