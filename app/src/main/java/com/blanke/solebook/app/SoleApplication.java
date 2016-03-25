@@ -4,9 +4,11 @@ import android.app.Application;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVCloud;
+import com.avos.avoscloud.AVInstallation;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.PushService;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.bean.BookComment;
@@ -14,6 +16,7 @@ import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.bean.Tag;
 import com.blanke.solebook.bean.UserBookLike;
 import com.blanke.solebook.constants.Constants;
+import com.blanke.solebook.core.welcome.WelcomeActivity_;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
@@ -41,6 +44,8 @@ public class SoleApplication extends Application {
         AVCloud.setProductionMode(false);
         AVAnalytics.setAppChannel("SomeChannel");
         AVOSCloud.initialize(this, Constants.APPID_AVOS, Constants.APPKEY_AVOS);
+        AVInstallation.getCurrentInstallation().saveInBackground();
+        PushService.setDefaultPushCallback(this, WelcomeActivity_.class);
     }
 
     private void initImageLoader() {

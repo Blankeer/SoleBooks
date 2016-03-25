@@ -53,6 +53,16 @@
             android:exported="false"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustResize" />
+        <service android:name="com.avos.avoscloud.PushService"
+            android:exported="true"/>
+        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".core.login.LoginActivity_" />
         <activity
             android:name=".core.details.DetailsActivity_"
