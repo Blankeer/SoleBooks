@@ -180,13 +180,9 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void onImageComplete(Bitmap bitmap) {
         mCollapsingToolbarLayout.setBackground(new BitmapDrawable(getResources(),
-                FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), 80, false)));
+                FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), Constants.BLUE_VALUE, false)));
     }
 
-    //    @Click(R.id.activity_details_book_info)
-//    public void clickBookInfo() {
-//        mBookTextInfo.toggle();
-//    }
     @Click(R.id.activity_details_img)
     public void clickImage() {
         BookImageActivity_.start(this, mIcon, book.getImgL(), book.getTitle());

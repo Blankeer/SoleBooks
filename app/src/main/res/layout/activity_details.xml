@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="false">
 
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/activity_details_appbar"
         android:layout_width="match_parent"
@@ -18,7 +17,6 @@
             android:id="@+id/activity_details_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="0dp"
             app:contentScrim="@color/transparent"
             app:expandedTitleGravity="bottom|center_horizontal"
             app:expandedTitleMarginBottom="5dp"

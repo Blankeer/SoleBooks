@@ -2,6 +2,8 @@ package com.blanke.solebook.bean;
 
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
+import com.socks.library.KLog;
 
 /**
  * Created by Blanke on 16-3-22.
@@ -34,10 +36,21 @@ public class BookComment extends AVObject {
     }
 
     public SoleUser getUser() {
-        return getAVObject(USER);
+        try {
+            SoleUser re = getAVObject(USER, SoleUser.class);
+            return re;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public BookComment getReply() {
-        return getAVObject(REPLY);
+        try {
+            return getAVObject(REPLY, BookComment.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.comment.persenter.CommentPersenter;
 import com.blanke.solebook.core.comment.persenter.CommentPersenterImpl;
 import com.blanke.solebook.core.comment.view.CommentView;
+import com.blanke.solebook.core.userhome.UserHomeActivity;
 import com.blanke.solebook.utils.DateUtils;
 import com.blanke.solebook.utils.InputModeUtils;
 import com.blanke.solebook.utils.ResUtils;
@@ -70,13 +72,13 @@ public class CommentActivity extends
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-//        setTitle(book.getTitle());
+        setTitle(ResUtils.getResString(this, R.string.title_comment));
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter = new BaseRecyclerAdapter<BookComment>(this, R.layout.item_recyclerview_bookcomment) {
             @Override
             protected void convert(BaseAdapterHelper helper, BookComment item) {
-                SoleUser user = item.getUser();
+                final SoleUser user = item.getUser();
                 helper.getTextView(R.id.item_comment_user).setText(user.getNickname());
                 helper.getTextView(R.id.item_comment_time)
                         .setText(DateUtils.getTimestampString(item.getCreatedAt()));
@@ -84,13 +86,14 @@ public class CommentActivity extends
                 TextView tv = helper.getTextView(R.id.item_comment_content);
                 if (reply != null) {
                     tv.setText(ResUtils.getResString(CommentActivity.this, R.string.title_reply)
-                            + ":" + item.getContent());
+                           +user.getNickname() + ":" + item.getContent());
                 } else {
                     helper.getTextView(R.id.item_comment_content).setText(item.getContent());
                 }
-                ImageLoader.getInstance()
-                        .displayImage(user.getIconurl()
-                                , helper.getImageView(R.id.item_comment_icon));
+                ImageView icon = helper.getImageView(R.id.item_comment_icon);
+                ImageLoader.getInstance().displayImage(user.getIconurl(), icon, Constants.getImageOptions());
+                icon.setOnClickListener(v -> UserHomeActivity.start(CommentActivity.this, icon, user));
+
             }
         };
         mRecyclerView.setAdapter(mAdapter);

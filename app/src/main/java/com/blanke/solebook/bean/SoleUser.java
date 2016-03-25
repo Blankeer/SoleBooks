@@ -1,5 +1,7 @@
 package com.blanke.solebook.bean;
 
+import android.os.Parcel;
+
 import com.avos.avoscloud.AVUser;
 
 /**
@@ -13,6 +15,10 @@ public class SoleUser extends AVUser {
         return getString(NICKNAME);
     }
 
+    public static String getNickname(AVUser user) {
+        return user.getString(NICKNAME);
+    }
+
     public void setNickname(String nickname) {
         put(NICKNAME, nickname);
     }
@@ -21,7 +27,18 @@ public class SoleUser extends AVUser {
         return getString(ICONURL);
     }
 
+    public static String getIconurl(AVUser user) {
+        return user.getString(ICONURL);
+    }
+
     public void setIconurl(String iconurl) {
         put(ICONURL, iconurl);
+    }
+
+    public SoleUser() {
+    }
+
+    public SoleUser(Parcel in) {
+        super(in);
     }
 }

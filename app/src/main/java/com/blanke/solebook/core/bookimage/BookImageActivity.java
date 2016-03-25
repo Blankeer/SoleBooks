@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseActivity;
+import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.ResUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -30,6 +31,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.lang.ref.WeakReference;
+
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
@@ -72,7 +74,7 @@ public class BookImageActivity extends BaseActivity {
 
     @AfterViews
     public void init() {
-        ImageLoader.getInstance().displayImage(url, mImageView, new ImageLoadingListener() {
+        ImageLoader.getInstance().displayImage(url, mImageView, Constants.getImageOptions(), new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
 

@@ -53,8 +53,11 @@
             android:exported="false"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustResize" />
-        <service android:name="com.avos.avoscloud.PushService"
-            android:exported="true"/>
+
+        <service
+            android:name="com.avos.avoscloud.PushService"
+            android:exported="true" />
+
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -73,8 +76,11 @@
         <activity android:name=".test.TestCurstomImageviewActivity" />
         <activity
             android:name=".core.comment.CommentActivity_"
+            android:theme="@style/SwipeBackTheme" />
+        <activity android:name=".core.bookimage.BookImageActivity_" />
+        <activity
+            android:name=".core.userhome.UserHomeActivity_"
             android:theme="@style/SwipeBackTheme"></activity>
-        <activity android:name=".core.bookimage.BookImageActivity_"></activity>
     </application>
 
 </manifest>
