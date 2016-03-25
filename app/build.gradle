@@ -101,4 +101,7 @@ dependencies {
     compile 'com.orhanobut:dialogplus:1.11@aar'
     compile 'com.ms-square:expandableTextView:0.1.4'
     compile 'com.commit451:PhotoView:1.2.4'
+
+
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

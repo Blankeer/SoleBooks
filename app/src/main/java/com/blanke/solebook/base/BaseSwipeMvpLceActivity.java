@@ -19,7 +19,8 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
  * Created by Blanke on 16-3-22.
  */
 public abstract class BaseSwipeMvpLceActivity<CV extends View, M, V extends MvpLceView<M>, P
-        extends MvpPresenter<V>> extends BaseMvpLceActivity<CV, M, V, P>
+        extends MvpPresenter<V>>
+        extends BaseMvpLceActivity<CV, M, V, P>
         implements SwipeBackActivityBase {
 
     private SwipeBackActivityHelper mHelper;

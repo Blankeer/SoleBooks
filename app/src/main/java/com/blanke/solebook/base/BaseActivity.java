@@ -1,8 +1,8 @@
 package com.blanke.solebook.base;
 
-import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.avos.avoscloud.AVAnalytics;
 
 
 /**
@@ -10,7 +10,15 @@ import android.support.v7.app.AppCompatActivity;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
+    protected void onPause() {
+        super.onPause();
+        AVAnalytics.onPause(this);
+    }
 
+    protected void onResume() {
+        super.onResume();
+        AVAnalytics.onResume(this);
+    }
 //    @Override
 //    public void onContentChanged() {
 //        super.onContentChanged();

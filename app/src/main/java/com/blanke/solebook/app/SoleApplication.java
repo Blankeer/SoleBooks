@@ -2,6 +2,7 @@ package com.blanke.solebook.app;
 
 import android.app.Application;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVCloud;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
@@ -36,9 +37,10 @@ public class SoleApplication extends Application {
         AVObject.registerSubclass(BookComment.class);
         AVObject.registerSubclass(BookColumn.class);
         AVObject.registerSubclass(UserBookLike.class);
-        AVOSCloud.initialize(this, Constants.APPID_AVOS, Constants.APPKEY_AVOS);
         AVOSCloud.setDebugLogEnabled(true);
         AVCloud.setProductionMode(false);
+        AVAnalytics.setAppChannel("SomeChannel");
+        AVOSCloud.initialize(this, Constants.APPID_AVOS, Constants.APPKEY_AVOS);
     }
 
     private void initImageLoader() {

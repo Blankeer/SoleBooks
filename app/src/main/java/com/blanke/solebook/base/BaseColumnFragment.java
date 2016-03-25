@@ -1,8 +1,10 @@
 package com.blanke.solebook.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.blanke.solebook.R;
 import com.blanke.solebook.bean.BookColumn;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
@@ -28,5 +30,22 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
 //        setRetainInstance(true);
         mCurrentBookColumn = getArguments().getParcelable(ARG_BOOKCOLUMN);
         fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+    }
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    public void onStart() {
+        super.onStart();
+    }
+
+    public void onPause() {
+        super.onPause();
+        AVAnalytics.onFragmentEnd(getClass().getSimpleName());
+    }
+
+    public void onResume() {
+        super.onResume();
+        AVAnalytics.onFragmentStart(getClass().getSimpleName());
     }
 }
