@@ -109,7 +109,9 @@ public class FastBlur {
             stackpointer = radius;
 
             for (x = 0; x < w; x++) {
-
+                if (gsum >= dv.length||rsum>=dv.length||bsum>=dv.length) {
+                    break;
+                }
                 r[yi] = dv[rsum];
                 g[yi] = dv[gsum];
                 b[yi] = dv[bsum];
