@@ -30,7 +30,7 @@ public class Constants {
     public static final int TYPE_COLUMN_BOOK = 1;
     public static final int TYPE_COLUMN_TAG = 2;
     public static final long LAZY_DELAY_TIME = 100;
-    public static final int BLUE_VALUE=80;
+    public static final int BLUE_VALUE=60;
     public static String getSinaIconUrl(String uid) {
         return "http://tp1.sinaimg.cn/" + uid + "/180/0/1";
     }

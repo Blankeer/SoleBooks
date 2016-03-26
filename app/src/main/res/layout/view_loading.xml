@@ -5,8 +5,8 @@
 
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         android:id="@+id/loadingView"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:indeterminate="true"

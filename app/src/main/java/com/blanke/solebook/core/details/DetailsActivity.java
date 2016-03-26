@@ -41,6 +41,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import net.qiujuer.genius.blur.StackBlur;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -180,7 +182,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void onImageComplete(Bitmap bitmap) {
         mCollapsingToolbarLayout.setBackground(new BitmapDrawable(getResources(),
-                FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), Constants.BLUE_VALUE, false)));
+                StackBlur.blurNativelyPixels(BitmapUtils.addBlackBitmap(bitmap), Constants.BLUE_VALUE, false)));
     }
 
     @Click(R.id.activity_details_img)
