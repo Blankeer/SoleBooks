@@ -28,11 +28,12 @@ import com.blanke.solebook.base.BaseSwipeBackActivity;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.utils.BitmapUtils;
-import com.blanke.solebook.utils.FastBlur;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+
+import net.qiujuer.genius.blur.StackBlur;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -161,7 +162,7 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
 //            }
 //        });
         mCollapsingToolbarLayout.setBackground(new BitmapDrawable(getResources(),
-                FastBlur.doBlur(BitmapUtils.addBlackBitmap(bitmap), Constants.BLUE_VALUE, false)));
+                StackBlur.blurNativelyPixels(BitmapUtils.addBlackBitmap(bitmap), Constants.BLUE_VALUE, false)));
     }
 
     @Override

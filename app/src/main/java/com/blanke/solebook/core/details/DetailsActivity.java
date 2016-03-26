@@ -32,7 +32,6 @@ import com.blanke.solebook.core.details.persenter.DetailsPersenterImpl;
 import com.blanke.solebook.core.details.view.DetailsView;
 import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.DialogUtils;
-import com.blanke.solebook.utils.FastBlur;
 import com.blanke.solebook.utils.SystemUiUtils;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -111,7 +110,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         book = bundle.getParcelable(ARG_NAME_BEAN);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (SystemUiUtils.checkDeviceHasNavigationBar(this)) {//判断是否有navigationbar
+        if (SystemUiUtils.checkDeviceHasNavigationBar(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//判断是否有navigationbar
             mCoordinatorLayout.setPadding(0, 0, 0, SystemUiUtils.getNavigationBarHeight(this));
         }
         mCollapsingToolbarLayout.setTitle(book.getTitle());

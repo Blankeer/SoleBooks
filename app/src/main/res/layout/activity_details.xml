@@ -28,7 +28,8 @@
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="40dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="40dp"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.8">
 
