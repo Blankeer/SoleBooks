@@ -16,8 +16,10 @@ import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.main.MainActivity_;
 import com.blanke.solebook.rx.RxSNS;
 import com.blanke.solebook.utils.SnackUtils;
+import com.jaeger.library.StatusBarUtil;
 import com.socks.library.KLog;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -36,6 +38,11 @@ public class LoginActivity extends BaseActivity {
     private SNSType type;
 
     JSONObject authorData = null;
+
+    @AfterViews
+    public void init(){
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.colorAccent));
+    }
 
     @Click(R.id.activity_login_bu_sina)
     void loginSina() {

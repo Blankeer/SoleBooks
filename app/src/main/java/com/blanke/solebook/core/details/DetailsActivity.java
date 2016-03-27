@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -16,8 +15,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +30,7 @@ import com.blanke.solebook.core.details.view.DetailsView;
 import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.DialogUtils;
 import com.blanke.solebook.utils.SystemUiUtils;
+import com.jaeger.library.StatusBarUtil;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
@@ -110,6 +108,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         book = bundle.getParcelable(ARG_NAME_BEAN);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        StatusBarUtil.setTransparent(this);
         if (SystemUiUtils.checkDeviceHasNavigationBar(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//判断是否有navigationbar
             mCoordinatorLayout.setPadding(0, 0, 0, SystemUiUtils.getNavigationBarHeight(this));
         }
@@ -202,22 +201,6 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     @Click(R.id.activity_details_comment)
     public void clickCommentr() {
         CommentActivity_.intent(this).book(book).start();
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-//            window.setNavigationBarColor(Color.TRANSPARENT);
-        }
     }
 
     @Override

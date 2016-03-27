@@ -28,6 +28,7 @@ import com.blanke.solebook.base.BaseSwipeBackActivity;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.utils.BitmapUtils;
+import com.jaeger.library.StatusBarUtil;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -84,6 +85,7 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
 
     @AfterViews
     void init() {
+        StatusBarUtil.setTransparent(this);
         Bundle bundle = getIntent().getExtras();
         user = bundle.getParcelable(ARG_NAME_BEAN);
         setSupportActionBar(toolbar);

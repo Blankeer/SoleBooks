@@ -1,8 +1,6 @@
 package com.blanke.solebook.core.search;
 
-import android.media.Image;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -17,6 +15,7 @@ import com.blanke.solebook.core.search.persenter.SearchResPersenterImpl;
 import com.blanke.solebook.core.search.view.SearchResView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
+import com.jaeger.library.StatusBarUtil;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
 import org.androidannotations.annotations.AfterViews;
@@ -25,8 +24,6 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
-
-import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 
 /**
  * Created by Blanke on 16-2-26.
@@ -45,6 +42,7 @@ public class SearchResActivity extends BaseMvpLceViewStateActivity<LinearLayout,
 
     @AfterViews
     void init() {
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.colorAccent));
         mAdapter = new SearchResAdapter(this);
         LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(layout);

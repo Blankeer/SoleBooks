@@ -37,6 +37,7 @@ import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.view.CurstumSearchView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
+import com.jaeger.library.StatusBarUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.socks.library.KLog;
 
@@ -74,6 +75,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
 
     @AfterViews
     void init() {
+        StatusBarUtil.setColorForDrawerLayout(this, drawer, getResources().getColor(R.color.colorAccent));
         long t1 = System.currentTimeMillis();
         setSupportActionBar(toolbar);
         toggle = new ActionBarDrawerToggle(
@@ -178,7 +180,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                 String nick = currentUser.getNickname();
                 mTvNickName.setText(nick == null ? "" : nick);
                 ImageLoader.getInstance().displayImage(currentUser.getIconurl(), mImageIcon, Constants.getImageOptions());
-            },800);
+            }, 800);
         }
         KLog.d("initNavigationMenu time:" + (System.currentTimeMillis() - t1));
     }
