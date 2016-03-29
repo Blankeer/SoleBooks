@@ -12,7 +12,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +44,8 @@ import net.qiujuer.genius.blur.StackBlur;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
+import org.androidannotations.annotations.res.StringRes;
 
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 
@@ -60,10 +67,15 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
     TextView mTextLocation;
     @ViewById(R.id.activity_userhome_head)
     LinearLayout mLayoutHead;
-    @ViewById(R.id.activity_userhome_recyclerview)
-    FamiliarRecyclerView mRecyclerView;
-    @ViewById(R.id.activity_userhome_swipelayout)
-    NeuSwipeRefreshLayout mSwipeRefreshLayout;
+    @ViewById(R.id.activity_userhome_tablayout)
+    TabLayout mTabLayout;
+    @ViewById(R.id.activity_userhome_viewpager)
+    ViewPager mViewPager;
+
+    @StringRes(R.string.title_newly_like)
+    String titleLike;
+    @StringRes(R.string.title_newly_comment)
+    String titleComment;
 
     private AVUser user;
     private double h;
@@ -90,7 +102,6 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
         user = bundle.getParcelable(ARG_NAME_BEAN);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         mCollapsingToolbarLayout.setTitle(SoleUser.getNickname(user));
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
@@ -128,7 +139,21 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
                 mIcon.setAlpha(a);
             }
         });
+        mTabLayout.addTab(mTabLayout.newTab().setText(titleLike));
+        mTabLayout.addTab(mTabLayout.newTab().setText(titleComment));
 
+        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return UserNewlyFragment.newInstance(position,user.getObjectId());
+            }
+
+            @Override
+            public int getCount() {
+                return 2;
+            }
+        });
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override

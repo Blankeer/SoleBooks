@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.neu.refresh.NeuSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_newly_swipelayout"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    app:direction="both">
+
+    <cn.iwgang.familiarrecyclerview.FamiliarRecyclerView
+        android:id="@+id/fragment_newly_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:frv_divider="@color/color_divideline"
+        app:frv_dividerHeight="2dp"
+        app:frv_itemViewBothSidesMargin="4dp"
+        app:frv_layoutManager="linear"
+        app:frv_layoutManagerOrientation="vertical" />
+</com.neu.refresh.NeuSwipeRefreshLayout>

@@ -45,6 +45,15 @@ public class BookComment extends AVObject {
         return null;
     }
 
+    public Book getBook() {
+        try {
+            return getAVObject(BOOK, Book.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public BookComment getReply() {
         try {
             return getAVObject(REPLY, BookComment.class);

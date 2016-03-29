@@ -44,8 +44,8 @@
                 <TextView
                     android:id="@+id/activity_userhome_location"
                     android:layout_width="wrap_content"
-                    android:textAppearance="@style/Toolbar_expanded_text"
                     android:layout_height="wrap_content"
+                    android:textAppearance="@style/Toolbar_expanded_text"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
@@ -60,23 +60,27 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <com.neu.refresh.NeuSwipeRefreshLayout
-        android:id="@+id/activity_userhome_swipelayout"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:direction="both"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <cn.iwgang.familiarrecyclerview.FamiliarRecyclerView
-            android:id="@+id/activity_userhome_recyclerview"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/activity_userhome_tablayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:frv_divider="@color/color_divideline"
-            app:frv_dividerHeight="2dp"
-            app:frv_itemViewBothSidesMargin="4dp"
-            app:frv_layoutManager="linear"
-            app:frv_layoutManagerOrientation="vertical" />
-    </com.neu.refresh.NeuSwipeRefreshLayout>
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/toolbar_elevation"
+            android:theme="@style/TabLayout"
+            app:tabBackground="@color/colorPrimary"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="#aaffffff" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/activity_userhome_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

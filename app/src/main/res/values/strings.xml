@@ -56,6 +56,8 @@
     <string name="title_book_info">图书简介</string>
     <string name="title_reply">回复</string>
     <string name="title_comment">评论</string>
+    <string name="title_newly_like">TA收藏的书</string>
+    <string name="title_newly_comment">TA点评过的</string>
     <string name="msg_down_img">是否要下载高清大图到相册?(⊙v⊙)</string>
     <string name="msg_down_img_ok">保存成功.^_^</string>
     <string name="msg_down_img_error">保存失败.T_T</string>
