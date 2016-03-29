@@ -16,7 +16,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -34,7 +33,6 @@ import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.utils.BitmapUtils;
 import com.jaeger.library.StatusBarUtil;
-import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -44,10 +42,7 @@ import net.qiujuer.genius.blur.StackBlur;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
 import org.androidannotations.annotations.res.StringRes;
-
-import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 
 @EActivity(R.layout.activity_user_home)
 public class UserHomeActivity extends BaseSwipeBackActivity {
@@ -76,6 +71,7 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
     String titleLike;
     @StringRes(R.string.title_newly_comment)
     String titleComment;
+    private String[] titls;
 
     private AVUser user;
     private double h;
@@ -139,13 +135,19 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
                 mIcon.setAlpha(a);
             }
         });
+        titls = new String[]{titleLike, titleComment};
         mTabLayout.addTab(mTabLayout.newTab().setText(titleLike));
         mTabLayout.addTab(mTabLayout.newTab().setText(titleComment));
 
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return UserNewlyFragment.newInstance(position,user.getObjectId());
+                return UserNewlyFragment.newInstance(position, user.getObjectId());
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titls[position];
             }
 
             @Override
