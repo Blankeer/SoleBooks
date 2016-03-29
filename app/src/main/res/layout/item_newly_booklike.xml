@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <com.blanke.hold.HoldScaleImageView
-        android:id="@+id/item_newly_booklike_img"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+    android:background="@android:color/white">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/item_newly_booklike_title"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+        <com.blanke.hold.HoldScaleImageView
+            android:id="@+id/item_newly_booklike_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
             android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/item_newly_booklike_time"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/item_newly_booklike_title"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="test" />
 
+            <TextView
+                android:id="@+id/item_newly_booklike_time"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="test" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</android.support.v7.widget.CardView>
