@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.android.percent.support.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
 
-    <com.zhy.android.percent.support.PercentLinearLayout
+    <LinearLayout
         android:id="@+id/contentView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:gravity="center"
-        android:orientation="vertical"
-        app:layout_widthPercent="70%">
+        android:orientation="horizontal">
 
-        <Button
+        <ImageView
             android:id="@+id/activity_login_bu_sina"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/icon_sina"
             android:text="@string/login_sina" />
 
-        <Button
+        <ImageView
+            android:layout_marginLeft="60dp"
             android:id="@+id/activity_login_bu_qq"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/icon_qq"
             android:text="@string/login_qq" />
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/activity_login_bu_anonymous"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/anonymous" />
-
-    </com.zhy.android.percent.support.PercentLinearLayout>
+    <Button
+        android:id="@+id/activity_login_bu_anonymous"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:layout_below="@id/contentView"
+        android:text="@string/anonymous" />
 
     <include
         layout="@layout/view_loading"

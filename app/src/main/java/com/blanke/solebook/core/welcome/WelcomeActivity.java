@@ -22,7 +22,7 @@ public class WelcomeActivity extends BaseActivity {
     @ViewById(R.id.activity_welcome_imageview)
     ImageView mImageView;
 
-    private final static long DELAY = 500;
+    private final static long DELAY = 0;
 
     @AfterViews
     void init() {
