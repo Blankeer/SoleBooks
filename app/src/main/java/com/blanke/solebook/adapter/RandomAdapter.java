@@ -68,9 +68,9 @@ public class RandomAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_random_book, parent, false);
         } else {
-            KLog.d(position + " view not null");
+//            KLog.d(position + " view not null");
         }
-        KLog.d(position + ":" + convertView.toString());
+//        KLog.d(position + ":" + convertView.toString());
         Integer lastPosition = (Integer) convertView.getTag();
 //        if (lastPosition != null && lastPosition == position) {
 //            KLog.d("old:"+position);

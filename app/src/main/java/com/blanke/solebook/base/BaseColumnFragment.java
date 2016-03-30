@@ -30,6 +30,7 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
 //        setRetainInstance(true);
         mCurrentBookColumn = getArguments().getParcelable(ARG_BOOKCOLUMN);
         fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.setVisibility(View.VISIBLE);
     }
     public void onAttach(Activity activity) {
         super.onAttach(activity);

@@ -4,6 +4,8 @@ import com.blanke.solebook.base.BaseColumnFragment;
 import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.booklist.BookListFragment;
+import com.blanke.solebook.core.random.RandomFragment;
+import com.blanke.solebook.core.random.RandomFragment_;
 import com.blanke.solebook.core.taglist.TagListFragment_;
 import com.socks.library.KLog;
 
@@ -18,6 +20,8 @@ public class ColumnManager {
                 return BookListFragment.newInstance(bookColumn);
             case Constants.TYPE_COLUMN_TAG:
                 return TagListFragment_.builder().build();
+            case Constants.TYPE_COLUMN_Random:
+                return RandomFragment_.builder().build();
         }
         return BookListFragment.newInstance(bookColumn);
     }
