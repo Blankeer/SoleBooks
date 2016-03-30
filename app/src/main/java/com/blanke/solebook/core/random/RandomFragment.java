@@ -38,7 +38,6 @@ public class RandomFragment extends BaseColumnFragment<LinearLayout, List<Book>,
 
     @AfterViews
     void init() {
-        fab.setVisibility(View.GONE);
         mAdapter = new RandomAdapter(getActivity());
         mSwipeFlingAdapterView.setAdapter(mAdapter);
         mSwipeFlingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
@@ -94,6 +93,12 @@ public class RandomFragment extends BaseColumnFragment<LinearLayout, List<Book>,
         }
         mAdapter.addBooks(data);
         page++;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fab.setVisibility(View.GONE);
     }
 
     @Override

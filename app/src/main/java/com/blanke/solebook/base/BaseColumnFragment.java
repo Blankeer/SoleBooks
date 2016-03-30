@@ -30,7 +30,6 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
 //        setRetainInstance(true);
         mCurrentBookColumn = getArguments().getParcelable(ARG_BOOKCOLUMN);
         fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-        fab.setVisibility(View.VISIBLE);
     }
 
 
@@ -76,6 +75,7 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
         super.onAttach(activity);
     }
 
+    @Override
     public void onStart() {
         super.onStart();
         isViewCreate = true;
@@ -89,6 +89,7 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
 
     public void onResume() {
         super.onResume();
+//        fab.setVisibility(View.VISIBLE);
         AVAnalytics.onFragmentStart(getClass().getSimpleName());
     }
 }
