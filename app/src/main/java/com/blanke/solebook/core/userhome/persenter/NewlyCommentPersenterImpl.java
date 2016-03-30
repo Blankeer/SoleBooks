@@ -5,7 +5,6 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.blanke.solebook.bean.BookComment;
 import com.blanke.solebook.bean.SoleUser;
-import com.blanke.solebook.bean.UserBookLike;
 import com.blanke.solebook.core.userhome.view.UserNewlyView;
 
 import java.util.List;
@@ -25,6 +24,7 @@ public class NewlyCommentPersenterImpl extends UserNewlyPersenter {
             BookComment.getQuery(BookComment.class)
                     .whereEqualTo(BookComment.USER, AVUser.createWithoutData(SoleUser.class, userId))
                     .orderByDescending("updateAt")
+                    .include(BookComment.BOOK)
                     .findInBackground(new FindCallback<BookComment>() {
                         @Override
                         public void done(List<BookComment> list, AVException e) {

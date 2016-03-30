@@ -2,12 +2,9 @@ package com.blanke.solebook.core.userhome;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.avos.avoscloud.AVObject;
 import com.blanke.solebook.R;
 import com.blanke.solebook.adapter.BaseRecyclerAdapter;
 import com.blanke.solebook.base.BaseFragment;
@@ -16,7 +13,6 @@ import com.blanke.solebook.bean.BookComment;
 import com.blanke.solebook.bean.UserBookLike;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.details.DetailsActivity;
-import com.blanke.solebook.core.details.DetailsActivity_;
 import com.blanke.solebook.core.userhome.persenter.NewlyCommentPersenterImpl;
 import com.blanke.solebook.core.userhome.persenter.NewlyLikePersenterImpl;
 import com.blanke.solebook.core.userhome.persenter.UserNewlyPersenter;
@@ -90,11 +86,10 @@ public class UserNewlyFragment extends BaseFragment
                     BookComment comment = (BookComment) o;
                     book = comment.getBook();
                 }
-                DetailsActivity.start(getActivity(), null, book);
+                DetailsActivity.start(getActivity(), (ImageView) view.findViewById(R.id.item_newly_booklike_img), book);
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
-
         mSwipeRefreshLayout.autoRefresh();
     }
 
