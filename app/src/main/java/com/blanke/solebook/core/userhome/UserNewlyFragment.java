@@ -17,6 +17,7 @@ import com.blanke.solebook.core.userhome.persenter.NewlyCommentPersenterImpl;
 import com.blanke.solebook.core.userhome.persenter.NewlyLikePersenterImpl;
 import com.blanke.solebook.core.userhome.persenter.UserNewlyPersenter;
 import com.blanke.solebook.core.userhome.view.UserNewlyView;
+import com.blanke.solebook.utils.DateUtils;
 import com.joanzapata.android.recyclerview.BaseAdapterHelper;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
@@ -90,7 +91,7 @@ public class UserNewlyFragment extends BaseFragment
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
-        mSwipeRefreshLayout.autoRefresh();
+        mSwipeRefreshLayout.postDelayed(() -> mSwipeRefreshLayout.autoRefresh(), 100);
     }
 
     private void initAdapter() {
@@ -102,7 +103,7 @@ public class UserNewlyFragment extends BaseFragment
                     ImageView img = helper.getImageView(R.id.item_newly_booklike_img);
                     ImageLoader.getInstance().displayImage(item.getBook().getImgL(), img, Constants.getImageOptions());
                     helper.getTextView(R.id.item_newly_booklike_title).setText(item.getBook().getTitle());
-                    helper.getTextView(R.id.item_newly_booklike_time).setText(item.getUpdatedAt() + "");
+                    helper.getTextView(R.id.item_newly_booklike_time).setText(DateUtils.getTimestampString(item.getUpdatedAt()));
                 }
             };
         } else {
@@ -113,7 +114,7 @@ public class UserNewlyFragment extends BaseFragment
                     ImageView img = helper.getImageView(R.id.item_newly_booklike_img);
                     ImageLoader.getInstance().displayImage(item.getBook().getImgL(), img, Constants.getImageOptions());
                     helper.getTextView(R.id.item_newly_booklike_title).setText(item.getBook().getTitle());
-                    helper.getTextView(R.id.item_newly_booklike_time).setText(item.getUpdatedAt() + "");
+                    helper.getTextView(R.id.item_newly_booklike_time).setText(DateUtils.getTimestampString(item.getUpdatedAt()));
                 }
             };
         }

@@ -20,7 +20,7 @@
             app:contentScrim="@color/transparent"
             app:expandedTitleGravity="bottom|center_horizontal"
             app:expandedTitleMarginBottom="10dp"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <LinearLayout
                 android:id="@+id/activity_userhome_head"

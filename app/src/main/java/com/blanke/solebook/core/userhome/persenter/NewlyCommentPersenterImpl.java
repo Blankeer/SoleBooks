@@ -23,8 +23,10 @@ public class NewlyCommentPersenterImpl extends UserNewlyPersenter {
         try {
             BookComment.getQuery(BookComment.class)
                     .whereEqualTo(BookComment.USER, AVUser.createWithoutData(SoleUser.class, userId))
-                    .orderByDescending("updateAt")
+                    .orderByDescending("updatedAt")
                     .include(BookComment.BOOK)
+                    .skip(skip)
+                    .limit(limit)
                     .findInBackground(new FindCallback<BookComment>() {
                         @Override
                         public void done(List<BookComment> list, AVException e) {

@@ -23,8 +23,10 @@ public class NewlyLikePersenterImpl extends UserNewlyPersenter {
         try {
             UserBookLike.getQuery(UserBookLike.class)
                     .whereEqualTo(UserBookLike.USER, AVUser.createWithoutData(SoleUser.class, userId))
-                    .orderByDescending("updateAt")
+                    .orderByDescending("updatedAt")
                     .include(UserBookLike.BOOK)
+                    .skip(skip)
+                    .limit(limit)
                     .findInBackground(new FindCallback<UserBookLike>() {
                         @Override
                         public void done(List<UserBookLike> list, AVException e) {
