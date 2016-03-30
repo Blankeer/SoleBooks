@@ -34,6 +34,7 @@ import com.blanke.solebook.core.main.persenter.MainPersenterImpl;
 import com.blanke.solebook.core.main.view.MainView;
 import com.blanke.solebook.core.scan.CommonScanActivity_;
 import com.blanke.solebook.core.search.SearchResActivity_;
+import com.blanke.solebook.core.userhome.UserHomeActivity;
 import com.blanke.solebook.view.CurstumSearchView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
@@ -180,6 +181,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                 String nick = currentUser.getNickname();
                 mTvNickName.setText(nick == null ? "" : nick);
                 ImageLoader.getInstance().displayImage(currentUser.getIconurl(), mImageIcon, Constants.getImageOptions());
+                mImageIcon.setOnClickListener(v -> UserHomeActivity.start(MainActivity.this, mImageIcon, currentUser));
             }, 800);
         }
         KLog.d("initNavigationMenu time:" + (System.currentTimeMillis() - t1));
