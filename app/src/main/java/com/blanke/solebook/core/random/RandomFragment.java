@@ -100,4 +100,9 @@ public class RandomFragment extends BaseColumnFragment<LinearLayout, List<Book>,
     public void loadData(boolean pullToRefresh) {
         getPresenter().getSearchRes(pullToRefresh, page * page_count, page_count);
     }
+
+    @Override
+    protected void lazyLoad() {
+        loadData(false);
+    }
 }

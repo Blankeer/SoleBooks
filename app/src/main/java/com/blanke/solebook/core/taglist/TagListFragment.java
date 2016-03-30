@@ -61,7 +61,6 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
-        loadData(false);
     }
 
     @Override
@@ -89,4 +88,8 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
         getPresenter().getTagData(pullToRefresh, 0, 100);
     }
 
+    @Override
+    protected void lazyLoad() {
+        loadData(false);
+    }
 }

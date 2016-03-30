@@ -53,7 +53,7 @@ public class BookListFragment extends
     private int currentPage = 0;
     private int PAGE_COUNT = Constants.PAGE_COUNT;
 
-    private boolean isCreateView = false, isVisible = false, isNetworkFinish = false;
+    private boolean isNetworkFinish = false;
 
     public String getTitle() {
         return mCurrentBookColumn.getName();
@@ -105,8 +105,6 @@ public class BookListFragment extends
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 //        KLog.d(isNetworkFinish);
-        isCreateView = true;
-        lazyLoad();
         mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
@@ -119,19 +117,12 @@ public class BookListFragment extends
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        isVisible = getUserVisibleHint();
-        lazyLoad();
-    }
-
-    private void lazyLoad() {//fragment懒加载，可见才网络加载
-        if (isCreateView && isVisible && !isNetworkFinish) {
+    public void lazyLoad() {//fragment懒加载，可见才网络加载
+        if (!isNetworkFinish) {
             mSwipeRefreshLayout.postDelayed(() -> mSwipeRefreshLayout.autoRefresh(), LAZY_DELAY_TIME);
             isNetworkFinish = true;
         }
-        if (isVisible && isCreateView && fab != null) {
+        if (fab != null) {
             fab.setOnClickListener(v -> scrollTop());
             fab.attachToRecyclerView(mRecyclerView);
         }
