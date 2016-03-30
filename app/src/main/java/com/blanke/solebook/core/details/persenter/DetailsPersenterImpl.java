@@ -12,6 +12,7 @@ import com.blanke.solebook.core.details.view.DetailsView;
  */
 public class DetailsPersenterImpl extends DetailsPersenter {
     private SoleUser user;
+    private UserBookLike like;
 
     public DetailsPersenterImpl(DetailsView view, Book book) {
         super(view, book);
@@ -28,6 +29,7 @@ public class DetailsPersenterImpl extends DetailsPersenter {
                         @Override
                         public void done(UserBookLike userBookLike, AVException e) {
                             if (e == null && userBookLike != null) {
+                                like = userBookLike;
                                 view.setLike(true);
                             }
                         }
@@ -38,13 +40,15 @@ public class DetailsPersenterImpl extends DetailsPersenter {
     @Override
     public void setLike(boolean isLike) {
         if (user != null && !user.isAnonymous()) {
-            UserBookLike t = new UserBookLike();
-            t.setBook(book);
-            t.setUser(user);
             if (isLike) {
+                UserBookLike t = new UserBookLike();
+                t.setBook(book);
+                t.setUser(user);
                 t.saveInBackground();
             } else {
-                t.deleteInBackground();
+                if (like != null) {
+                    like.deleteInBackground();
+                }
             }
         }
     }
