@@ -50,8 +50,6 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
-import qiu.niorgai.StatusBarCompat;
-
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookColumn>, MainView, MainPersenter>
         implements NavigationView.OnNavigationItemSelectedListener, MainView {
@@ -80,9 +78,9 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
 
     @AfterViews
     void init() {
-//        StatusBarUtil.setColorForDrawerLayout(this, drawer, getResources().getColor(R.color.colorAccent));
+        StatusBarUtil.setColorForDrawerLayout(this, drawer, getResources().getColor(R.color.colorAccent));
 //        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
-        StatusBarCompat.translucentStatusBar(this);
+//        StatusBarCompat.translucentStatusBar(this);
         long t1 = System.currentTimeMillis();
         setSupportActionBar(toolbar);
         toggle = new ActionBarDrawerToggle(
