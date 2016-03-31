@@ -12,6 +12,7 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceFragment;
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceView;
 import com.melnykov.fab.FloatingActionButton;
+import com.socks.library.KLog;
 
 /**
  * 所有 colmn栏目fragment的子类，也就是 viewpager 的 fagment
@@ -40,6 +41,7 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         isVisible = getUserVisibleHint();
+        KLog.d(isVisible);
         if (isVisible) {
             onVisible();
         } else {
@@ -89,7 +91,6 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
 
     public void onResume() {
         super.onResume();
-//        fab.setVisibility(View.VISIBLE);
         AVAnalytics.onFragmentStart(getClass().getSimpleName());
     }
 }

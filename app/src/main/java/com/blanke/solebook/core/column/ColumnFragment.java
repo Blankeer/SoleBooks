@@ -11,11 +11,14 @@ import com.blanke.solebook.R;
 import com.blanke.solebook.adapter.ColumnFragmentAdapter;
 import com.blanke.solebook.base.BaseMvpLceViewStateFragment;
 import com.blanke.solebook.bean.BookColumn;
+import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.column.persenter.ColumnPersenter;
 import com.blanke.solebook.core.column.persenter.ColumnPersenterImpl;
 import com.blanke.solebook.core.column.view.ColumnView;
+import com.blanke.solebook.utils.AnimUtils;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
+import com.melnykov.fab.FloatingActionButton;
 import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
@@ -40,6 +43,7 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
     List<BookColumn> subBookColumn;
     ColumnFragmentAdapter pageAdapter;
     BookColumn mCurrentBookColumn;
+    private FloatingActionButton fab;
 
     public static ColumnFragment newInstance(BookColumn bookColumn) {
         ColumnFragment_ fragment = new ColumnFragment_();
@@ -47,6 +51,15 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
         bundle.putParcelable(ARGS_BOOKCOLUMN, bookColumn);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+//        KLog.d(hidden);
+        if (!hidden) {
+            changeArrowVisible();
+        }
     }
 
     @Override
@@ -59,6 +72,25 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
     public void onDestroyView() {
         super.onDestroyView();
         KLog.d(mCurrentBookColumn.getName() + hashCode());
+    }
+
+    private void changeArrowVisible() {
+        if (subBookColumn != null && isGoneArrow()) {
+            AnimUtils.hide(fab);
+        } else {
+//            AnimUtils.show(fab);
+            fab.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private boolean isGoneArrow() {
+        for (BookColumn bc : subBookColumn) {
+            if (bc.getType() == Constants.TYPE_COLUMN_Random
+                    || bc.getType() == Constants.TYPE_COLUMN_Map) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -76,6 +108,7 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
 
     @AfterViews
     void init() {
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         pageAdapter = new ColumnFragmentAdapter(getChildFragmentManager());
         mViewPager.setAdapter(pageAdapter);
         KLog.d(mCurrentBookColumn.getName() + hashCode());
@@ -126,6 +159,7 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
             mTabLayout.setVisibility(View.GONE);
         }
         KLog.d("setData time=" + (System.currentTimeMillis() - t1));
+        changeArrowVisible();
     }
 
     @Override

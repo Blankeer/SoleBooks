@@ -39,6 +39,7 @@ import com.blanke.solebook.view.CurstumSearchView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
 import com.jaeger.library.StatusBarUtil;
+import com.melnykov.fab.FloatingActionButton;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.socks.library.KLog;
 
@@ -65,7 +66,8 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     TextView mTvNickName;
     @ViewById(R.id.search_view)
     CurstumSearchView searchView;
-
+    @ViewById(R.id.fab)
+    FloatingActionButton fab;
     private List<BookColumn> bookColumns;
 
     private SoleUser currentUser;
@@ -118,6 +120,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     private void replaceFragment(int position) {
         long t1 = System.currentTimeMillis();
         if (position != mSelectPostion) {
+            fab.setVisibility(View.VISIBLE);
             mSelectPostion = position;
             BookColumn item = bookColumns.get(position);
             toolbar.setTitle(item.getName());

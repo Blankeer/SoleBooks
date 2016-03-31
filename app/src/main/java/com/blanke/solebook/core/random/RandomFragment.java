@@ -15,6 +15,7 @@ import com.blanke.solebook.core.random.persenter.RandomPersenter;
 import com.blanke.solebook.core.random.persenter.RandomPersenterImpl;
 import com.blanke.solebook.core.random.view.RandomView;
 import com.blanke.solebook.view.flingswipe.SwipeFlingAdapterView;
+import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -35,6 +36,7 @@ public class RandomFragment extends BaseColumnFragment<LinearLayout, List<Book>,
 
     private int page_count = Constants.PAGE_COUNT;
     private int page = 0;
+    private boolean isFirstNetworkFinish = false;
 
     @AfterViews
     void init() {
@@ -91,15 +93,11 @@ public class RandomFragment extends BaseColumnFragment<LinearLayout, List<Book>,
         if (data == null || data.size() == 0) {
             return;
         }
+        isFirstNetworkFinish = true;
         mAdapter.addBooks(data);
         page++;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        fab.setVisibility(View.GONE);
-    }
 
     @Override
     public void loadData(boolean pullToRefresh) {
@@ -108,6 +106,8 @@ public class RandomFragment extends BaseColumnFragment<LinearLayout, List<Book>,
 
     @Override
     protected void lazyLoad() {
-        loadData(false);
+        if (!isFirstNetworkFinish) {
+            loadData(false);
+        }
     }
 }
