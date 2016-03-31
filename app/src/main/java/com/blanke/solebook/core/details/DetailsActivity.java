@@ -46,6 +46,8 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
+import qiu.niorgai.StatusBarCompat;
+
 
 @EActivity(R.layout.activity_details)
 public class DetailsActivity extends BaseSwipeBackActivity implements DetailsView {
@@ -108,7 +110,8 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         book = bundle.getParcelable(ARG_NAME_BEAN);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        StatusBarUtil.setTransparent(this);
+//        StatusBarUtil.setTransparent(this);
+        StatusBarCompat.translucentStatusBar(this);
         if (SystemUiUtils.checkDeviceHasNavigationBar(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//判断是否有navigationbar
             mCoordinatorLayout.setPadding(0, 0, 0, SystemUiUtils.getNavigationBarHeight(this));
         }
