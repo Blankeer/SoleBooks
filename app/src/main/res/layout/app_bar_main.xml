@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main_coordlayout"
     android:layout_width="match_parent"
+    android:background="@color/window_background"
+    android:tag="skin:window_background:background"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
@@ -22,7 +24,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="@color/toolbar_background"
+                android:tag="skin:toolbar_background:background"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             <io.codetail.widget.RevealLinearLayout

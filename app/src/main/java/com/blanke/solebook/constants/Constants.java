@@ -37,6 +37,7 @@ public class Constants {
     public static final long LAZY_DELAY_TIME = 100;
     public static final int BLUE_VALUE = 60;
     public static final int[] TYPE_HIDE_FAB = {TYPE_COLUMN_Random, TYPE_COLUMN_Random};//不需要fab的type
+    public static final String THEME_NIGHT="night";
 
     public static String getSinaIconUrl(String uid) {
         return "http://tp1.sinaimg.cn/" + uid + "/180/0/1";

@@ -37,7 +37,6 @@ import com.blanke.solebook.core.main.view.MainView;
 import com.blanke.solebook.core.scan.CommonScanActivity_;
 import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.core.userhome.UserHomeActivity;
-import com.blanke.solebook.utils.SnackUtils;
 import com.blanke.solebook.view.CurstumSearchView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
@@ -45,6 +44,7 @@ import com.jaeger.library.StatusBarUtil;
 import com.melnykov.fab.FloatingActionButton;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.socks.library.KLog;
+import com.zhy.changeskin.SkinManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -85,7 +85,8 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
 
     @AfterViews
     void init() {
-        StatusBarUtil.setColorForDrawerLayout(this, drawer, getResources().getColor(R.color.colorAccent));
+        setStatusBar();
+//        StatusBarUtil.setColorForDrawerLayout(this, drawer, getResources().getColor(R.color.colorAccent));
 //        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
 //        StatusBarCompat.translucentStatusBar(this);
         long t1 = System.currentTimeMillis();
@@ -247,10 +248,24 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                     Intent intent = new Intent(this, FeedActivity.class);
                     startActivity(intent);
                     break;
+                case R.id.navigation_chose_theme:
+                    SkinManager skinManager = SkinManager.getInstance();
+                    if (skinManager.needChangeSkin()) {
+                        skinManager.removeAnySkin();
+                    } else {
+                        skinManager.changeSkin("night");
+                    }
+//                    setStatusBar();
+                    break;
             }
         }
         drawer.closeDrawers();
         return true;
+    }
+
+    private void setStatusBar() {
+        StatusBarUtil.setColorForDrawerLayout(this, drawer,
+                SkinManager.getInstance().getResourceManager().getColor("toolbar_background"));
     }
 
     @Override
