@@ -1,5 +1,6 @@
 package com.blanke.solebook.core.random;
 
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,11 +10,14 @@ import com.blanke.solebook.R;
 import com.blanke.solebook.adapter.RandomAdapter;
 import com.blanke.solebook.base.BaseColumnFragment;
 import com.blanke.solebook.bean.Book;
+import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.details.DetailsActivity;
 import com.blanke.solebook.core.random.persenter.RandomPersenter;
 import com.blanke.solebook.core.random.persenter.RandomPersenterImpl;
 import com.blanke.solebook.core.random.view.RandomView;
+import com.blanke.solebook.core.taglist.TagListFragment;
+import com.blanke.solebook.core.taglist.TagListFragment_;
 import com.blanke.solebook.view.flingswipe.SwipeFlingAdapterView;
 import com.socks.library.KLog;
 
@@ -37,6 +41,14 @@ public class RandomFragment extends BaseColumnFragment<LinearLayout, List<Book>,
     private int page_count = Constants.PAGE_COUNT;
     private int page = 0;
     private boolean isFirstNetworkFinish = false;
+
+    public static RandomFragment newInstance(BookColumn bookColumn) {
+        RandomFragment fragment = new RandomFragment_();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ARG_BOOKCOLUMN, bookColumn);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @AfterViews
     void init() {

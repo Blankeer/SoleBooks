@@ -19,6 +19,7 @@ import com.blanke.solebook.core.booklist.persenter.BookListPersenter;
 import com.blanke.solebook.core.booklist.persenter.BookListPersenterImpl;
 import com.blanke.solebook.core.booklist.view.BookListView;
 import com.blanke.solebook.core.details.DetailsActivity_;
+import com.blanke.solebook.utils.AnimUtils;
 import com.blanke.solebook.utils.SnackUtils;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;

@@ -1,6 +1,7 @@
 package com.blanke.solebook.core.taglist;
 
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -9,7 +10,10 @@ import android.widget.LinearLayout;
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseColumnFragment;
 import com.blanke.solebook.adapter.BaseRecyclerAdapter;
+import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.bean.Tag;
+import com.blanke.solebook.core.booklist.BookListFragment;
+import com.blanke.solebook.core.booklist.BookListFragment_;
 import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.core.taglist.persenter.TagListPersenter;
 import com.blanke.solebook.core.taglist.persenter.TagListPersenterImpl;
@@ -36,6 +40,14 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
     @ViewById(R.id.fragment_tag_recyclerview)
     FamiliarRecyclerView mRecyclerView;
     private BaseRecyclerAdapter<Tag> mAdapter;
+
+    public static TagListFragment newInstance(BookColumn bookColumn) {
+        TagListFragment fragment = new TagListFragment_();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ARG_BOOKCOLUMN, bookColumn);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

@@ -56,10 +56,11 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-//        KLog.d(hidden);
-        if (!hidden) {
-            changeArrowVisible();
-        }
+        KLog.d(hidden);
+//        if (!hidden) {
+//            changeArrowVisible();
+//        }
+        pageAdapter.getItem(mViewPager.getCurrentItem()).setUserVisibleHint(!hidden);//回调子类，show/hide
     }
 
     @Override
@@ -72,25 +73,6 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
     public void onDestroyView() {
         super.onDestroyView();
         KLog.d(mCurrentBookColumn.getName() + hashCode());
-    }
-
-    private void changeArrowVisible() {
-        if (subBookColumn != null && isGoneArrow()) {
-            AnimUtils.fabHide(fab);
-        } else {
-            AnimUtils.fabShow(fab);
-        }
-    }
-
-    private boolean isGoneArrow() {
-        for (BookColumn bc : subBookColumn) {
-            for (int type : Constants.TYPE_HIDE_FAB) {
-                if (bc.getType() == type) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     @Override
@@ -159,7 +141,6 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
             mTabLayout.setVisibility(View.GONE);
         }
         KLog.d("setData time=" + (System.currentTimeMillis() - t1));
-        changeArrowVisible();
     }
 
     @Override

@@ -8,6 +8,8 @@ import android.view.View;
 import com.avos.avoscloud.AVAnalytics;
 import com.blanke.solebook.R;
 import com.blanke.solebook.bean.BookColumn;
+import com.blanke.solebook.constants.Constants;
+import com.blanke.solebook.utils.AnimUtils;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceFragment;
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceView;
@@ -25,6 +27,8 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
     protected BookColumn mCurrentBookColumn;
     protected FloatingActionButton fab;
 
+    private boolean isVisible = false;
+    private boolean isViewCreate = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,15 +37,18 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
         fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
     }
 
-
-    private boolean isVisible = false;
-    private boolean isViewCreate = false;
+    @Override
+    public void onStart() {
+        super.onStart();
+        isViewCreate = true;
+        onLazyLoad();
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         isVisible = getUserVisibleHint();
-        KLog.d(isVisible);
+        KLog.d(isVisible+","+hashCode());
         if (isVisible) {
             onVisible();
         } else {
@@ -50,12 +57,16 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-//        isViewCreate = true;
-//        onLazyLoad();
+    public void onDestroyView() {
+        super.onDestroyView();
+        KLog.d();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        KLog.d();
+    }
 
     protected abstract void lazyLoad();
 
@@ -65,7 +76,24 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
 
     private void onLazyLoad() {
         if (isViewCreate && isVisible) {
+            KLog.d();
             lazyLoad();
+            changeArrowVisible();
+        }
+    }
+
+    private void changeArrowVisible() {//改变arrow的hide/show
+        boolean flag = false;
+        for (int type : Constants.TYPE_HIDE_FAB) {
+            if (mCurrentBookColumn.getType() == type) {
+                flag = true;
+                break;
+            }
+        }
+        if (flag) {
+            AnimUtils.fabHide(fab);
+        } else {
+            AnimUtils.fabShow(fab);
         }
     }
 
@@ -75,13 +103,6 @@ public abstract class BaseColumnFragment<CV extends View, M, V extends MvpLceVie
 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        isViewCreate = true;
-        onLazyLoad();
     }
 
     public void onPause() {

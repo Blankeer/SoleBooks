@@ -6,6 +6,7 @@ import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.booklist.BookListFragment;
 import com.blanke.solebook.core.random.RandomFragment;
 import com.blanke.solebook.core.random.RandomFragment_;
+import com.blanke.solebook.core.taglist.TagListFragment;
 import com.blanke.solebook.core.taglist.TagListFragment_;
 import com.socks.library.KLog;
 
@@ -19,9 +20,9 @@ public class ColumnManager {
             case Constants.TYPE_COLUMN_BOOK:
                 return BookListFragment.newInstance(bookColumn);
             case Constants.TYPE_COLUMN_TAG:
-                return TagListFragment_.builder().build();
+                return TagListFragment.newInstance(bookColumn);
             case Constants.TYPE_COLUMN_Random:
-                return RandomFragment_.builder().build();
+                return RandomFragment.newInstance(bookColumn);
         }
         return BookListFragment.newInstance(bookColumn);
     }
