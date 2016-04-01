@@ -46,6 +46,8 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
 
     @AfterViews
     void init() {
+        fab.attachToRecyclerView(mRecyclerView);
+        fab.setOnClickListener(v -> scrollTop());
         mAdapter = new BaseRecyclerAdapter<Tag>(getActivity(), R.layout.item_recyclerview_tag) {
             @Override
             protected void convert(BaseAdapterHelper helper, Tag item) {
@@ -61,6 +63,12 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
+    }
+
+    private void scrollTop() {
+        if (mRecyclerView != null) {
+            mRecyclerView.smoothScrollToPosition(0);
+        }
     }
 
     @Override
