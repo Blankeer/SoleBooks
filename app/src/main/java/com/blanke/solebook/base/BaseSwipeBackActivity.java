@@ -5,11 +5,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+
+import com.zhy.changeskin.SkinManager;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.Utils;
@@ -29,6 +27,13 @@ public class BaseSwipeBackActivity extends BaseActivity implements SwipeBackActi
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
         getWindow().getDecorView().setBackground(new ColorDrawable(Color.TRANSPARENT));
+        SkinManager.getInstance().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SkinManager.getInstance().unregister(this);
     }
 
     @Override

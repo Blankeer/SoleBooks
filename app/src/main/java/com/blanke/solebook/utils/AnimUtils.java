@@ -9,7 +9,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewPropertyAnimator;
 
 /**
  * Created by Blanke on 16-3-31.
@@ -42,7 +41,7 @@ public class AnimUtils {
         ObjectAnimator anim1, anim2, anim3, anim4, anim5;
         anim1 = getScaleXAnim(v, 1F, scaleTemp, Constants.ANIM_DURATION_MIND);
         anim2 = getScaleYAnim(v, 1F, scaleTemp, Constants.ANIM_DURATION_MIND);
-        anim3 = getTranslationYAnim(v, 0, 100, Constants.ANIM_DURATION_MIND);
+        anim3 = getTranslationYAnim(v, 0, 60, Constants.ANIM_DURATION_MIND);
         anim4 = getScaleXAnim(v, scaleTemp, 0F, Constants.ANIM_DURATION_MIND);
         anim5 = getScaleYAnim(v, scaleTemp, 0F, Constants.ANIM_DURATION_MIND);
         set.play(anim1).with(anim2);

@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceView;
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.MvpLceViewStateActivity;
+import com.zhy.changeskin.SkinManager;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.Utils;
@@ -33,6 +33,13 @@ public abstract class BaseSwipeMvpLceStateActivity<CV extends View, M, V extends
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
         getWindow().getDecorView().setBackground(new ColorDrawable(Color.TRANSPARENT));
+        SkinManager.getInstance().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SkinManager.getInstance().unregister(this);
     }
 
     @Override

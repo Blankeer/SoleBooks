@@ -20,6 +20,7 @@ import com.blanke.solebook.core.welcome.WelcomeActivity_;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.zhy.changeskin.SkinManager;
 
 /**
  * Created by Blanke on 16-2-19.
@@ -31,6 +32,7 @@ public class SoleApplication extends Application {
         super.onCreate();
         initAvos();
         initImageLoader();
+        initSkin();
     }
 
     private void initAvos() {
@@ -47,7 +49,9 @@ public class SoleApplication extends Application {
         AVInstallation.getCurrentInstallation().saveInBackground();
         PushService.setDefaultPushCallback(this, WelcomeActivity_.class);
     }
-
+    private void initSkin(){
+        SkinManager.getInstance().init(this);
+    }
     private void initImageLoader() {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration
                 .Builder(this)
