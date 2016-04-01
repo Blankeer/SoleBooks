@@ -40,6 +40,7 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
     @ViewById(R.id.fragment_tag_recyclerview)
     FamiliarRecyclerView mRecyclerView;
     private BaseRecyclerAdapter<Tag> mAdapter;
+    private boolean isFirstNetworkFinish = false;
 
     public static TagListFragment newInstance(BookColumn bookColumn) {
         TagListFragment fragment = new TagListFragment_();
@@ -82,13 +83,6 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        fab.attachToRecyclerView(mRecyclerView);
-        fab.setOnClickListener(v -> scrollTop());
-    }
-
-    @Override
     protected String getErrorMessage(Throwable e, boolean pullToRefresh) {
         return e.getMessage();
     }
@@ -100,7 +94,10 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
 
     @Override
     public void setData(List<Tag> data) {
-        mAdapter.addAll(data);
+        if(data!=null&&data.size()>0) {
+            mAdapter.addAll(data);
+            isFirstNetworkFinish = true;
+        }
     }
 
     @Override
@@ -115,6 +112,12 @@ public class TagListFragment extends BaseColumnFragment<LinearLayout, List<Tag>,
 
     @Override
     protected void lazyLoad() {
-        loadData(false);
+        if (!isFirstNetworkFinish) {
+            loadData(false);
+        }
+        if (fab != null) {
+            fab.attachToRecyclerView(mRecyclerView);
+            fab.setOnClickListener(v -> scrollTop());
+        }
     }
 }
