@@ -118,7 +118,6 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     private void replaceFragment(int position) {
         long t1 = System.currentTimeMillis();
         if (position != mSelectPostion) {
-            fab.setVisibility(View.VISIBLE);
             mSelectPostion = position;
             BookColumn item = bookColumns.get(position);
             toolbar.setTitle(item.getName());

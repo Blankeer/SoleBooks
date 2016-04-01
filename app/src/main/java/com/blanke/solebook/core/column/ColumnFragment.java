@@ -78,8 +78,7 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
         if (subBookColumn != null && isGoneArrow()) {
             AnimUtils.hide(fab);
         } else {
-//            AnimUtils.show(fab);
-            fab.setVisibility(View.VISIBLE);
+            AnimUtils.show(fab);
         }
     }
 
