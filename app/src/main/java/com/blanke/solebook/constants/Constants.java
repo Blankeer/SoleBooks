@@ -26,16 +26,18 @@ public class Constants {
     public static final int CLOUD_MAIN_COLUMN_MAX_ORDER = 10;
     public static final long DAY_AGE = 24 * 60 * 60 * 1000;
     public static final int PAGE_COUNT = 20;
-    public static final long ANIM_DURATION_LONG=1000;
-    public static final long ANIM_DURATION_MIND =500;
-    public static final long ANIM_DURATION_SHORT =350;
+    public static final long ANIM_DURATION_LONG = 1000;
+    public static final long ANIM_DURATION_MIND = 500;
+    public static final long ANIM_DURATION_SHORT = 350;
     private static DisplayImageOptions options;
     public static final int TYPE_COLUMN_BOOK = 1;
     public static final int TYPE_COLUMN_TAG = 2;
     public static final int TYPE_COLUMN_Random = 3;
     public static final int TYPE_COLUMN_Map = 3;
     public static final long LAZY_DELAY_TIME = 100;
-    public static final int BLUE_VALUE=60;
+    public static final int BLUE_VALUE = 60;
+    public static final int[] TYPE_HIDE_FAB = {TYPE_COLUMN_Random, TYPE_COLUMN_Random};//不需要fab的type
+
     public static String getSinaIconUrl(String uid) {
         return "http://tp1.sinaimg.cn/" + uid + "/180/0/1";
     }

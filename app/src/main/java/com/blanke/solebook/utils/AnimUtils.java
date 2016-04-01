@@ -31,7 +31,7 @@ public class AnimUtils {
         return getObjectAnim(v, "translationY", i, j, time);
     }
 
-    public static void hide(View v) {
+    public static void fabHide(View v) {
         if (v.getVisibility() == View.GONE) {
             return;
         }
@@ -59,7 +59,7 @@ public class AnimUtils {
         set.start();
     }
 
-    public static void show(View v) {
+    public static void fabShow(View v) {
         if (v.getVisibility() == View.VISIBLE) {
             return;
         }

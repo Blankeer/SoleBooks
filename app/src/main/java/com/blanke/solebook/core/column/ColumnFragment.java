@@ -76,17 +76,18 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
 
     private void changeArrowVisible() {
         if (subBookColumn != null && isGoneArrow()) {
-            AnimUtils.hide(fab);
+            AnimUtils.fabHide(fab);
         } else {
-            AnimUtils.show(fab);
+            AnimUtils.fabShow(fab);
         }
     }
 
     private boolean isGoneArrow() {
         for (BookColumn bc : subBookColumn) {
-            if (bc.getType() == Constants.TYPE_COLUMN_Random
-                    || bc.getType() == Constants.TYPE_COLUMN_Map) {
-                return true;
+            for (int type : Constants.TYPE_HIDE_FAB) {
+                if (bc.getType() == type) {
+                    return true;
+                }
             }
         }
         return false;
