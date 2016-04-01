@@ -1,11 +1,12 @@
 package com.blanke.solebook.core.search;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.blanke.solebook.R;
-import com.blanke.solebook.adapter.SearchResAdapter;
+import com.blanke.solebook.adapter.BaseRecyclerAdapter;
 import com.blanke.solebook.base.BaseMvpLceViewStateActivity;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.constants.Constants;
@@ -16,7 +17,10 @@ import com.blanke.solebook.core.search.view.SearchResView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
 import com.jaeger.library.StatusBarUtil;
+import com.joanzapata.android.recyclerview.BaseAdapterHelper;
+import com.joanzapata.android.recyclerview.BaseQuickAdapter;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -37,23 +41,31 @@ public class SearchResActivity extends BaseMvpLceViewStateActivity<LinearLayout,
     private List<Book> books;
     @Extra
     String key;
-    private SearchResAdapter mAdapter;
+    private BaseRecyclerAdapter<Book> mAdapter;
     private int page_count = Constants.PAGE_COUNT;
 
     @AfterViews
     void init() {
-        StatusBarUtil.setColor(this,getResources().getColor(R.color.colorAccent));
-        mAdapter = new SearchResAdapter(this);
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorAccent));
+        mAdapter = new BaseRecyclerAdapter<Book>(this, R.layout.item_searchres_book) {
+            @Override
+            protected void convert(BaseAdapterHelper helper, Book book) {
+                helper.getTextView(R.id.item_search_title).setText(book.getTitle());
+                helper.getTextView(R.id.item_search_info).setText(book.getIntroContent());
+                ImageLoader.getInstance()
+                        .displayImage(book.getImgL(), helper.getImageView(R.id.item_search_image), Constants.getImageOptions());
+            }
+        };
         LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(layout);
         mRecyclerView.setAdapter(mAdapter);
-//        mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
-//                startDetails((ImageView) view.findViewById(R.id.item_search_image),
-//                        books.get(position));
-//            }
-//        });
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                startDetails((ImageView) view.findViewById(R.id.item_search_image),
+                        books.get(position));
+            }
+        });
     }
 
     private void startDetails(ImageView imageView, Book b) {
@@ -85,12 +97,12 @@ public class SearchResActivity extends BaseMvpLceViewStateActivity<LinearLayout,
         if (data == null || data.size() == 0) {
             return;
         }
-        if (data.size() == 1) {
+        if (data.size() == 1) {//当搜索结果只有一个时，直接跳转到该book的详情页
             startDetails(null, data.get(0));
             finish();
         } else {
             this.books = data;
-            mAdapter.setData(data);
+            mAdapter.addAll(books);
         }
     }
 
