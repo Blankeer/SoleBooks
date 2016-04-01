@@ -35,6 +35,7 @@ public class AnimUtils {
         if (v.getVisibility() == View.GONE) {
             return;
         }
+        v.clearAnimation();
         AnimatorSet set = new AnimatorSet();
         float scaleTemp = 0.3F;
         ObjectAnimator anim1, anim2, anim3, anim4, anim5;
@@ -63,6 +64,7 @@ public class AnimUtils {
         if (v.getVisibility() == View.VISIBLE) {
             return;
         }
+        v.clearAnimation();
         v.setVisibility(View.VISIBLE);
         AnimatorSet set = new AnimatorSet();
         float scaleTemp = 0.3F;
