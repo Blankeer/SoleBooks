@@ -28,7 +28,7 @@ public class Constants {
     public static final int PAGE_COUNT = 20;
     public static final long ANIM_DURATION_LONG = 1000;
     public static final long ANIM_DURATION_MIND = 500;
-    public static final long ANIM_DURATION_SHORT = 350;
+    public static final long ANIM_DURATION_SHORT = 300;
     private static DisplayImageOptions options;
     public static final int TYPE_COLUMN_BOOK = 1;
     public static final int TYPE_COLUMN_TAG = 2;

@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -35,6 +37,7 @@ import com.blanke.solebook.core.main.view.MainView;
 import com.blanke.solebook.core.scan.CommonScanActivity_;
 import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.core.userhome.UserHomeActivity;
+import com.blanke.solebook.utils.SnackUtils;
 import com.blanke.solebook.view.CurstumSearchView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
@@ -66,6 +69,9 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     CurstumSearchView searchView;
     @ViewById(R.id.fab)
     FloatingActionButton fab;
+    @ViewById(R.id.activity_main_coordlayout)
+    CoordinatorLayout mCoordinatorLayout;
+
     private List<BookColumn> bookColumns;
 
     private SoleUser currentUser;
@@ -75,6 +81,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     private Fragment[] fragments;
     private boolean isVisible;
     private FeedbackAgent agent;
+    private Snackbar backPressSnackbar;//两次按下返回退出
 
     @AfterViews
     void init() {
@@ -118,6 +125,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     private void replaceFragment(int position) {
         long t1 = System.currentTimeMillis();
         if (position != mSelectPostion) {
+            searchView.closeSearch();//选择其他menu，关闭搜索框
             mSelectPostion = position;
             BookColumn item = bookColumns.get(position);
             toolbar.setTitle(item.getName());
@@ -198,7 +206,14 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         } else if (searchView.isSearchOpen()) {
             searchView.closeSearch();
         } else {
-            super.onBackPressed();
+            if (backPressSnackbar == null) {
+                backPressSnackbar = Snackbar.make(mCoordinatorLayout, R.string.msg_backpressed, Snackbar.LENGTH_LONG);
+            }
+            if (backPressSnackbar.isShown()) {
+                super.onBackPressed();
+            } else {
+                backPressSnackbar.show();
+            }
         }
     }
 

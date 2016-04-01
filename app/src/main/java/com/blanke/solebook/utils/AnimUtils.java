@@ -9,6 +9,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewPropertyAnimator;
 
 /**
  * Created by Blanke on 16-3-31.
@@ -61,14 +62,25 @@ public class AnimUtils {
     }
 
     public static void fabShow(View v) {
-        if (v.getVisibility() == View.VISIBLE) {
+        AnimatorSet set = new AnimatorSet();
+        ObjectAnimator anim1, anim2, anim3, anim4, anim5;
+        float scaleTemp;
+        if (v.getVisibility() == View.VISIBLE) {//缩小一点之后再放大
+            scaleTemp = 0.9F;
+            anim1 = getScaleXAnim(v, 1F, scaleTemp, Constants.ANIM_DURATION_SHORT);
+            anim2 = getScaleYAnim(v, 1F, scaleTemp, Constants.ANIM_DURATION_SHORT);
+            anim3 = getScaleXAnim(v, scaleTemp, 1F, Constants.ANIM_DURATION_SHORT);
+            anim4 = getScaleYAnim(v, scaleTemp, 1F, Constants.ANIM_DURATION_SHORT);
+            set.play(anim1).with(anim2);
+            set.play(anim3).with(anim4);
+            set.play(anim3).after(anim1);
+            set.setInterpolator(new OvershootInterpolator(15.0F));
+            set.start();
             return;
         }
         v.clearAnimation();
         v.setVisibility(View.VISIBLE);
-        AnimatorSet set = new AnimatorSet();
-        float scaleTemp = 0.3F;
-        ObjectAnimator anim1, anim2, anim3, anim4, anim5;
+        scaleTemp = 0.3F;
         anim1 = getScaleXAnim(v, scaleTemp, 1F, Constants.ANIM_DURATION_MIND);
         anim2 = getScaleYAnim(v, scaleTemp, 1F, Constants.ANIM_DURATION_MIND);
         anim3 = getTranslationYAnim(v, v.getTranslationY(), 0, Constants.ANIM_DURATION_MIND);

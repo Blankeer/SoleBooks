@@ -62,6 +62,7 @@
     <string name="msg_down_img_ok">保存成功.^_^</string>
     <string name="msg_down_img_error">保存失败.T_T</string>
     <string name="msg_network_error">获取数据失败.T_T</string>
+    <string name="msg_backpressed">再按返回键退出</string>
     <string name="navigation_chose_theme">切换主题</string>
     <string name="navigation_setting">设置</string>
     <string name="navigation_feedback">反馈建议</string>
