@@ -11,15 +11,14 @@ import com.blanke.solebook.R;
 import com.blanke.solebook.adapter.ColumnFragmentAdapter;
 import com.blanke.solebook.base.BaseMvpLceViewStateFragment;
 import com.blanke.solebook.bean.BookColumn;
-import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.column.persenter.ColumnPersenter;
 import com.blanke.solebook.core.column.persenter.ColumnPersenterImpl;
 import com.blanke.solebook.core.column.view.ColumnView;
-import com.blanke.solebook.utils.AnimUtils;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
 import com.melnykov.fab.FloatingActionButton;
 import com.socks.library.KLog;
+import com.zhy.changeskin.SkinManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -141,6 +140,7 @@ public class ColumnFragment extends BaseMvpLceViewStateFragment<LinearLayout, Li
             mTabLayout.setVisibility(View.GONE);
         }
         KLog.d("setData time=" + (System.currentTimeMillis() - t1));
+        SkinManager.getInstance().notifyChangedListeners();
     }
 
     @Override

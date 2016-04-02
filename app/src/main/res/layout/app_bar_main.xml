@@ -55,7 +55,8 @@
         android:layout_margin="16dp"
         android:padding="20dp"
         android:src="@mipmap/arrow"
-        app:fab_colorNormal="@color/colorAccent"
-        app:fab_colorRipple="@color/colorPrimaryDark" />
+        app:fab_colorNormal="@color/fab_background"
+        app:fab_colorPressed="@color/fab_background"
+        app:fab_colorRipple="@color/fab_press" />
 
 </android.support.design.widget.CoordinatorLayout>

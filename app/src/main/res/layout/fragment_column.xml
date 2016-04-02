@@ -15,8 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="@dimen/toolbar_elevation"
+            android:tag="skin:tablayout_background:background"
             android:theme="@style/TabLayout"
-            app:tabBackground="@color/colorPrimary"
+            android:background="@color/tablayout_background"
             app:tabIndicatorColor="@android:color/white"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextColor="#aaffffff" />

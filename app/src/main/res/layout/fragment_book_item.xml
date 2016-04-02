@@ -8,8 +8,10 @@
         android:id="@+id/contentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="5dp"
+        android:background="@color/window_background_night"
         android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:tag="skin:window_background:background"
         app:direction="both">
 
         <cn.iwgang.familiarrecyclerview.FamiliarRecyclerView

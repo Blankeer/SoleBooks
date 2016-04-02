@@ -19,11 +19,11 @@ import com.blanke.solebook.core.booklist.persenter.BookListPersenter;
 import com.blanke.solebook.core.booklist.persenter.BookListPersenterImpl;
 import com.blanke.solebook.core.booklist.view.BookListView;
 import com.blanke.solebook.core.details.DetailsActivity_;
-import com.blanke.solebook.utils.AnimUtils;
 import com.blanke.solebook.utils.SnackUtils;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
 import com.socks.library.KLog;
+import com.zhy.changeskin.SkinManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -104,6 +104,7 @@ public class BookListFragment extends
         mAdapter = new BookItemAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        mSwipeRefreshLayout.setProgressBackgroundColor(R.color.window_background_night);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 //        KLog.d(isNetworkFinish);
         mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
@@ -116,6 +117,7 @@ public class BookListFragment extends
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
+        SkinManager.getInstance().notifyChangedListeners();
     }
 
     public void lazyLoad() {//fragment懒加载，可见才网络加载

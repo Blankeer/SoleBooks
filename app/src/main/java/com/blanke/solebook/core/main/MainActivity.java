@@ -85,10 +85,8 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
 
     @AfterViews
     void init() {
-        setStatusBar();
-//        StatusBarUtil.setColorForDrawerLayout(this, drawer, getResources().getColor(R.color.colorAccent));
-//        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
-//        StatusBarCompat.translucentStatusBar(this);
+        setStatusBarColor();
+        setFabColor();
         long t1 = System.currentTimeMillis();
         setSupportActionBar(toolbar);
         toggle = new ActionBarDrawerToggle(
@@ -139,8 +137,8 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
             }
             trans.commit();
             mSelectFragment = fragments[position];
+            KLog.d("replaceFragment time:" + (System.currentTimeMillis() - t1));
         }
-        KLog.d("replaceFragment time:" + (System.currentTimeMillis() - t1));
     }
 
     private void hideAllFragment(FragmentTransaction trans) {
@@ -255,7 +253,8 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                     } else {
                         skinManager.changeSkin("night");
                     }
-                    setStatusBar();
+                    setStatusBarColor();
+                    setFabColor();
                     break;
             }
         }
@@ -263,9 +262,16 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         return true;
     }
 
-    private void setStatusBar() {
-        int c = SkinManager.getInstance().getResourceManager().getColor("toolbar_background");
+    private void setStatusBarColor() {
+        int c = SkinManager.getInstance().getResourceManager().getColor("statusbar_background");
         StatusBarCompat.setStatusBarColorByDrawerLayout(this, drawer, c);
+    }
+    private void setFabColor() {
+        int c = SkinManager.getInstance().getResourceManager().getColor("fab_background");
+        int c2 = SkinManager.getInstance().getResourceManager().getColor("fab_press");
+        fab.setColorNormal(c);
+        fab.setColorRipple(c2);
+        fab.setColorPressed(c);
     }
 
     @Override

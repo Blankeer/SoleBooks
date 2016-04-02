@@ -9,10 +9,22 @@
     <color name="color_divideline">#ddd</color>
 
 
-    <color name="window_background">#FFF</color>
-    <color name="window_background_night">#262E34</color>
+    <color name="colorNight">#536C7A</color>
+    <color name="colorNightMore">#262E34</color>
+
+    <color name="window_background">#eee</color>
+    <color name="window_background_night">@color/colorNight</color>
     <color name="toolbar_background">@color/colorAccent</color>
     <color name="toolbar_background_night">#2A353B</color>
+    <color name="tablayout_background">@color/toolbar_background</color>
+    <color name="tablayout_background_night">@color/toolbar_background_night</color>
+    <color name="statusbar_background">@color/toolbar_background</color>
+    <color name="statusbar_background_night">@color/toolbar_background_night</color>
+    <color name="fab_background">@color/toolbar_background</color>
+    <color name="fab_background_night">@color/colorNight</color>
+    <color name="fab_press">@color/colorPrimaryDark</color>
+    <color name="fab_press_night">@color/colorNightMore</color>
+
     <color name="text">#D7DBDC</color>
     <color name="card_night">#394851</color>
     <color name="card">#eee</color>
