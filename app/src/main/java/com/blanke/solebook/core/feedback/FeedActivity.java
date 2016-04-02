@@ -47,7 +47,7 @@ import com.avos.avoscloud.feedback.Resources;
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseSwipeBackActivity;
 import com.blanke.solebook.utils.ResUtils;
-import com.jaeger.library.StatusBarUtil;
+import com.blanke.solebook.utils.StatusBarCompat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -77,10 +77,9 @@ public class FeedActivity extends BaseSwipeBackActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        this.setContentView(Resources.layout.avoscloud_feedback_activity_conversation(this));
         setContentView(R.layout.avoscloud_feedback_activity_conversation);
         this.setupActionBar();
-        StatusBarUtil.setColor(this,getResources().getColor(R.color.colorAccent));
+        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
         this.agent = new FeedbackAgent(this);
         this.adapter = new FeedbackListAdapter(this);
         this.thread = this.agent.getDefaultThread();

@@ -29,8 +29,8 @@ import com.blanke.solebook.core.details.persenter.DetailsPersenterImpl;
 import com.blanke.solebook.core.details.view.DetailsView;
 import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.DialogUtils;
+import com.blanke.solebook.utils.StatusBarCompat;
 import com.blanke.solebook.utils.SystemUiUtils;
-import com.jaeger.library.StatusBarUtil;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
@@ -46,7 +46,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
-import qiu.niorgai.StatusBarCompat;
 
 
 @EActivity(R.layout.activity_details)

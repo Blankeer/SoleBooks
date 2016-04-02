@@ -26,7 +26,6 @@ import com.zhy.changeskin.SkinManager;
  * Created by Blanke on 16-2-19.
  */
 public class SoleApplication extends Application {
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -49,9 +48,11 @@ public class SoleApplication extends Application {
         AVInstallation.getCurrentInstallation().saveInBackground();
         PushService.setDefaultPushCallback(this, WelcomeActivity_.class);
     }
-    private void initSkin(){
+
+    private void initSkin() {
         SkinManager.getInstance().init(this);
     }
+
     private void initImageLoader() {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration
                 .Builder(this)

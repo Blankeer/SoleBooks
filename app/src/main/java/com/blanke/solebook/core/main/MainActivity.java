@@ -37,10 +37,10 @@ import com.blanke.solebook.core.main.view.MainView;
 import com.blanke.solebook.core.scan.CommonScanActivity_;
 import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.core.userhome.UserHomeActivity;
+import com.blanke.solebook.utils.StatusBarCompat;
 import com.blanke.solebook.view.CurstumSearchView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
-import com.jaeger.library.StatusBarUtil;
 import com.melnykov.fab.FloatingActionButton;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.socks.library.KLog;
@@ -255,7 +255,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                     } else {
                         skinManager.changeSkin("night");
                     }
-//                    setStatusBar();
+                    setStatusBar();
                     break;
             }
         }
@@ -264,8 +264,8 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     }
 
     private void setStatusBar() {
-        StatusBarUtil.setColorForDrawerLayout(this, drawer,
-                SkinManager.getInstance().getResourceManager().getColor("toolbar_background"));
+        int c = SkinManager.getInstance().getResourceManager().getColor("toolbar_background");
+        StatusBarCompat.setStatusBarColorByDrawerLayout(this, drawer, c);
     }
 
     @Override

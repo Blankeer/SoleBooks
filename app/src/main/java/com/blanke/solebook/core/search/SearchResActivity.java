@@ -14,9 +14,9 @@ import com.blanke.solebook.core.details.DetailsActivity;
 import com.blanke.solebook.core.search.persenter.SearchResPersenter;
 import com.blanke.solebook.core.search.persenter.SearchResPersenterImpl;
 import com.blanke.solebook.core.search.view.SearchResView;
+import com.blanke.solebook.utils.StatusBarCompat;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
-import com.jaeger.library.StatusBarUtil;
 import com.joanzapata.android.recyclerview.BaseAdapterHelper;
 import com.joanzapata.android.recyclerview.BaseQuickAdapter;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
@@ -46,7 +46,7 @@ public class SearchResActivity extends BaseMvpLceViewStateActivity<LinearLayout,
 
     @AfterViews
     void init() {
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorAccent));
+        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
         mAdapter = new BaseRecyclerAdapter<Book>(this, R.layout.item_searchres_book) {
             @Override
             protected void convert(BaseAdapterHelper helper, Book book) {

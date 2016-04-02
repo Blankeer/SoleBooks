@@ -12,10 +12,10 @@ import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.random.persenter.RandomPersenter;
 import com.blanke.solebook.core.random.persenter.RandomPersenterImpl;
 import com.blanke.solebook.core.random.view.RandomView;
+import com.blanke.solebook.utils.StatusBarCompat;
 import com.blanke.solebook.view.flingswipe.SwipeFlingAdapterView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
-import com.jaeger.library.StatusBarUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -39,7 +39,7 @@ public class RandomActivity extends BaseMvpLceViewStateActivity<LinearLayout, Li
 
     @AfterViews
     void init() {
-        StatusBarUtil.setColor(this,getResources().getColor(R.color.colorAccent));
+        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
         mAdapter = new RandomAdapter(this);
         mSwipeFlingAdapterView.setAdapter(mAdapter);
         mSwipeFlingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {

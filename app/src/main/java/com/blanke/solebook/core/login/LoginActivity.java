@@ -16,7 +16,7 @@ import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.main.MainActivity_;
 import com.blanke.solebook.rx.RxSNS;
 import com.blanke.solebook.utils.SnackUtils;
-import com.jaeger.library.StatusBarUtil;
+import com.blanke.solebook.utils.StatusBarCompat;
 import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
@@ -41,7 +41,7 @@ public class LoginActivity extends BaseActivity {
 
     @AfterViews
     public void init(){
-        StatusBarUtil.setColor(this,getResources().getColor(R.color.colorAccent));
+        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
     }
 
     @Click(R.id.activity_login_bu_sina)

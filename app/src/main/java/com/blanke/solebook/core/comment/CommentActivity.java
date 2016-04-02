@@ -25,6 +25,7 @@ import com.blanke.solebook.utils.DateUtils;
 import com.blanke.solebook.utils.InputModeUtils;
 import com.blanke.solebook.utils.ResUtils;
 import com.blanke.solebook.utils.SnackUtils;
+import com.blanke.solebook.utils.StatusBarCompat;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
 import com.joanzapata.android.recyclerview.BaseAdapterHelper;
@@ -42,7 +43,6 @@ import java.util.List;
 
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
-import qiu.niorgai.StatusBarCompat;
 
 @EActivity(R.layout.activity_comment)
 public class CommentActivity extends

@@ -32,6 +32,7 @@ import com.blanke.solebook.base.BaseSwipeBackActivity;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.utils.BitmapUtils;
+import com.blanke.solebook.utils.StatusBarCompat;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -43,7 +44,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
-import qiu.niorgai.StatusBarCompat;
 
 @EActivity(R.layout.activity_user_home)
 public class UserHomeActivity extends BaseSwipeBackActivity {
