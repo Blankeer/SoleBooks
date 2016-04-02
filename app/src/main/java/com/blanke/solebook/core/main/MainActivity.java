@@ -49,6 +49,8 @@ import com.zhy.changeskin.SkinManager;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,8 +87,8 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
 
     @AfterViews
     void init() {
-        setStatusBarColor();
-        setFabColor();
+        EventBus.getDefault().register(this);
+        applyTheme(null);
         long t1 = System.currentTimeMillis();
         setSupportActionBar(toolbar);
         toggle = new ActionBarDrawerToggle(
@@ -253,8 +255,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                     } else {
                         skinManager.changeSkin("night");
                     }
-                    setStatusBarColor();
-                    setFabColor();
+                    EventBus.getDefault().post(new Object(), Constants.EVENT_THEME_CHANGE);
                     break;
             }
         }
@@ -266,12 +267,19 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         int c = SkinManager.getInstance().getResourceManager().getColor("statusbar_background");
         StatusBarCompat.setStatusBarColorByDrawerLayout(this, drawer, c);
     }
+
     private void setFabColor() {
         int c = SkinManager.getInstance().getResourceManager().getColor("fab_background");
         int c2 = SkinManager.getInstance().getResourceManager().getColor("fab_press");
         fab.setColorNormal(c);
         fab.setColorRipple(c2);
         fab.setColorPressed(c);
+    }
+
+    @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
+    public void applyTheme(Object o) {
+        setStatusBarColor();
+        setFabColor();
     }
 
     @Override
@@ -306,5 +314,11 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     @Override
     public void loadData(boolean pullToRefresh) {
         getPresenter().loadBookColumn(pullToRefresh);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

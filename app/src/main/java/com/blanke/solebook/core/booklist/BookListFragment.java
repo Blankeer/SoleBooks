@@ -28,6 +28,8 @@ import com.zhy.changeskin.SkinManager;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +85,7 @@ public class BookListFragment extends
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         KLog.d(mCurrentBookColumn.getName());
     }
 
@@ -101,10 +104,11 @@ public class BookListFragment extends
 
     @AfterViews
     void init() {
+        EventBus.getDefault().register(this);
+        applyTheme(null);
         mAdapter = new BookItemAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
-        mSwipeRefreshLayout.setProgressBackgroundColor(R.color.window_background_night);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 //        KLog.d(isNetworkFinish);
         mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
@@ -118,6 +122,16 @@ public class BookListFragment extends
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
         SkinManager.getInstance().notifyChangedListeners();
+    }
+
+    @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
+    public void applyTheme(Object o) {
+        String name = "window_background";
+        if (SkinManager.getInstance().needChangeSkin()) {
+            name += "_" + Constants.THEME_NIGHT;
+        }
+        mSwipeRefreshLayout.setProgressBackgroundColor(
+                getResources().getIdentifier(name, "color", getContext().getPackageName()));
     }
 
     public void lazyLoad() {//fragment懒加载，可见才网络加载
@@ -194,4 +208,5 @@ public class BookListFragment extends
             loadData(true);
         }
     }
+
 }

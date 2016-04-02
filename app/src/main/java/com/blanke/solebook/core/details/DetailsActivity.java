@@ -30,7 +30,6 @@ import com.blanke.solebook.core.details.view.DetailsView;
 import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.DialogUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
-import com.blanke.solebook.utils.SystemUiUtils;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
@@ -109,11 +108,10 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         book = bundle.getParcelable(ARG_NAME_BEAN);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        StatusBarUtil.setTransparent(this);
         StatusBarCompat.translucentStatusBar(this);
-        if (SystemUiUtils.checkDeviceHasNavigationBar(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//判断是否有navigationbar
-            mCoordinatorLayout.setPadding(0, 0, 0, SystemUiUtils.getNavigationBarHeight(this));
-        }
+//        if (SystemUiUtils.checkDeviceHasNavigationBar(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//判断是否有navigationbar
+//            mCoordinatorLayout.setPadding(0, 0, 0, SystemUiUtils.getNavigationBarHeight(this));
+//        }
         mCollapsingToolbarLayout.setTitle(book.getTitle());
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
