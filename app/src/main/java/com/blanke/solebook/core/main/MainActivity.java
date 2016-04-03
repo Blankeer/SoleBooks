@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.GetDataCallback;
 import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.blanke.solebook.R;
@@ -38,6 +39,7 @@ import com.blanke.solebook.core.main.view.MainView;
 import com.blanke.solebook.core.scan.CommonScanActivity_;
 import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.core.userhome.UserHomeActivity;
+import com.blanke.solebook.manager.LocalManager;
 import com.blanke.solebook.utils.SkinUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
 import com.blanke.solebook.view.CurstumSearchView;
@@ -86,6 +88,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     private boolean isVisible;
     private FeedbackAgent agent;
     private Snackbar backPressSnackbar;//两次按下返回退出
+    private LocalManager localManager;
 
     @AfterViews
     void init() {
@@ -252,7 +255,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                     break;
                 case R.id.navigation_chose_theme:
                     SkinUtils.toggleTheme();
-                     break;
+                    break;
             }
         }
         drawer.closeDrawers();
@@ -280,6 +283,20 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         ColorStateList colorList = new ColorStateList
                 (new int[][]{states_check, states_normal}, new int[]{checkColor, c});
         navigationView.setItemTextColor(colorList);
+    }
+
+    private void initLocation() {
+        if (currentUser == null || currentUser.isAnonymous()) {
+            return;
+        }
+        localManager = new LocalManager(this);
+        localManager.start(location -> {
+            AVGeoPoint point = new AVGeoPoint(location.getLatitude(), location.getLongitude());
+            String city = location.getCity();
+            currentUser.setCity(city);
+            currentUser.setLocation(point);
+            currentUser.saveInBackground();
+        });
     }
 
     @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
@@ -316,6 +333,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         initNavigationMenu();
         replaceFragment(0);
         initCloud();
+        initLocation();
     }
 
     @Override
