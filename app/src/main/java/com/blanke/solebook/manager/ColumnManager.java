@@ -4,11 +4,9 @@ import com.blanke.solebook.base.BaseColumnFragment;
 import com.blanke.solebook.bean.BookColumn;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.booklist.BookListFragment;
+import com.blanke.solebook.core.nearmap.NearMapFragment;
 import com.blanke.solebook.core.random.RandomFragment;
-import com.blanke.solebook.core.random.RandomFragment_;
 import com.blanke.solebook.core.taglist.TagListFragment;
-import com.blanke.solebook.core.taglist.TagListFragment_;
-import com.socks.library.KLog;
 
 /**
  * Created by Blanke on 16-2-23.
@@ -23,6 +21,8 @@ public class ColumnManager {
                 return TagListFragment.newInstance(bookColumn);
             case Constants.TYPE_COLUMN_Random:
                 return RandomFragment.newInstance(bookColumn);
+            case Constants.TYPE_COLUMN_NEARMAP:
+                return NearMapFragment.newInstance(bookColumn);
         }
         return BookListFragment.newInstance(bookColumn);
     }
