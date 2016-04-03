@@ -9,7 +9,7 @@
         android:layout_height="100dp"
         android:background="@color/card"
         android:orientation="horizontal"
-        android:padding="10dp"
+        android:padding="5dp"
         android:tag="skin:card:background">
 
         <com.blanke.hold.HoldScaleImageView
