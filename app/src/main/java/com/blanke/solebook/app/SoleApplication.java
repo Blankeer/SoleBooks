@@ -20,6 +20,7 @@ import com.blanke.solebook.core.welcome.WelcomeActivity_;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.umeng.analytics.AnalyticsConfig;
 import com.zhy.changeskin.SkinManager;
 
 /**
@@ -30,8 +31,15 @@ public class SoleApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initAvos();
+        initUM();
         initImageLoader();
         initSkin();
+    }
+
+    private void initUM() {
+        AnalyticsConfig.setAppkey(this, Constants.APPKEY_UM);
+        AnalyticsConfig.setChannel("test");
+        AnalyticsConfig.enableEncrypt(true);
     }
 
     private void initAvos() {
@@ -43,7 +51,7 @@ public class SoleApplication extends Application {
         AVObject.registerSubclass(UserBookLike.class);
         AVOSCloud.setDebugLogEnabled(true);
         AVCloud.setProductionMode(false);
-        AVAnalytics.setAppChannel("SomeChannel");
+        AVAnalytics.setAppChannel("test");
         AVOSCloud.initialize(this, Constants.APPID_AVOS, Constants.APPKEY_AVOS);
         AVInstallation.getCurrentInstallation().saveInBackground();
         PushService.setDefaultPushCallback(this, WelcomeActivity_.class);

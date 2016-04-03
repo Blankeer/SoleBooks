@@ -7,6 +7,7 @@ import com.avos.avoscloud.AVAnalytics;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity;
+import com.umeng.analytics.MobclickAgent;
 import com.zhy.changeskin.SkinManager;
 
 /**
@@ -16,12 +17,15 @@ public abstract class BaseMvpViewStateActivity<V extends MvpView, P extends MvpP
     protected void onPause() {
         super.onPause();
         AVAnalytics.onPause(this);
+        MobclickAgent.onPause(this);
     }
 
     protected void onResume() {
         super.onResume();
         AVAnalytics.onResume(this);
+        MobclickAgent.onResume(this);
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
