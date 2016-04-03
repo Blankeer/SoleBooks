@@ -27,8 +27,10 @@ import com.blanke.solebook.core.comment.CommentActivity_;
 import com.blanke.solebook.core.details.persenter.DetailsPersenter;
 import com.blanke.solebook.core.details.persenter.DetailsPersenterImpl;
 import com.blanke.solebook.core.details.view.DetailsView;
+import com.blanke.solebook.utils.AnimUtils;
 import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.DialogUtils;
+import com.blanke.solebook.utils.SkinUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -88,7 +90,10 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     TextView activity_details_text_binding;
     @ViewById(R.id.activity_details_text_isbn)
     TextView activity_details_text_isbn;
+    @ViewById(R.id.activity_details_theme)
+    ImageView mThemeImg;
     private int textColor, textBackground;//theme
+    private boolean isNight;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void start(Activity activity, ImageView imageview, Book book) {
@@ -183,12 +188,20 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         mPersenter.initLikeState();
     }
 
+    private void initThemeImg() {
+        isNight = SkinManager.getInstance().needChangeSkin();
+        if (isNight) {//现在是夜间模式
+            mThemeImg.setImageResource(R.drawable.icon_theme_day);
+        } else {
+            mThemeImg.setImageResource(R.drawable.icon_theme_night);
+        }
+    }
+
     @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
     public void applyTheme(Object o) {
         textColor = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT);
         textBackground = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT_B);
-
-
+        initThemeImg();
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -202,9 +215,11 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         BookImageActivity_.start(this, mIcon, book.getImgL(), book.getTitle());
     }
 
-    @Click(R.id.activity_details_dir)
-    public void clickDir() {
-        DialogUtils.show(this, R.string.title_dir, textColor, textBackground, book.getDir().split("\n"));
+    @Click(R.id.activity_details_theme)
+    public void clickTheme() {
+        AnimUtils.toggleTheme(mThemeImg,
+                isNight ? R.drawable.icon_theme_day : R.drawable.icon_theme_night
+                , () -> SkinUtils.toggleTheme());
     }
 
     @Click(R.id.activity_details_text_author)

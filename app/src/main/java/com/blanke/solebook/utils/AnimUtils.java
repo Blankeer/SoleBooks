@@ -3,6 +3,7 @@ package com.blanke.solebook.utils;
 
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
+import android.widget.ImageView;
 
 import com.blanke.solebook.constants.Constants;
 import com.nineoldandroids.animation.Animator;
@@ -92,5 +93,36 @@ public class AnimUtils {
         anim1.setInterpolator(new OvershootInterpolator(3.0F));
         anim2.setInterpolator(new OvershootInterpolator(3.0F));
         set.start();
+    }
+
+    public static void toggleTheme(ImageView v, int endImgRes, CallBack callBack) {
+        v.clearAnimation();
+        AnimatorSet set = new AnimatorSet(), set2 = new AnimatorSet();
+        float scaleTemp = 0.5F;
+        ObjectAnimator anim1, anim2, anim3, anim4, anim5;
+        anim1 = getScaleXAnim(v, 1F, scaleTemp, Constants.ANIM_DURATION_MIND);
+        anim2 = getScaleYAnim(v, 1F, scaleTemp, Constants.ANIM_DURATION_MIND);
+        anim4 = getScaleXAnim(v, scaleTemp, 1F, Constants.ANIM_DURATION_MIND);
+        anim5 = getScaleYAnim(v, scaleTemp, 1F, Constants.ANIM_DURATION_MIND);
+        set.play(anim1).with(anim2);
+        set.play(anim4).with(anim5);
+        set.play(anim4).after(anim1);
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                v.setImageResource(endImgRes);
+                if (callBack != null) {
+                    callBack.call();
+                }
+            }
+        });
+        anim4.setInterpolator(new OvershootInterpolator(2.0F));
+        anim5.setInterpolator(new OvershootInterpolator(2.0F));
+        set.start();
+    }
+
+    public interface CallBack {
+        void call();
     }
 }

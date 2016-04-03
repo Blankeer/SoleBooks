@@ -38,6 +38,7 @@ import com.blanke.solebook.core.main.view.MainView;
 import com.blanke.solebook.core.scan.CommonScanActivity_;
 import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.core.userhome.UserHomeActivity;
+import com.blanke.solebook.utils.SkinUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
 import com.blanke.solebook.view.CurstumSearchView;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
@@ -250,14 +251,8 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                     startActivity(intent);
                     break;
                 case R.id.navigation_chose_theme:
-                    SkinManager skinManager = SkinManager.getInstance();
-                    if (skinManager.needChangeSkin()) {
-                        skinManager.removeAnySkin();
-                    } else {
-                        skinManager.changeSkin("night");
-                    }
-                    EventBus.getDefault().post(new Object(), Constants.EVENT_THEME_CHANGE);
-                    break;
+                    SkinUtils.toggleTheme();
+                     break;
             }
         }
         drawer.closeDrawers();
@@ -280,7 +275,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     private void setMenuColor() {
         int[] states_check = new int[]{android.R.attr.state_checked};
         int[] states_normal = new int[]{};
-        int c = SkinManager.getInstance().getResourceManager().getColor("text_color");//文字颜色
+        int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT_H);//文字颜色
         int checkColor = getResources().getColor(R.color.colorAccent);//文字选中颜色
         ColorStateList colorList = new ColorStateList
                 (new int[][]{states_check, states_normal}, new int[]{checkColor, c});

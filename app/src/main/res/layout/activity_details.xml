@@ -311,13 +311,14 @@
             android:padding="5dp"
             android:tag="skin:window_background:background">
 
-            <ImageView
-                android:id="@+id/activity_details_dir"
+            <com.blanke.hold.HoldScaleImageView
+                android:id="@+id/activity_details_theme"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="left|center_vertical"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/icon_shao" />
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_theme_day"
+                app:holdHeight="true" />
 
             <com.blanke.hold.HoldScaleImageView
                 android:id="@+id/activity_details_comment"

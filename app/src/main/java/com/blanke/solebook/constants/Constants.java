@@ -43,6 +43,7 @@ public class Constants {
     public static final String RES_COLOR_LIKE = "like_background";
     public static final String RES_COLOR_LOAD = "load_background";
     public static final String RES_COLOR_TEXT = "text_color";
+    public static final String RES_COLOR_TEXT_H = "text_color_hight";
     public static final String RES_COLOR_TEXT_B = "text_background";
 
     public static String getSinaIconUrl(String uid) {
