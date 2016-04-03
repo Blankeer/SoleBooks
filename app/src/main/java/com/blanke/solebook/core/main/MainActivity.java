@@ -188,7 +188,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
             i++;
         }
         menu.setGroupCheckable(0, true, true);//single
-        if (currentUser != null) {
+        if (currentUser != null && !currentUser.isAnonymous()) {
             navigationView.postDelayed(() -> {
                 mTvNickName = (TextView) navigationView.findViewById(R.id.nav_nickname);
                 mImageIcon = (ImageView) navigationView.findViewById(R.id.nav_icon);
