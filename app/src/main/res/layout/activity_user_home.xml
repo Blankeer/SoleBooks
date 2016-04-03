@@ -4,7 +4,9 @@
     android:id="@+id/activity_details_coordlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false">
+    android:background="@color/window_background"
+    android:fitsSystemWindows="false"
+    android:tag="skin:window_background:background">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/activity_details_appbar"
@@ -71,9 +73,10 @@
             android:id="@+id/activity_userhome_tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/tablayout_background"
             android:elevation="@dimen/toolbar_elevation"
+            android:tag="skin:tablayout_background:background"
             android:theme="@style/TabLayout"
-            app:tabBackground="@color/colorPrimary"
             app:tabIndicatorColor="@android:color/white"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextColor="#aaffffff" />

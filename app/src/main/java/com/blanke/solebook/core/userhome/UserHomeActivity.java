@@ -36,6 +36,7 @@ import com.blanke.solebook.utils.StatusBarCompat;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.zhy.changeskin.SkinManager;
 
 import net.qiujuer.genius.blur.StackBlur;
 
@@ -94,7 +95,7 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
 
     @AfterViews
     void init() {
-//        StatusBarUtil.setTransparent(this);
+        SkinManager.getInstance().register(this);
         StatusBarCompat.translucentStatusBar(this);
         Bundle bundle = getIntent().getExtras();
         user = bundle.getParcelable(ARG_NAME_BEAN);
@@ -203,5 +204,11 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SkinManager.getInstance().unregister(this);
     }
 }

@@ -12,9 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="5dp"
-        app:frv_dividerHeight="10dp"
-        app:frv_itemViewBothSidesMargin="4dp"
+        app:frv_dividerHeight="0dp"
+        app:frv_itemViewBothSidesMargin="0dp"
         app:frv_layoutManager="linear"
         app:frv_layoutManagerOrientation="vertical" />
 </com.neu.refresh.NeuSwipeRefreshLayout>

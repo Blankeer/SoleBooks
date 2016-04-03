@@ -22,6 +22,7 @@ import com.joanzapata.android.recyclerview.BaseAdapterHelper;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zhy.changeskin.SkinManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -69,10 +70,20 @@ public class UserNewlyFragment extends BaseFragment
         userId = args.getString(ARG_USERID);
     }
 
+    public void changeTheme(Object o) {
+        String name = Constants.RES_COLOR_LOAD;
+        if (SkinManager.getInstance().needChangeSkin()) {
+            name += "_" + Constants.THEME_NIGHT;
+        }
+        mSwipeRefreshLayout.setProgressBackgroundColor(
+                getResources().getIdentifier(name, "color", getContext().getPackageName()));
+    }
+
     @AfterViews
     public void init() {
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        changeTheme(null);
         initAdapter();
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
@@ -104,6 +115,7 @@ public class UserNewlyFragment extends BaseFragment
                     ImageLoader.getInstance().displayImage(item.getBook().getImgL(), img, Constants.getImageOptions());
                     helper.getTextView(R.id.item_newly_booklike_title).setText(item.getBook().getTitle());
                     helper.getTextView(R.id.item_newly_booklike_time).setText(DateUtils.getTimestampString(item.getUpdatedAt()));
+                    SkinManager.getInstance().injectSkin(img.getRootView());
                 }
             };
         } else {
@@ -115,6 +127,7 @@ public class UserNewlyFragment extends BaseFragment
                     ImageLoader.getInstance().displayImage(item.getBook().getImgL(), img, Constants.getImageOptions());
                     helper.getTextView(R.id.item_newly_booklike_title).setText(item.getBook().getTitle());
                     helper.getTextView(R.id.item_newly_booklike_time).setText(DateUtils.getTimestampString(item.getUpdatedAt()));
+                    SkinManager.getInstance().injectSkin(img.getRootView());
                 }
             };
         }

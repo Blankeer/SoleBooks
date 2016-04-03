@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CardView.NewLy"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:orientation="horizontal">
+        android:background="@color/card"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:tag="skin:card:background">
 
         <com.blanke.hold.HoldScaleImageView
             android:id="@+id/item_newly_booklike_img"
@@ -28,7 +31,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="test" />
+                android:tag="skin:text_color_hight:textColor"
+                android:text="test"
+                android:textColor="@color/text_color_hight" />
 
             <TextView
                 android:id="@+id/item_newly_booklike_time"
@@ -36,7 +41,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="test" />
+                android:tag="skin:text_color:textColor"
+                android:text="test"
+                android:textColor="@color/text_color" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

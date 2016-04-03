@@ -21,6 +21,7 @@ import com.joanzapata.android.recyclerview.BaseAdapterHelper;
 import com.joanzapata.android.recyclerview.BaseQuickAdapter;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zhy.changeskin.SkinManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -46,7 +47,8 @@ public class SearchResActivity extends BaseMvpLceViewStateActivity<LinearLayout,
 
     @AfterViews
     void init() {
-        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
+        SkinManager.getInstance().register(this);
+        applyTheme(null);
         mAdapter = new BaseRecyclerAdapter<Book>(this, R.layout.item_searchres_book) {
             @Override
             protected void convert(BaseAdapterHelper helper, Book book) {
@@ -66,6 +68,15 @@ public class SearchResActivity extends BaseMvpLceViewStateActivity<LinearLayout,
                         books.get(position));
             }
         });
+    }
+
+    public void setStatusBarColor() {
+        int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_STATUSBAR);
+        StatusBarCompat.setStatusBarColor(this, c);
+    }
+
+    private void applyTheme(Object o) {
+        setStatusBarColor();
     }
 
     private void startDetails(ImageView imageView, Book b) {
@@ -109,5 +120,11 @@ public class SearchResActivity extends BaseMvpLceViewStateActivity<LinearLayout,
     @Override
     public void loadData(boolean pullToRefresh) {
         getPresenter().getSearchRes(pullToRefresh, page_count, key);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SkinManager.getInstance().unregister(this);
     }
 }

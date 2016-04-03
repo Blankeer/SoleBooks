@@ -2,8 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    android:orientation="vertical">
+    android:background="@color/window_background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:tag="skin:window_background:background">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -14,7 +16,9 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/feed_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/toolbar_background"
+            android:tag="skin:toolbar_background:background" />
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
@@ -22,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/avoscloud_feedback_input_wrap_background"
+        android:background="@color/transparent"
         android:padding="3dp">
 
         <FrameLayout
@@ -38,7 +42,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/avoscloud_feedback_input_wrap_background"
                 android:src="@android:drawable/ic_menu_gallery"></ImageView>
 
             <Button

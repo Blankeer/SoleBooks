@@ -46,8 +46,13 @@ import com.avos.avoscloud.feedback.FeedbackThread;
 import com.avos.avoscloud.feedback.Resources;
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseSwipeBackActivity;
+import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.utils.ResUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
+import com.zhy.changeskin.SkinManager;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -79,7 +84,8 @@ public class FeedActivity extends BaseSwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.avoscloud_feedback_activity_conversation);
         this.setupActionBar();
-        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
+        SkinManager.getInstance().register(this);
+        EventBus.getDefault().register(this);
         this.agent = new FeedbackAgent(this);
         this.adapter = new FeedbackListAdapter(this);
         this.thread = this.agent.getDefaultThread();
@@ -88,6 +94,7 @@ public class FeedActivity extends BaseSwipeBackActivity {
         this.sendButton = (Button) this.findViewById(Resources.id.avoscloud_feedback_send(this));
         this.imageButton = (ImageView) this.findViewById(Resources.id.avoscloud_feedback_add_image(this));
         this.feedbackInput = (EditText) this.findViewById(Resources.id.avoscloud_feedback_input(this));
+        applyTheme(null);
         this.syncCallback = new FeedbackThread.SyncCallback() {
             public void onCommentsSend(List<Comment> comments, AVException e) {
                 LogUtil.avlog.d("send new comments");
@@ -270,6 +277,30 @@ public class FeedActivity extends BaseSwipeBackActivity {
         }
 
         this.thread.sync(this.syncCallback);
+    }
+
+    public void setStatusBarColor() {
+        int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_STATUSBAR);
+        StatusBarCompat.setStatusBarColor(this, c);
+    }
+
+    public void setEditColor() {
+        int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT);
+        feedbackInput.setTextColor(c);
+        feedbackInput.setHintTextColor(c);
+    }
+
+    @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
+    public void applyTheme(Object o) {
+        setStatusBarColor();
+        setEditColor();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SkinManager.getInstance().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
     private static boolean isExternalStorageDocument(Uri uri) {
@@ -583,7 +614,8 @@ public class FeedActivity extends BaseSwipeBackActivity {
             } else {
                 holder.timestamp.setText(DateUtils.getRelativeTimeSpanString(comment.getCreatedAt().getTime(), System.currentTimeMillis() - 1L, 0L, 524288));
             }
-
+            int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT_B);
+            convertView.setBackgroundColor(c);
             return convertView;
         }
 
