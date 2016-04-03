@@ -126,7 +126,7 @@ public class BookListFragment extends
 
     @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
     public void applyTheme(Object o) {
-        String name = "window_background";
+        String name = Constants.RES_COLOR_LOAD;
         if (SkinManager.getInstance().needChangeSkin()) {
             name += "_" + Constants.THEME_NIGHT;
         }

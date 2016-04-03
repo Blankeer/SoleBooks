@@ -32,12 +32,15 @@ import com.joanzapata.android.recyclerview.BaseAdapterHelper;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zhy.changeskin.SkinManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.List;
 
@@ -72,8 +75,9 @@ public class CommentActivity extends
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-//        StatusBarUtil.setColor(this,getResources().getColor(R.color.colorAccent));
-        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
+        SkinManager.getInstance().register(this);
+        EventBus.getDefault().register(this);
+        applyThemt(null);
         setTitle(ResUtils.getResString(this, R.string.title_comment));
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -88,14 +92,14 @@ public class CommentActivity extends
                 TextView tv = helper.getTextView(R.id.item_comment_content);
                 if (reply != null) {
                     tv.setText(ResUtils.getResString(CommentActivity.this, R.string.title_reply)
-                           +user.getNickname() + ":" + item.getContent());
+                            + user.getNickname() + ":" + item.getContent());
                 } else {
                     helper.getTextView(R.id.item_comment_content).setText(item.getContent());
                 }
                 ImageView icon = helper.getImageView(R.id.item_comment_icon);
                 ImageLoader.getInstance().displayImage(user.getIconurl(), icon, Constants.getImageOptions());
                 icon.setOnClickListener(v -> UserHomeActivity.start(CommentActivity.this, icon, user));
-
+                SkinManager.getInstance().injectSkin(tv.getRootView());//item apply theme
             }
         };
         mRecyclerView.setAdapter(mAdapter);
@@ -113,6 +117,32 @@ public class CommentActivity extends
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
+    }
+
+    private void setStatausBarColor() {
+        int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_STATUSBAR);
+        StatusBarCompat.setStatusBarColor(this, c);
+    }
+
+    private void setEditColor() {
+        int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT);
+        mEditText.setHintTextColor(c);
+    }
+
+    private void setSwiptLyaoutColor() {
+        String name = Constants.RES_COLOR_LOAD;
+        if (SkinManager.getInstance().needChangeSkin()) {
+            name += "_" + Constants.THEME_NIGHT;
+        }
+        mSwipeRefreshLayout.setProgressBackgroundColor(
+                getResources().getIdentifier(name, "color", getPackageName()));
+    }
+
+    @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
+    public void applyThemt(Object o) {
+        setStatausBarColor();
+        setSwiptLyaoutColor();
+        setEditColor();
     }
 
     @Override
@@ -202,4 +232,10 @@ public class CommentActivity extends
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SkinManager.getInstance().unregister(this);
+        EventBus.getDefault().unregister(this);
+    }
 }

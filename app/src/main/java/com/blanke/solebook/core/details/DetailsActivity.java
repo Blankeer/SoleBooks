@@ -45,6 +45,8 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 
 @EActivity(R.layout.activity_details)
@@ -86,6 +88,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     TextView activity_details_text_binding;
     @ViewById(R.id.activity_details_text_isbn)
     TextView activity_details_text_isbn;
+    private int textColor, textBackground;//theme
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void start(Activity activity, ImageView imageview, Book book) {
@@ -109,7 +112,9 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SkinManager.getInstance().register(this);
+        EventBus.getDefault().register(this);
         StatusBarCompat.translucentStatusBar(this);
+        applyTheme(null);
 //        if (SystemUiUtils.checkDeviceHasNavigationBar(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//判断是否有navigationbar
 //            mCoordinatorLayout.setPadding(0, 0, 0, SystemUiUtils.getNavigationBarHeight(this));
 //        }
@@ -178,6 +183,14 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         mPersenter.initLikeState();
     }
 
+    @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
+    public void applyTheme(Object o) {
+        textColor = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT);
+        textBackground = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT_B);
+
+
+    }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void onImageComplete(Bitmap bitmap) {
         mCollapsingToolbarLayout.setBackground(new BitmapDrawable(getResources(),
@@ -191,12 +204,12 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
 
     @Click(R.id.activity_details_dir)
     public void clickDir() {
-        DialogUtils.show(this, R.string.title_dir, book.getDir().split("\n"));
+        DialogUtils.show(this, R.string.title_dir, textColor, textBackground, book.getDir().split("\n"));
     }
 
     @Click(R.id.activity_details_text_author)
     public void clickAuthor() {
-        DialogUtils.show(this, R.string.title_author, book.getIntroAuthor().split("\n"));
+        DialogUtils.show(this, R.string.title_author, textColor, textBackground, book.getIntroAuthor().split("\n"));
     }
 
     @Click(R.id.activity_details_comment)
@@ -222,5 +235,6 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     protected void onDestroy() {
         super.onDestroy();
         SkinManager.getInstance().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 }

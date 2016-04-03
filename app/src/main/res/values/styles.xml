@@ -66,4 +66,18 @@
     <style name="Toolbar_expanded_text" parent="android:TextAppearance">
         <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="CardView.Book" parent="CardView.Light">
+        <item name="cardCornerRadius">3dp</item>
+        <item name="cardElevation">5dp</item>
+    </style>
+
+    <style name="CardView.Comment" parent="CardView.Book">
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="CardView.NewLy" parent="CardView.Comment"></style>
 </resources>

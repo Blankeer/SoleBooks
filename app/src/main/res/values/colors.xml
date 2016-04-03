@@ -12,9 +12,11 @@
 
     <color name="colorNight">#536C7A</color>
     <color name="colorNightMore">#262E34</color>
+    <color name="card_night">#394851</color>
+    <color name="card">#eee</color>
 
     <color name="window_background">#eee</color>
-    <color name="window_background_night">@color/colorNight</color>
+    <color name="window_background_night">@color/colorNightMore</color>
     <color name="toolbar_background">@color/colorAccent</color>
     <color name="toolbar_background_night">#2A353B</color>
     <color name="tablayout_background">@color/toolbar_background</color>
@@ -26,14 +28,15 @@
     <color name="fab_press">@color/colorPrimaryDark</color>
     <color name="fab_press_night">@color/colorNightMore</color>
     <color name="load_background">@color/window_background</color>
-    <color name="load_background_night">@color/colorNightMore</color>
-
+    <color name="load_background_night">@color/colorNight</color>
     <color name="text_background">#D7DBDC</color>
-    <color name="text_background_night">@color/colorNightMore</color>
+    <color name="text_background_night">@color/card_night</color>
     <color name="text_color">#000</color>
-    <color name="text_color_night">#D7DBDC</color>
+    <color name="text_color_night">#959C9E</color>
+    <color name="text_color_hight">#000</color>
+    <color name="text_color_hight_night">#E4E6E7</color>
 
 
-    <color name="card_night">#394851</color>
-    <color name="card">#eee</color>
+    <color name="like_background">#aaa</color>
+    <color name="like_background_night">#eee</color>
 </resources>

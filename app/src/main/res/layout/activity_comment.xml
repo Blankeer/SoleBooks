@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/window_background"
     android:fitsSystemWindows="true"
+    android:tag="skin:window_background:background"
     tools:context="com.blanke.solebook.core.comment.CommentActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -15,10 +17,11 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:title="@string/title_comment"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorAccent"
+            android:background="@color/toolbar_background"
+            android:tag="skin:toolbar_background:background"
+            android:title="@string/title_comment"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
     </android.support.design.widget.AppBarLayout>
 
@@ -44,9 +47,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:frv_divider="@color/color_divideline"
-                app:frv_dividerHeight="2dp"
-                app:frv_itemViewBothSidesMargin="4dp"
+                app:frv_divider="@color/transparent"
+                app:frv_dividerHeight="0dp"
+                app:frv_itemViewBothSidesMargin="0dp"
                 app:frv_layoutManager="linear"
                 app:frv_layoutManagerOrientation="vertical" />
 
@@ -57,16 +60,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="#ddd"
+            android:background="@color/card"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:tag="skin:card:background">
 
             <EditText
                 android:id="@+id/activity_comment_edit_mycomment"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="@string/msg_comment_add" />
+                android:hint="@string/msg_comment_add"
+                android:tag="skin:text_color_hight:textColor"
+                android:textColor="@color/text_color_hight" />
 
             <ImageView
                 android:id="@+id/activity_comment_bu_send"

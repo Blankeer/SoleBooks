@@ -1,41 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardView.Comment"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="horizontal">
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/item_comment_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:civ_border_color="@android:color/white"
-        app:civ_border_width="1dp" />
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/card"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:tag="skin:card:background">
 
-        <TextView
-            android:id="@+id/item_comment_user"
-            android:layout_width="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/item_comment_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="1" />
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/item_comment_content"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            <TextView
+                android:id="@+id/item_comment_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:tag="skin:text_color_hight:textColor"
+                android:textColor="@color/text_color_hight" />
 
-        <TextView
-            android:id="@+id/item_comment_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/item_comment_content"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:tag="skin:text_color_hight:textColor"
+                android:textColor="@color/text_color_hight" />
+
+            <TextView
+                android:id="@+id/item_comment_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:tag="skin:text_color:textColor"
+                android:textColor="@color/text_color" />
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
+</android.support.v7.widget.CardView>
