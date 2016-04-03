@@ -1,6 +1,7 @@
 package com.blanke.solebook.core.main;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -276,10 +277,23 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         fab.setColorPressed(c);
     }
 
+    private void setMenuColor() {
+        int[] states_check = new int[]{android.R.attr.state_checked};
+        int[] states_normal = new int[]{};
+        int c = SkinManager.getInstance().getResourceManager().getColor("text_color");
+        ColorStateList colorList = navigationView.getItemTextColor();
+        int checkColor = colorList.getColorForState(states_check, -1);
+        checkColor = getResources().getColor(R.color.colorAccent);
+        colorList = new ColorStateList
+                (new int[][]{states_check, states_normal}, new int[]{checkColor, c});
+        navigationView.setItemTextColor(colorList);
+    }
+
     @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
     public void applyTheme(Object o) {
         setStatusBarColor();
         setFabColor();
+        setMenuColor();
     }
 
     @Override

@@ -36,6 +36,7 @@ import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.zhy.changeskin.SkinManager;
 
 import net.qiujuer.genius.blur.StackBlur;
 
@@ -44,7 +45,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
-
 
 
 @EActivity(R.layout.activity_details)
@@ -108,6 +108,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         book = bundle.getParcelable(ARG_NAME_BEAN);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        SkinManager.getInstance().register(this);
         StatusBarCompat.translucentStatusBar(this);
 //        if (SystemUiUtils.checkDeviceHasNavigationBar(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//判断是否有navigationbar
 //            mCoordinatorLayout.setPadding(0, 0, 0, SystemUiUtils.getNavigationBarHeight(this));
@@ -217,4 +218,9 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         mLikeButton.setLiked(isLike);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SkinManager.getInstance().unregister(this);
+    }
 }
