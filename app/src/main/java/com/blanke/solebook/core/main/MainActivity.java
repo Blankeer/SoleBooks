@@ -293,7 +293,9 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         localManager.start(location -> {
             AVGeoPoint point = new AVGeoPoint(location.getLatitude(), location.getLongitude());
             String city = location.getCity();
+            String district = location.getDistrict();
             currentUser.setCity(city);
+            currentUser.setDistrict(district);
             currentUser.setLocation(point);
             currentUser.saveInBackground();
         });

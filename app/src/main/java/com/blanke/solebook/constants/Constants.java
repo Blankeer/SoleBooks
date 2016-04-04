@@ -38,7 +38,7 @@ public class Constants {
     public static final int TYPE_COLUMN_NEARMAP = 4;
     public static final long LAZY_DELAY_TIME = 100;
     public static final int BLUE_VALUE = 60;
-    public static final int[] TYPE_HIDE_FAB = {TYPE_COLUMN_Random, TYPE_COLUMN_Random};//不需要fab的type
+    public static final int[] TYPE_HIDE_FAB = {TYPE_COLUMN_Random, TYPE_COLUMN_NEARMAP};//不需要fab的type
     public static final String THEME_NIGHT = "night";
     public static final String EVENT_THEME_CHANGE = "event_themt_change";
     public static final String RES_COLOR_STATUSBAR = "statusbar_background";
@@ -47,6 +47,7 @@ public class Constants {
     public static final String RES_COLOR_TEXT = "text_color";
     public static final String RES_COLOR_TEXT_H = "text_color_hight";
     public static final String RES_COLOR_TEXT_B = "text_background";
+    public static final int NEAR_FRIEND_SIZE = 10;
 
     public static String getSinaIconUrl(String uid) {
         return "http://tp1.sinaimg.cn/" + uid + "/180/0/1";

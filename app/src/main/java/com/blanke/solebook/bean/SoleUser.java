@@ -13,6 +13,7 @@ public class SoleUser extends AVUser {
     public static final String ICONURL = "iconurl";
     public static final String CITY = "city";
     public static final String LOCATION = "location";
+    public static final String DISTRICT = "district";
 
     public String getNickname() {
         return getString(NICKNAME);
@@ -59,5 +60,13 @@ public class SoleUser extends AVUser {
 
     public SoleUser(Parcel in) {
         super(in);
+    }
+
+    public void setDistrict(String district) {
+        put(DISTRICT, district);
+    }
+
+    public String getDistrict() {
+        return getString(DISTRICT);
     }
 }
