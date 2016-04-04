@@ -22,6 +22,7 @@ public class Constants {
     public static final String REDIRECTURL_QQ = "https://leancloud.cn/1.1/sns/callback/lljmk2jy0vqme5vh";
     public static final String CLOUD_MOTHOD_SEARCH_TAG = "cloud_search_tag";
     public static final String CLOUD_MOTHOD_SEARCH_ISBN = "cloud_search_isbn";
+    public static final String CLOUD_MOTHOD_RANDOM_BOOK = "cloud_random_book";
     public static final String APPKEY_UM = "5700f53f67e58e999c0026a0";
 
     public static final long DELAY_NETWORK = 500;

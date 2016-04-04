@@ -8,7 +8,7 @@ import com.hannesdorfmann.mosby.mvp.lce.MvpLceView;
  */
 public abstract class BaseRxPresenter<V extends MvpLceView, M> extends MvpBasePresenter<V> {
 
-    public void onSuccess(M data) {
+    public void  onSuccess(M data) {
         if (isViewAttached()) {
             getView().setData(data);
             getView().showContent();

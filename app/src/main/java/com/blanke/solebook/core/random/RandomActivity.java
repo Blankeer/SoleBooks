@@ -39,7 +39,7 @@ public class RandomActivity extends BaseMvpLceViewStateActivity<LinearLayout, Li
 
     @AfterViews
     void init() {
-        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
+        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorAccent));
         mAdapter = new RandomAdapter(this);
         mSwipeFlingAdapterView.setAdapter(mAdapter);
         mSwipeFlingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
@@ -108,6 +108,6 @@ public class RandomActivity extends BaseMvpLceViewStateActivity<LinearLayout, Li
 
     @Override
     public void loadData(boolean pullToRefresh) {
-        getPresenter().getSearchRes(pullToRefresh, page * page_count, page_count);
+        getPresenter().getSearchRes(pullToRefresh, page_count);
     }
 }

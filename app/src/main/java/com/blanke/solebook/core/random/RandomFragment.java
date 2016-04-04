@@ -16,10 +16,7 @@ import com.blanke.solebook.core.details.DetailsActivity;
 import com.blanke.solebook.core.random.persenter.RandomPersenter;
 import com.blanke.solebook.core.random.persenter.RandomPersenterImpl;
 import com.blanke.solebook.core.random.view.RandomView;
-import com.blanke.solebook.core.taglist.TagListFragment;
-import com.blanke.solebook.core.taglist.TagListFragment_;
 import com.blanke.solebook.view.flingswipe.SwipeFlingAdapterView;
-import com.socks.library.KLog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -113,7 +110,7 @@ public class RandomFragment extends BaseColumnFragment<LinearLayout, List<Book>,
 
     @Override
     public void loadData(boolean pullToRefresh) {
-        getPresenter().getSearchRes(pullToRefresh, page * page_count, page_count);
+        getPresenter().getSearchRes(pullToRefresh, page_count);
     }
 
     @Override
