@@ -23,6 +23,8 @@ import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.umeng.analytics.AnalyticsConfig;
 import com.zhy.changeskin.SkinManager;
 
+import cn.sharesdk.framework.ShareSDK;
+
 /**
  * Created by Blanke on 16-2-19.
  */
@@ -34,6 +36,7 @@ public class SoleApplication extends Application {
         initUM();
         initImageLoader();
         initSkin();
+        ShareSDK.initSDK(this);
     }
 
     private void initUM() {

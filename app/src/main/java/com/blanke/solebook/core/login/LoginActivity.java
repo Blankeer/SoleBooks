@@ -1,20 +1,16 @@
 package com.blanke.solebook.core.login;
 
-import android.content.Intent;
 import android.view.View;
 
 import com.avos.avoscloud.AVAnonymousUtils;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
-import com.avos.sns.SNS;
-import com.avos.sns.SNSType;
+import com.avos.avoscloud.SaveCallback;
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseActivity;
 import com.blanke.solebook.bean.SoleUser;
-import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.main.MainActivity_;
-import com.blanke.solebook.rx.RxSNS;
 import com.blanke.solebook.utils.SnackUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
 import com.socks.library.KLog;
@@ -25,41 +21,57 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
+
 /**
  * Created by blanke on 16-2-21.
  */
 @EActivity(R.layout.activity_login)
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements PlatformActionListener {
 
     @ViewById(R.id.contentView)
     View contentView;
     @ViewById(R.id.loadingView)
     View loadView;
-    private SNSType type;
+    private String type;
 
     JSONObject authorData = null;
 
     @AfterViews
-    public void init(){
-        StatusBarCompat.setStatusBarColor(this,getResources().getColor(R.color.colorAccent));
+    public void init() {
+        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorAccent));
     }
 
     @Click(R.id.activity_login_bu_sina)
     void loginSina() {
         loading(true);
-        type = SNSType.AVOSCloudSNSSinaWeibo;
-        RxSNS.snsLogin(this, type, Constants.APPID_SINA,
-                Constants.APPSEC_SINA, Constants.REDIRECTURL_SINA)
-                .subscribe(this::onNext, this::onError);
+        type = AVUser.AVThirdPartyUserAuth.SNS_SINA_WEIBO;
+//        RxSNS.snsLogin(this, type, Constants.APPID_SINA,
+//                Constants.APPSEC_SINA, Constants.REDIRECTURL_SINA)
+//                .subscribe(this::onNext, this::onError);
+        Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
+        weibo.SSOSetting(false);  //设置false表示使用SSO授权方式
+        weibo.setPlatformActionListener(this); // 设置分享事件回调
+        weibo.authorize();
     }
 
     @Click(R.id.activity_login_bu_qq)
     void loginQQ() {
         loading(true);
-        type = SNSType.AVOSCloudSNSQQ;
-        RxSNS.snsLogin(this, type, Constants.APPID_QQ,
-                Constants.APPSEC_QQ, Constants.REDIRECTURL_QQ)
-                .subscribe(this::onNext, this::onError);
+        type = AVUser.AVThirdPartyUserAuth.SNS_TENCENT_WEIBO;
+//        RxSNS.snsLogin(this, type, Constants.APPID_QQ,
+//                Constants.APPSEC_QQ, Constants.REDIRECTURL_QQ)
+//                .subscribe(this::onNext, this::onError);
+        Platform qq = ShareSDK.getPlatform(QQ.NAME);
+        qq.SSOSetting(false);  //设置false表示使用SSO授权方式
+        qq.setPlatformActionListener(this); // 设置分享事件回调
+        qq.authorize();
     }
 
     @Click(R.id.activity_login_bu_anonymous)
@@ -95,9 +107,52 @@ public class LoginActivity extends BaseActivity {
         this.finish();
     }
 
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        SNS.onActivityResult(requestCode, resultCode, data, type);
+//    }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        SNS.onActivityResult(requestCode, resultCode, data, type);
+    public void onComplete(Platform plat, int i, HashMap<String, Object> hashMap) {
+        AVUser.AVThirdPartyUserAuth auth =
+                new AVUser.AVThirdPartyUserAuth(plat.getDb().getToken(), String.valueOf(plat.getDb()
+                        .getExpiresTime()), type, plat.getDb()
+                        .getUserId());
+        SoleUser.loginWithAuthData(SoleUser.class, auth, new LogInCallback<SoleUser>() {
+            @Override
+            public void done(SoleUser user, AVException e) {
+                if (e == null) {
+//                    KLog.json(plat.getDb().exportData());
+                    user.setNickname(plat.getDb().getUserName());
+                    String iconUrl = plat.getDb().getUserIcon();
+                    if (iconUrl.endsWith("40")) {
+                        StringBuffer sb = new StringBuffer(iconUrl.substring(0, iconUrl.length() - 2));
+                        sb.append("100");
+                        iconUrl = sb.toString();
+                    }
+                    user.setIconurl(iconUrl);
+                    user.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(AVException e) {
+                            onNext(user);
+                        }
+                    });
+                } else {
+                    e.printStackTrace();
+                    onError(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onError(Platform platform, int i, Throwable throwable) {
+
+    }
+
+    @Override
+    public void onCancel(Platform platform, int i) {
+
     }
 }
