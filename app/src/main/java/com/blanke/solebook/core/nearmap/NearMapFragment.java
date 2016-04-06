@@ -241,7 +241,9 @@ public class NearMapFragment extends BaseColumnFragment<LinearLayout, List<SoleU
 
     @Override
     public void deactivate() {
-        localManager.stop();
+        if (localManager != null) {
+            localManager.stop();
+        }
     }
 
 }
