@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.avos.avoscloud.AVAnonymousUtils;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVInstallation;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SaveCallback;
@@ -132,6 +133,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                         iconUrl = sb.toString();
                     }
                     user.setIconurl(iconUrl);
+                    user.setDeviceId(AVInstallation.getCurrentInstallation().getInstallationId());
                     user.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(AVException e) {

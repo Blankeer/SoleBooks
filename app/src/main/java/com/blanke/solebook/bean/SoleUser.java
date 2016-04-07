@@ -14,6 +14,7 @@ public class SoleUser extends AVUser {
     public static final String CITY = "city";
     public static final String LOCATION = "location";
     public static final String DISTRICT = "district";
+    public static final String DEVICEID = "deviceId";
 
     public String getNickname() {
         return getString(NICKNAME);
@@ -37,6 +38,10 @@ public class SoleUser extends AVUser {
 
     public void setIconurl(String iconurl) {
         put(ICONURL, iconurl);
+    }
+
+    public void setDeviceId(String deviceId) {
+        put(DEVICEID, deviceId);
     }
 
     public void setCity(String city) {
