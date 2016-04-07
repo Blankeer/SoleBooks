@@ -22,9 +22,9 @@ android {
     signingConfigs {
         release {
             storeFile file("blank")
-            storePassword ""
-            keyAlias ""
-            keyPassword ""
+            storePassword "w123456"
+            keyAlias "blank_tools"
+            keyPassword "w123456"
         }
     }
     buildTypes {
@@ -34,7 +34,7 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
-            //signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
     }
 
