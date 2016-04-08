@@ -74,10 +74,10 @@
 		默认值为false。此外，微信收藏不支持此字段。
 	-->
     <Wechat AppId="wx2643528a099b8293" AppSecret="b33eb9416ba8f03896faa32d1386c486"
-        BypassApproval="true" Enable="true" Id="4" SortId="2" />
+        BypassApproval="false" Enable="true" Id="4" SortId="2" />
 
     <WechatMoments AppId="wx2643528a099b8293" AppSecret="b33eb9416ba8f03896faa32d1386c486"
-        BypassApproval="true" Enable="true" Id="5" SortId="3" />
+        BypassApproval="false" Enable="true" Id="5" SortId="3" />
 
     <WechatFavorite AppId="wx2643528a099b8293" AppSecret="b33eb9416ba8f03896faa32d1386c486"
         Enable="true" Id="6" SortId="4" />

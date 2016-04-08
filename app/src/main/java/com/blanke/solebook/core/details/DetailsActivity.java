@@ -56,6 +56,7 @@ import org.simple.eventbus.Subscriber;
 
 import java.lang.reflect.Method;
 
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 
@@ -288,7 +289,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     }
 
     private void showShare() {
-//        ShareSDK.initSDK(this);
+        ShareSDK.initSDK(this);
         String url = ResUtils.getResString(this, R.string.app_url);
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
