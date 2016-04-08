@@ -73,17 +73,19 @@
 		审核的应用也可以执行分享，但是仅限于分享文字和图片，不能分享其他类型，
 		默认值为false。此外，微信收藏不支持此字段。
 	-->
-    <Wechat AppId="wx4868b35061f87885" AppSecret="64020361b8ec4c99936c0e3999a9f249"
-        BypassApproval="false" Enable="false" Id="4" SortId="4" />
+    <Wechat AppId="wx2643528a099b8293" AppSecret="b33eb9416ba8f03896faa32d1386c486"
+        BypassApproval="true" Enable="true" Id="4" SortId="2" />
 
-    <WechatMoments AppId="wx4868b35061f87885" AppSecret="64020361b8ec4c99936c0e3999a9f249"
-        BypassApproval="false" Enable="false" Id="5" SortId="5" />
+    <WechatMoments AppId="wx2643528a099b8293" AppSecret="b33eb9416ba8f03896faa32d1386c486"
+        BypassApproval="true" Enable="true" Id="5" SortId="3" />
 
-    <WechatFavorite AppId="wx4868b35061f87885" AppSecret="64020361b8ec4c99936c0e3999a9f249"
-        Enable="false" Id="6" SortId="6" />
+    <WechatFavorite AppId="wx2643528a099b8293" AppSecret="b33eb9416ba8f03896faa32d1386c486"
+        Enable="true" Id="6" SortId="4" />
 
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
     <QQ AppId="1105114711" AppKey="uI7mVrh73fpKMuua" Enable="true" Id="7" ShareByAppClient="true"
-        SortId="7" />
+        SortId="5" />
+
+    <QZone AppId="1105114711" AppKey="uI7mVrh73fpKMuua" Enable="true" Id="3" SortId="6" />
 
 </DevInfor>
