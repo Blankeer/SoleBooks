@@ -23,23 +23,31 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/item_newly_booklike_title"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:tag="skin:text_color_hight:textColor"
                 android:text="test"
                 android:textColor="@color/text_color_hight" />
 
             <TextView
+                android:id="@+id/item_newly_booklike_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:tag="skin:text_color_hight:textColor"
+                android:textColor="@color/text_color_hight" />
+
+            <TextView
                 android:id="@+id/item_newly_booklike_time"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:tag="skin:text_color:textColor"
                 android:text="test"

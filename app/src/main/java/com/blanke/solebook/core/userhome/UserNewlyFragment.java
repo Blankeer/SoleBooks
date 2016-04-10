@@ -18,6 +18,7 @@ import com.blanke.solebook.core.userhome.persenter.NewlyLikePersenterImpl;
 import com.blanke.solebook.core.userhome.persenter.UserNewlyPersenter;
 import com.blanke.solebook.core.userhome.view.UserNewlyView;
 import com.blanke.solebook.utils.DateUtils;
+import com.blanke.solebook.utils.ResUtils;
 import com.joanzapata.android.recyclerview.BaseAdapterHelper;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
@@ -125,8 +126,13 @@ public class UserNewlyFragment extends BaseFragment
                 protected void convert(BaseAdapterHelper helper, BookComment item) {
                     ImageView img = helper.getImageView(R.id.item_newly_booklike_img);
                     ImageLoader.getInstance().displayImage(item.getBook().getImgL(), img, Constants.getImageOptions());
-                    helper.getTextView(R.id.item_newly_booklike_title).setText(item.getBook().getTitle());
-                    helper.getTextView(R.id.item_newly_booklike_time).setText(DateUtils.getTimestampString(item.getUpdatedAt()));
+                    helper.getTextView(R.id.item_newly_booklike_title)
+                            .setText(item.getBook().getTitle());
+                    helper.getTextView(R.id.item_newly_booklike_time)
+                            .setText(DateUtils.getTimestampString(item.getUpdatedAt()));
+                    helper.getTextView(R.id.item_newly_booklike_content)
+                            .setText(ResUtils.getResString(getActivity(), R.string.title_comment)
+                                    + ":" + item.getContent());
                     SkinManager.getInstance().injectSkin(img.getRootView());
                 }
             };
