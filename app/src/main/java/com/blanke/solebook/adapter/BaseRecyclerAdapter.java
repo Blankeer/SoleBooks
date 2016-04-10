@@ -39,6 +39,6 @@ public abstract class BaseRecyclerAdapter<T> extends QuickAdapter<T> {
     @Override
     public void clear() {
         mItems.clear();
-        notifyItemRangeRemoved(0, getItemCount());
+        notifyDataSetChanged();
     }
 }

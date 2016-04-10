@@ -2,8 +2,6 @@ package com.blanke.solebook.bean;
 
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVUser;
-import com.socks.library.KLog;
 
 /**
  * Created by Blanke on 16-3-22.

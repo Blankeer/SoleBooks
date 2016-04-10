@@ -32,6 +32,7 @@ import com.joanzapata.android.recyclerview.BaseAdapterHelper;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.socks.library.KLog;
 import com.zhy.changeskin.SkinManager;
 
 import org.androidannotations.annotations.AfterViews;
@@ -84,6 +85,7 @@ public class CommentActivity extends
         mAdapter = new BaseRecyclerAdapter<BookComment>(this, R.layout.item_recyclerview_bookcomment) {
             @Override
             protected void convert(BaseAdapterHelper helper, BookComment item) {
+                KLog.json(item.toString());
                 final SoleUser user = item.getUser();
                 helper.getTextView(R.id.item_comment_user).setText(user.getNickname());
                 helper.getTextView(R.id.item_comment_time)
@@ -91,8 +93,10 @@ public class CommentActivity extends
                 BookComment reply = item.getReply();
                 TextView tv = helper.getTextView(R.id.item_comment_content);
                 if (reply != null) {
+                    KLog.json(reply.getUser().toString());
+                    KLog.json(reply.getUser().getNickname());
                     tv.setText(ResUtils.getResString(CommentActivity.this, R.string.title_reply)
-                            + user.getNickname() + ":" + item.getContent());
+                            + reply.getUser().getNickname() + ":" + item.getContent());
                 } else {
                     helper.getTextView(R.id.item_comment_content).setText(item.getContent());
                 }
@@ -221,6 +225,8 @@ public class CommentActivity extends
     @Override
     public void sendSuccess() {
         showLightError(ResUtils.getResString(this, R.string.msg_comment_send_ok));
+        mEditText.setText("");
+        mSwipeRefreshLayout.autoRefresh();
     }
 
     @Override
