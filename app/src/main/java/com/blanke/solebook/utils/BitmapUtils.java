@@ -27,7 +27,7 @@ public class BitmapUtils {
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) { //从上往下扫描
                 int color = bitmap.getPixel(j, i);
-                color &= 0xFFD0D0D0;
+                color &= 0xFFDDDDDD;
                 array[n] = color;
                 n++;
             }

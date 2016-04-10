@@ -157,7 +157,7 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
             public void onGenerated(Palette palette) {
                 Palette.Swatch swatch = palette.getVibrantSwatch();
                 if (swatch != null) {
-                    changeColor(swatch.getTitleTextColor());
+//                    changeColor(swatch.getTitleTextColor());
                 }
             }
         });
