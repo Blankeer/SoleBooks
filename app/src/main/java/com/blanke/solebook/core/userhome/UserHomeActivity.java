@@ -32,8 +32,7 @@ import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.zhy.changeskin.SkinManager;
 
 import net.qiujuer.genius.blur.StackBlur;
@@ -104,27 +103,14 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
         mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.Toolbar_expanded_text);//展开后的字体大小等
 //        mTextLocation.setText("武汉");
-        ImageLoader.getInstance().displayImage(SoleUser.getIconurl(user), mIcon, Constants.getImageOptions(), new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String s, View view) {
-
-            }
-
-            @Override
-            public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-            }
-
-            @Override
-            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                getMyColor(bitmap);
-            }
-
-            @Override
-            public void onLoadingCancelled(String s, View view) {
-
-            }
-        });
+        ImageLoader.getInstance().displayImage(SoleUser.getIconurl(user), mIcon,
+                Constants.getImageOptions(), new SimpleImageLoadingListener() {
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap bitmap) {
+                        super.onLoadingComplete(imageUri, view, bitmap);
+                        getMyColor(bitmap);
+                    }
+                });
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override

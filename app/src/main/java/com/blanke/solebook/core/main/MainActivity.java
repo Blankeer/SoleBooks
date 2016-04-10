@@ -1,10 +1,12 @@
 package com.blanke.solebook.core.main;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -41,6 +43,7 @@ import com.blanke.solebook.core.scan.CommonScanActivity_;
 import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.core.userhome.UserHomeActivity;
 import com.blanke.solebook.manager.LocalManager;
+import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.SkinUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
 import com.blanke.solebook.view.CurstumSearchView;
@@ -48,8 +51,11 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
 import com.melnykov.fab.FloatingActionButton;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.socks.library.KLog;
 import com.zhy.changeskin.SkinManager;
+
+import net.qiujuer.genius.blur.StackBlur;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -78,6 +84,8 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     FloatingActionButton fab;
     @ViewById(R.id.activity_main_coordlayout)
     CoordinatorLayout mCoordinatorLayout;
+    @ViewById(R.id.nav_head_layout)
+    View navLayout;
 
     private List<BookColumn> bookColumns;
 
@@ -197,9 +205,18 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
             navigationView.postDelayed(() -> {
                 mTvNickName = (TextView) navigationView.findViewById(R.id.nav_nickname);
                 mImageIcon = (ImageView) navigationView.findViewById(R.id.nav_icon);
+                navLayout = navigationView.findViewById(R.id.nav_head_layout);
                 String nick = currentUser.getNickname();
                 mTvNickName.setText(nick == null ? "" : nick);
-                ImageLoader.getInstance().displayImage(currentUser.getIconurl(), mImageIcon, Constants.getImageOptions());
+                ImageLoader.getInstance().displayImage(currentUser.getIconurl(), mImageIcon, Constants.getImageOptions(), new SimpleImageLoadingListener() {
+                    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        super.onLoadingComplete(imageUri, view, loadedImage);
+                        navLayout.setBackground(new BitmapDrawable(getResources(),
+                                StackBlur.blurNativelyPixels(BitmapUtils.addBlackBitmap(loadedImage), Constants.BLUE_VALUE, false)));
+                    }
+                });
                 mImageIcon.setOnClickListener(v -> UserHomeActivity.start(MainActivity.this, mImageIcon, currentUser));
             }, 800);
         }
