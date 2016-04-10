@@ -1,8 +1,10 @@
 package com.blanke.solebook.core.comment;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import com.blanke.solebook.adapter.BaseRecyclerAdapter;
 import com.blanke.solebook.base.BaseSwipeMvpLceStateActivity;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.BookComment;
+import com.blanke.solebook.bean.CommentMenuItem;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.comment.persenter.CommentPersenter;
@@ -22,16 +25,20 @@ import com.blanke.solebook.core.comment.persenter.CommentPersenterImpl;
 import com.blanke.solebook.core.comment.view.CommentView;
 import com.blanke.solebook.core.userhome.UserHomeActivity;
 import com.blanke.solebook.utils.DateUtils;
+import com.blanke.solebook.utils.DialogUtils;
 import com.blanke.solebook.utils.InputModeUtils;
 import com.blanke.solebook.utils.ResUtils;
 import com.blanke.solebook.utils.SnackUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
+import com.joanzapata.android.listview.QuickAdapter;
 import com.joanzapata.android.recyclerview.BaseAdapterHelper;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.OnItemClickListener;
 import com.socks.library.KLog;
 import com.zhy.changeskin.SkinManager;
 
@@ -43,6 +50,7 @@ import org.androidannotations.annotations.ViewById;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.iwgang.familiarrecyclerview.FamiliarRecyclerView;
@@ -70,6 +78,7 @@ public class CommentActivity extends
     private int PAGE_COUNT = Constants.PAGE_COUNT;
     private BaseRecyclerAdapter<BookComment> mAdapter;
     private BookComment reply;
+    private SoleUser mUser;
 
     @AfterViews
     void init() {
@@ -80,6 +89,7 @@ public class CommentActivity extends
         EventBus.getDefault().register(this);
         applyThemt(null);
         setTitle(ResUtils.getResString(this, R.string.title_comment));
+        mUser = SoleUser.getCurrentUser(SoleUser.class);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter = new BaseRecyclerAdapter<BookComment>(this, R.layout.item_recyclerview_bookcomment) {
@@ -111,16 +121,63 @@ public class CommentActivity extends
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
                 BookComment toComment = mAdapter.getItem(position);
-                reply = toComment;
-                mEditText.setFocusable(true);
-                mEditText.setFocusableInTouchMode(true);
-                mEditText.requestFocus();
-                InputModeUtils.openInputMode(mEditText);
-                mEditText.setHint(ResUtils.getResString(CommentActivity.this, R.string.title_reply)
-                        + ":" + toComment.getUser().getNickname());
+                SoleUser toUser = toComment.getUser();
+                ArrayList<CommentMenuItem> menus = new ArrayList<CommentMenuItem>();
+                menus.add(new CommentMenuItem(CommentMenuItem.OP.SHOW, "查看"));
+                if (!toUser.equals(mUser)) {//不能回复自己的评论
+                    menus.add(new CommentMenuItem(CommentMenuItem.OP.REPLY, "回复"));
+                } else {
+                    menus.add(new CommentMenuItem(CommentMenuItem.OP.DELETE, "删除"));
+                }
+                DialogPlus.newDialog(CommentActivity.this)
+                        .setAdapter(new QuickAdapter<CommentMenuItem>(CommentActivity.this, android.R.layout.simple_list_item_1, menus) {
+                            @Override
+                            protected void convert(com.joanzapata.android.listview.BaseAdapterHelper helper, CommentMenuItem item) {
+                                helper.getTextView(android.R.id.text1).setText(item.getTitle());
+                            }
+                        })
+                        .setExpanded(false)
+                        .setGravity(Gravity.CENTER)
+                        .setCancelable(true)
+                        .setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                                dialog.dismiss();
+                                if (item instanceof CommentMenuItem) {
+                                    CommentMenuItem menuItem = (CommentMenuItem) item;
+                                    CommentMenuItem.OP op = menuItem.getOp();
+                                    if (op == CommentMenuItem.OP.REPLY) {
+                                        replyTo(toComment);
+                                    } else if (op == CommentMenuItem.OP.SHOW) {
+                                        DialogUtils.show(CommentActivity.this, R.string.title_author,
+                                                R.color.colorAccent, Color.WHITE,
+                                                toComment.getContent());
+                                    } else if (op == CommentMenuItem.OP.DELETE) {
+
+                                    }
+                                }
+                            }
+                        })
+                        .create()
+                        .show();
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
+    }
+
+    /**
+     * 回复某个评论
+     *
+     * @param toComment
+     */
+    private void replyTo(BookComment toComment) {
+        reply = toComment;
+        mEditText.setFocusable(true);
+        mEditText.setFocusableInTouchMode(true);
+        mEditText.requestFocus();
+        InputModeUtils.openInputMode(mEditText);
+        mEditText.setHint(ResUtils.getResString(CommentActivity.this, R.string.title_reply)
+                + ":" + toComment.getUser().getNickname());
     }
 
     private void setStatausBarColor() {

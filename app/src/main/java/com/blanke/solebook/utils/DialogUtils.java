@@ -26,7 +26,6 @@ public class DialogUtils {
                 .create()
                 .show();
     }
-
     public static void show(Context context, String title, int textColor, int background, String... data) {
         show(context, Gravity.BOTTOM, title, textColor, background, data);
     }
