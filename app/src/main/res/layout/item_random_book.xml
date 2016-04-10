@@ -12,8 +12,8 @@
         android:background="@android:color/white"
         app:cardCornerRadius="7dp"
         app:cardElevation="5dp"
-        app:layout_heightPercent="77%"
-        app:layout_widthPercent="80%">
+        app:layout_heightPercent="73%"
+        app:layout_widthPercent="75%">
 
         <LinearLayout
             android:layout_width="match_parent"
