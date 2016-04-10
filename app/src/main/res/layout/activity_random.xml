@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,10 +7,11 @@
     <LinearLayout
         android:id="@+id/contentView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:paddingBottom="5dp"
-        android:paddingTop="5dp">
+        android:paddingTop="5dp"
+        app:layout_heightPercent="95%">
 
         <com.blanke.solebook.view.flingswipe.SwipeFlingAdapterView
             android:id="@+id/fragment_random_swipeview"
@@ -25,7 +26,15 @@
 
     </LinearLayout>
 
-    <include layout="@layout/view_loading" />
+    <include
+        layout="@layout/view_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
-    <include layout="@layout/view_error" />
-</FrameLayout>
+    <include
+        layout="@layout/view_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+</com.zhy.android.percent.support.PercentRelativeLayout>

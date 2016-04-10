@@ -12,7 +12,7 @@
         android:background="@android:color/white"
         app:cardCornerRadius="7dp"
         app:cardElevation="5dp"
-        app:layout_heightPercent="75%"
+        app:layout_heightPercent="77%"
         app:layout_widthPercent="80%">
 
         <LinearLayout

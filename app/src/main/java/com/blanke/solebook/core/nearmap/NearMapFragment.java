@@ -239,7 +239,6 @@ public class NearMapFragment extends BaseColumnFragment<LinearLayout, List<SoleU
 
             @Override
             public void onError(String msg) {
-                showLightError(msg);
                 errorView.setText(msg);
                 animateErrorViewIn();
                 isFirstNetworkFinish=false;
