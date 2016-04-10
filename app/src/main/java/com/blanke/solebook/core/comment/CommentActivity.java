@@ -1,6 +1,5 @@
 package com.blanke.solebook.core.comment;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -38,6 +37,7 @@ import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.DialogPlusBuilder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.socks.library.KLog;
 import com.zhy.changeskin.SkinManager;
@@ -79,6 +79,8 @@ public class CommentActivity extends
     private BaseRecyclerAdapter<BookComment> mAdapter;
     private BookComment reply;
     private SoleUser mUser;
+    private int textColor;
+    private int textBackground;
 
     @AfterViews
     void init() {
@@ -87,7 +89,7 @@ public class CommentActivity extends
         getSupportActionBar().setHomeButtonEnabled(true);
         SkinManager.getInstance().register(this);
         EventBus.getDefault().register(this);
-        applyThemt(null);
+        applyTheme(null);
         setTitle(ResUtils.getResString(this, R.string.title_comment));
         mUser = SoleUser.getCurrentUser(SoleUser.class);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
@@ -129,7 +131,7 @@ public class CommentActivity extends
                 } else {
                     menus.add(new CommentMenuItem(CommentMenuItem.OP.DELETE, "删除"));
                 }
-                DialogPlus.newDialog(CommentActivity.this)
+                DialogPlusBuilder dialog = DialogPlus.newDialog(CommentActivity.this)
                         .setAdapter(new QuickAdapter<CommentMenuItem>(CommentActivity.this, android.R.layout.simple_list_item_1, menus) {
                             @Override
                             protected void convert(com.joanzapata.android.listview.BaseAdapterHelper helper, CommentMenuItem item) {
@@ -138,31 +140,41 @@ public class CommentActivity extends
                         })
                         .setExpanded(false)
                         .setGravity(Gravity.CENTER)
-                        .setCancelable(true)
-                        .setOnItemClickListener(new OnItemClickListener() {
-                            @Override
-                            public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
-                                dialog.dismiss();
-                                if (item instanceof CommentMenuItem) {
-                                    CommentMenuItem menuItem = (CommentMenuItem) item;
-                                    CommentMenuItem.OP op = menuItem.getOp();
-                                    if (op == CommentMenuItem.OP.REPLY) {
-                                        replyTo(toComment);
-                                    } else if (op == CommentMenuItem.OP.SHOW) {
-                                        DialogUtils.show(CommentActivity.this, R.string.title_author,
-                                                R.color.colorAccent, Color.WHITE,
-                                                toComment.getContent());
-                                    } else if (op == CommentMenuItem.OP.DELETE) {
-
-                                    }
-                                }
+                        .setCancelable(true);
+                long animTime = dialog.getOutAnimation().getDuration();
+                dialog.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                        dialog.dismiss();
+                        if (item instanceof CommentMenuItem) {
+                            CommentMenuItem menuItem = (CommentMenuItem) item;
+                            CommentMenuItem.OP op = menuItem.getOp();
+                            if (op == CommentMenuItem.OP.REPLY) {
+                                replyTo(toComment);
+                            } else if (op == CommentMenuItem.OP.SHOW) {
+                                showComment(toComment, animTime + 500);
+                            } else if (op == CommentMenuItem.OP.DELETE) {
+                                mPersenter.deleteComment(toComment);
                             }
-                        })
-                        .create()
-                        .show();
+                        }
+                    }
+                }).create().show();
             }
         });
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
+    }
+
+    /**
+     * 显示某条评论,dialog显示
+     *
+     * @param toComment
+     * @param delty
+     */
+    private void showComment(BookComment toComment, long delty) {
+        mSwipeRefreshLayout.postDelayed(() ->
+                        DialogUtils.show(CommentActivity.this, toComment.getUser().getNickname(),
+                                textColor, textBackground, toComment.getContent().split("\\n"))
+                , delty);
     }
 
     /**
@@ -178,6 +190,10 @@ public class CommentActivity extends
         InputModeUtils.openInputMode(mEditText);
         mEditText.setHint(ResUtils.getResString(CommentActivity.this, R.string.title_reply)
                 + ":" + toComment.getUser().getNickname());
+    }
+
+    private void resetEditText() {
+        mEditText.setHint(R.string.msg_comment_add);
     }
 
     private void setStatausBarColor() {
@@ -200,7 +216,9 @@ public class CommentActivity extends
     }
 
     @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
-    public void applyThemt(Object o) {
+    public void applyTheme(Object o) {
+        textColor = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT);
+        textBackground = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT_B);
         setStatausBarColor();
         setSwiptLyaoutColor();
         setEditColor();
@@ -287,6 +305,16 @@ public class CommentActivity extends
     }
 
     @Override
+    public void deleteFinish(Exception e) {
+        if (e != null) {
+            showLightError(ResUtils.getResString(this, R.string.msg_delete_error));
+        } else {
+            showLightError(ResUtils.getResString(this, R.string.msg_delete_success));
+            mSwipeRefreshLayout.autoRefresh();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
@@ -300,5 +328,15 @@ public class CommentActivity extends
         super.onDestroy();
         SkinManager.getInstance().unregister(this);
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (reply != null) {
+            reply = null;
+            resetEditText();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

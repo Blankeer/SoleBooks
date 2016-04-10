@@ -1,5 +1,7 @@
 package com.blanke.solebook.core.comment.persenter;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.DeleteCallback;
 import com.blanke.solebook.bean.Book;
 import com.blanke.solebook.bean.BookComment;
 import com.blanke.solebook.bean.SoleUser;
@@ -30,9 +32,21 @@ public class CommentPersenterImpl extends CommentPersenter {
         if (user == null || user.isAnonymous()) {
             return;
         }
-        RxBookComment.sendBookComment(book,reply,content, user)
+        RxBookComment.sendBookComment(book, reply, content, user)
                 .subscribe(bookComments -> getView().sendSuccess()
                         , this::onFail);
+    }
+
+    @Override
+    public void deleteComment(BookComment bookComment) {
+        bookComment.deleteInBackground(new DeleteCallback() {
+            @Override
+            public void done(AVException e) {
+                if (getView() != null) {
+                    getView().deleteFinish(e);
+                }
+            }
+        });
     }
 
     @Override

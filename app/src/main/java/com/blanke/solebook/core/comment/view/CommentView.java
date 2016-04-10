@@ -12,4 +12,6 @@ public interface CommentView extends MvpLceView<List<BookComment>> {
     public void showMsg(String msg);
 
     public void sendSuccess();
+
+    public void deleteFinish(Exception e);
 }

@@ -14,5 +14,7 @@ public abstract class CommentPersenter extends BaseRxPresenter<CommentView, List
 
     abstract public void getBookCommentData(Book book, boolean pullToRefresh, int skip, int limit);
 
-    abstract public void sendBookComment(Book book, BookComment reply,String content);
+    abstract public void sendBookComment(Book book, BookComment reply, String content);
+
+    abstract public void deleteComment(BookComment bookComment);
 }
