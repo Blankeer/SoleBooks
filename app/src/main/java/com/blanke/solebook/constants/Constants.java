@@ -49,6 +49,7 @@ public class Constants {
     public static final String RES_COLOR_TEXT_H = "text_color_hight";
     public static final String RES_COLOR_TEXT_B = "text_background";
     public static final int NEAR_FRIEND_SIZE = 10;
+    public static final int TRY_LOCAL_COUNT=3;//定位失败重试3次
 
     public static String getSinaIconUrl(String uid) {
         return "http://tp1.sinaimg.cn/" + uid + "/180/0/1";

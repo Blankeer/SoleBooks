@@ -231,10 +231,18 @@ public class NearMapFragment extends BaseColumnFragment<LinearLayout, List<SoleU
         showLoading(false);
         localManager.start(new LocalManager.CallBack() {
             @Override
-            public void finish(AMapLocation location) {
+            public void onSuccess(AMapLocation location) {
                 listener.onLocationChanged(location);
                 NearMapFragment.this.location = new AVGeoPoint(location.getLatitude(), location.getLongitude());
                 loadData(false);
+            }
+
+            @Override
+            public void onError(String msg) {
+                showLightError(msg);
+                errorView.setText(msg);
+                animateErrorViewIn();
+                isFirstNetworkFinish=false;
             }
         });
     }

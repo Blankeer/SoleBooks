@@ -6,6 +6,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.blanke.solebook.constants.Constants;
 import com.socks.library.KLog;
 
 /**
@@ -16,6 +17,7 @@ public class LocalManager {
     public AMapLocationClient mLocationClient = null;
     private Context context;
     public AMapLocationClientOption mLocationOption = null;
+    private int count = 0;//定位次数,重试N次
 
     public LocalManager(Context context) {
         this.context = context.getApplicationContext();
@@ -46,15 +48,21 @@ public class LocalManager {
                 if (aMapLocation != null) {
                     if (aMapLocation.getErrorCode() == 0) {
                         KLog.d("amap success:" + aMapLocation.toString());
-                        callBack.finish(aMapLocation);
+                        callBack.onSuccess(aMapLocation);
+                        count = 0;
                     } else {
+                        count++;
                         KLog.d("amap error:" + aMapLocation.getErrorCode() + "," + aMapLocation.getErrorInfo());
-                        mLocationClient.startLocation();
+                        if (count == Constants.TRY_LOCAL_COUNT) {
+                            count = 0;
+                            callBack.onError(aMapLocation.getErrorInfo());
+                        } else {
+                            mLocationClient.startLocation();
+                        }
                     }
                 }
             }
         });
-
         mLocationClient.startLocation();
     }
 
@@ -64,6 +72,8 @@ public class LocalManager {
     }
 
     public interface CallBack {
-        void finish(AMapLocation location);
+        void onSuccess(AMapLocation location);
+
+        void onError(String msg);
     }
 }

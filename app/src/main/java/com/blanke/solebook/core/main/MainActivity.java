@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVGeoPoint;
@@ -290,14 +291,22 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
             return;
         }
         localManager = new LocalManager(this);
-        localManager.start(location -> {
-            AVGeoPoint point = new AVGeoPoint(location.getLatitude(), location.getLongitude());
-            String city = location.getCity();
-            String district = location.getDistrict();
-            currentUser.setCity(city);
-            currentUser.setDistrict(district);
-            currentUser.setLocation(point);
-            currentUser.saveInBackground();
+        localManager.start(new LocalManager.CallBack() {
+            @Override
+            public void onSuccess(AMapLocation location) {
+                AVGeoPoint point = new AVGeoPoint(location.getLatitude(), location.getLongitude());
+                String city = location.getCity();
+                String district = location.getDistrict();
+                currentUser.setCity(city);
+                currentUser.setDistrict(district);
+                currentUser.setLocation(point);
+                currentUser.saveInBackground();
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
         });
     }
 
