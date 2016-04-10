@@ -12,6 +12,7 @@ import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseActivity;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.core.main.MainActivity_;
+import com.blanke.solebook.utils.ResUtils;
 import com.blanke.solebook.utils.SnackUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
 import com.socks.library.KLog;
@@ -91,15 +92,14 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         loadView.setVisibility(!isshow ? View.GONE : View.VISIBLE);
     }
 
-    private void onError(Throwable throwable) {
-        KLog.d(throwable.getMessage());
-        SnackUtils.show(getWindow().getDecorView(), throwable.getMessage());
+    private void onError(String msg) {
+        SnackUtils.show(loadView, msg);
         loading(false);
     }
 
     private void onNext(SoleUser soleUser) {
         KLog.json(soleUser.toString());
-        SnackUtils.show(getWindow().getDecorView(), soleUser.toString());
+        //SnackUtils.show(getWindow().getDecorView(), soleUser.toString());
         jumpMain();
     }
 
@@ -107,12 +107,6 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         MainActivity_.intent(this).start();
         this.finish();
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        SNS.onActivityResult(requestCode, resultCode, data, type);
-//    }
 
     @Override
     public void onComplete(Platform plat, int i, HashMap<String, Object> hashMap) {
@@ -142,7 +136,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                     });
                 } else {
                     e.printStackTrace();
-                    onError(e);
+                    onError(e.getMessage());
                 }
             }
         });
@@ -150,11 +144,11 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
 
     @Override
     public void onError(Platform platform, int i, Throwable throwable) {
-
+        onError(throwable.getMessage());
     }
 
     @Override
     public void onCancel(Platform platform, int i) {
-
+        onError(ResUtils.getResString(this, R.string.msg_login_cancel));
     }
 }

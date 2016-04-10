@@ -69,4 +69,5 @@
     <string name="title_me">我</string>
     <string name="share">分享</string>
     <string name="app_url">http://sole.leanapp.cn/</string>
+    <string name="msg_login_cancel">登陆被取消</string>
 </resources>
