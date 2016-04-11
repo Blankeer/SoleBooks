@@ -60,7 +60,7 @@ repositories {
 dependencies {
     compile(name: 'neuRefresh', ext: 'aar')
     compile(name: 'circualreveal-release', ext: 'aar')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:23.2.1'
     compile 'com.android.support:appcompat-v7:23.2.1'
@@ -106,4 +106,6 @@ dependencies {
     compile 'com.zhy:changeskin:4.0.2'
     compile 'org.simple:androideventbus:1.0.5.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.veinhorn.tagview:library:1.0.4'
+    compile 'com.wefika:flowlayout:0.4.1'
 }

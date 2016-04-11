@@ -72,4 +72,5 @@
     <string name="msg_login_cancel">登陆被取消</string>
     <string name="msg_delete_error">删除失败</string>
     <string name="msg_delete_success">删除成功</string>
+    <string name="title_tags">标签</string>
 </resources>

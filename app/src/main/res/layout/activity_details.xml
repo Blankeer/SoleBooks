@@ -288,6 +288,21 @@
                     android:tintMode="src_in" />
             </com.ms.square.android.expandabletextview.ExpandableTextView>
 
+            <TextView
+                style="@style/details_text_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_tags"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
+            <com.wefika.flowlayout.FlowLayout
+                android:id="@+id/activity_details_taglayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+            </com.wefika.flowlayout.FlowLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

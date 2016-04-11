@@ -30,6 +30,7 @@ import com.blanke.solebook.core.comment.CommentActivity_;
 import com.blanke.solebook.core.details.persenter.DetailsPersenter;
 import com.blanke.solebook.core.details.persenter.DetailsPersenterImpl;
 import com.blanke.solebook.core.details.view.DetailsView;
+import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.utils.AnimUtils;
 import com.blanke.solebook.utils.BitmapUtils;
 import com.blanke.solebook.utils.DialogUtils;
@@ -40,8 +41,9 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.veinhorn.tagview.TagView;
+import com.wefika.flowlayout.FlowLayout;
 import com.zhy.changeskin.SkinManager;
 
 import net.qiujuer.genius.blur.StackBlur;
@@ -80,6 +82,8 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     LikeButton mLikeButton;
     @ViewById(R.id.activity_details_coordlayout)
     CoordinatorLayout mCoordinatorLayout;
+    @ViewById(R.id.activity_details_taglayout)
+    FlowLayout mTagsLayout;
 
     private DetailsPersenter mPersenter;
     @Extra
@@ -129,36 +133,36 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
         EventBus.getDefault().register(this);
         StatusBarCompat.translucentStatusBar(this);
         applyTheme(null);
-//        if (SystemUiUtils.checkDeviceHasNavigationBar(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//判断是否有navigationbar
-//            mCoordinatorLayout.setPadding(0, 0, 0, SystemUiUtils.getNavigationBarHeight(this));
-//        }
         mCollapsingToolbarLayout.setTitle(book.getTitle());
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
         mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.Toolbar_expanded_text);//展开后的字体大小等
-
-        ImageLoader.getInstance().displayImage(book.getImgL(), mIcon, Constants.getImageOptions(), new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String s, View view) {
-
+        View.OnClickListener tagListener = v -> {
+            if (v instanceof TextView) {
+                String text = ((TextView) v).getText().toString().trim();
+                SearchResActivity_.intent(DetailsActivity.this).key(text).start();
             }
-
-            @Override
-            public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-            }
-
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-            @Override
-            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                onImageComplete(bitmap);
-            }
-
-            @Override
-            public void onLoadingCancelled(String s, View view) {
-
-            }
-        });
+        };
+        for (String tag : book.getTags()) {
+            TagView tagView = new TagView(this, null);
+            tagView.setTagType(TagView.CLASSIC);
+            tagView.setTagColor(ResUtils.getResColor(this, R.color.colorAccent));
+            FlowLayout.LayoutParams params = new FlowLayout.LayoutParams
+                    (FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(10, 10, 10, 10);
+            tagView.setLayoutParams(params);
+            tagView.setText(tag);
+            tagView.setOnClickListener(tagListener);
+            mTagsLayout.addView(tagView);
+        }
+        ImageLoader.getInstance().displayImage(book.getImgL(), mIcon, Constants.getImageOptions()
+                , new SimpleImageLoadingListener() {
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        super.onLoadingComplete(imageUri, view, loadedImage);
+                        onImageComplete(loadedImage);
+                    }
+                });
         activity_details_text_author.setText(book.getAuthor());
         activity_details_text_publisher.setText(book.getPublisher());
         activity_details_text_pubdate.setText(book.getPubdate());
