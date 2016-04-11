@@ -300,7 +300,7 @@
                 android:id="@+id/activity_details_taglayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="left">
 
             </com.wefika.flowlayout.FlowLayout>
         </LinearLayout>
