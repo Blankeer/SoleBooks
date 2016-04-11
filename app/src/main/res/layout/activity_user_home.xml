@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:elevation="@dimen/toolbar_elevation"
             android:theme="@style/TabLayout"
+            app:tabBackground="@color/colorAccent"
             app:tabIndicatorColor="@android:color/white"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextColor="#aaffffff" />

@@ -36,6 +36,7 @@ import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.core.column.ColumnFragment;
 import com.blanke.solebook.core.feedback.FeedActivity;
+import com.blanke.solebook.core.login.LoginActivity_;
 import com.blanke.solebook.core.main.persenter.MainPersenter;
 import com.blanke.solebook.core.main.persenter.MainPersenterImpl;
 import com.blanke.solebook.core.main.view.MainView;
@@ -98,6 +99,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     private FeedbackAgent agent;
     private Snackbar backPressSnackbar;//两次按下返回退出
     private LocalManager localManager;
+    private View mLogout;
 
     @AfterViews
     void init() {
@@ -206,6 +208,13 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                 mTvNickName = (TextView) navigationView.findViewById(R.id.nav_nickname);
                 mImageIcon = (ImageView) navigationView.findViewById(R.id.nav_icon);
                 navLayout = navigationView.findViewById(R.id.nav_head_layout);
+                mLogout = navigationView.findViewById(R.id.nav_logout);
+                mLogout.setVisibility(View.VISIBLE);
+                mLogout.setOnClickListener(v -> {
+                    SoleUser.logOut();
+                    LoginActivity_.intent(this).start();
+                    finish();
+                });
                 String nick = currentUser.getNickname();
                 mTvNickName.setText(nick == null ? "" : nick);
                 ImageLoader.getInstance().displayImage(currentUser.getIconurl(), mImageIcon, Constants.getImageOptions(), new SimpleImageLoadingListener() {

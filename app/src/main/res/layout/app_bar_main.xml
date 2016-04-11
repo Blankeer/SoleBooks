@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main_coordlayout"
     android:layout_width="match_parent"
-    android:background="@color/window_background"
-    android:tag="skin:window_background:background"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false">
+    android:background="@color/window_background"
+    android:fitsSystemWindows="false"
+    android:tag="skin:window_background:background">
 
 
     <android.support.design.widget.AppBarLayout
@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        android:elevation="@dimen/m_elevation"
         android:padding="20dp"
         android:src="@mipmap/arrow"
         app:fab_colorNormal="@color/fab_background"

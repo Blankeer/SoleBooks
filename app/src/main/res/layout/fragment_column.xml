@@ -14,10 +14,9 @@
             android:id="@+id/fragment_column_tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/toolbar_elevation"
+            android:background="@color/tablayout_background"
             android:tag="skin:tablayout_background:background"
             android:theme="@style/TabLayout"
-            android:background="@color/tablayout_background"
             app:tabIndicatorColor="@android:color/white"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextColor="#aaffffff" />

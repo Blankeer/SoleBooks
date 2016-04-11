@@ -29,7 +29,7 @@
     <color name="fab_press_night">@color/colorNightMore</color>
     <color name="load_background">@color/window_background</color>
     <color name="load_background_night">@color/colorNight</color>
-    <color name="text_background">#D7DBDC</color>
+    <color name="text_background">#FFF</color>
     <color name="text_background_night">@color/card_night</color>
     <color name="text_color">#000</color>
     <color name="text_color_night">#959C9E</color>
