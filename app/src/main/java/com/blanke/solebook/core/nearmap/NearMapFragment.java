@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.amap.api.location.AMapLocation;
@@ -31,7 +30,6 @@ import com.blanke.solebook.core.nearmap.view.NearMapView;
 import com.blanke.solebook.core.userhome.UserHomeActivity;
 import com.blanke.solebook.manager.LocalManager;
 import com.blanke.solebook.utils.ResUtils;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -183,11 +181,12 @@ public class NearMapFragment extends BaseColumnFragment<LinearLayout, List<SoleU
                 title = ResUtils.getResString(getActivity(), R.string.title_me);
             }
             local = u.getLocation();
-            imageView = new CircleImageView(getContext());
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(50, 50));
-            ImageLoader.getInstance().displayImage(u.getIconurl(), imageView, Constants.getImageOptions());
+//            imageView = new CircleImageView(getContext());
+//            imageView.setLayoutParams(new ViewGroup.LayoutParams(100, 100));
+//            ImageLoader.getInstance().displayImage(u.getIconurl(), imageView,
+//                    Constants.getImageOptions());
             latLng = addMapMarks(local.getLatitude(), local.getLongitude(),
-                    title, subtitle, imageView);
+                    title, subtitle, null);
             latLngs.add(latLng);
             boundBuilder.include(latLng);
         }
