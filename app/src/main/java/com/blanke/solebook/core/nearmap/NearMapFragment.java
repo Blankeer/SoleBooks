@@ -179,7 +179,7 @@ public class NearMapFragment extends BaseColumnFragment<LinearLayout, List<SoleU
         for (SoleUser u : data) {
             title = u.getNickname();
             subtitle = u.getCity() + u.getDistrict();
-            if (u.getObjectId().equals(user.getObjectId())) {//自己
+            if (user != null && u.getObjectId().equals(user.getObjectId())) {//自己
                 title = ResUtils.getResString(getActivity(), R.string.title_me);
             }
             local = u.getLocation();
@@ -199,7 +199,7 @@ public class NearMapFragment extends BaseColumnFragment<LinearLayout, List<SoleU
                 LatLng l = marker.getPosition();
                 SoleUser u = data.get(latLngs.indexOf(l));
                 UserHomeActivity.start(getActivity(), null, u);
-                return true;
+                return false;
             }
         });
     }
@@ -219,9 +219,9 @@ public class NearMapFragment extends BaseColumnFragment<LinearLayout, List<SoleU
     @Override
     public void loadData(boolean pullToRefresh) {
         user = SoleUser.getCurrentUser(SoleUser.class);
-        if (user == null || user.isAnonymous()) {
-            return;
-        }
+//        if (user == null || user.isAnonymous()) {
+//            return;
+//        }
         mPersenter.getNearFriend(pullToRefresh, location, Constants.NEAR_FRIEND_SIZE);
     }
 
@@ -241,7 +241,7 @@ public class NearMapFragment extends BaseColumnFragment<LinearLayout, List<SoleU
             public void onError(String msg) {
                 errorView.setText(msg);
                 animateErrorViewIn();
-                isFirstNetworkFinish=false;
+                isFirstNetworkFinish = false;
             }
         });
     }
