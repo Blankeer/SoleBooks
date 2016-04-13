@@ -29,15 +29,6 @@
             android:value="f9cdbd1908967274c3d64e34753487f8" />
 
         <activity
-            android:name=".core.welcome.WelcomeActivity_"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".core.main.MainActivity_"
             android:configChanges="orientation|keyboard|keyboardHidden|navigation|screenSize"
             android:label="@string/app_name"
@@ -88,7 +79,13 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".core.login.LoginActivity_" />
+        <activity android:name=".core.login.LoginActivity_">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".core.details.DetailsActivity_"
             android:theme="@style/SwipeBackTheme" />

@@ -1,6 +1,7 @@
 package com.blanke.solebook.app;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVCloud;
@@ -32,6 +33,13 @@ public class SoleApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+    }
+
+    public static SoleApplication getApplication(Context context) {
+        return (SoleApplication) context.getApplicationContext();
+    }
+
+    public void init() {
         initAvos();
         initUM();
         initImageLoader();

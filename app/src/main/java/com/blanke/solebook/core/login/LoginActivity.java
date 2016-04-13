@@ -9,6 +9,7 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.blanke.solebook.R;
+import com.blanke.solebook.app.SoleApplication;
 import com.blanke.solebook.base.BaseActivity;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.core.main.MainActivity_;
@@ -21,7 +22,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -41,22 +41,25 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     View contentView;
     @ViewById(R.id.loadingView)
     View loadView;
-    private String type;
+    @ViewById(R.id.activity_login_bu_sina)
+    View mSinaBt;
+    @ViewById(R.id.activity_login_bu_qq)
+    View mQQBt;
 
-    JSONObject authorData = null;
+    private String type;
 
     @AfterViews
     public void init() {
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorAccent));
+        SoleApplication.getApplication(this).init();
+        mSinaBt.setVisibility(View.VISIBLE);
+        mQQBt.setVisibility(View.VISIBLE);
     }
 
     @Click(R.id.activity_login_bu_sina)
     void loginSina() {
         loading(true);
         type = AVUser.AVThirdPartyUserAuth.SNS_SINA_WEIBO;
-//        RxSNS.snsLogin(this, type, Constants.APPID_SINA,
-//                Constants.APPSEC_SINA, Constants.REDIRECTURL_SINA)
-//                .subscribe(this::onNext, this::onError);
         Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
         weibo.SSOSetting(false);  //设置false表示使用SSO授权方式
         weibo.setPlatformActionListener(this); // 设置分享事件回调
@@ -67,9 +70,6 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     void loginQQ() {
         loading(true);
         type = AVUser.AVThirdPartyUserAuth.SNS_TENCENT_WEIBO;
-//        RxSNS.snsLogin(this, type, Constants.APPID_QQ,
-//                Constants.APPSEC_QQ, Constants.REDIRECTURL_QQ)
-//                .subscribe(this::onNext, this::onError);
         Platform qq = ShareSDK.getPlatform(QQ.NAME);
         qq.SSOSetting(false);  //设置false表示使用SSO授权方式
         qq.setPlatformActionListener(this); // 设置分享事件回调
