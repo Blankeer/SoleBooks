@@ -102,7 +102,7 @@ public class UserHomeActivity extends BaseSwipeBackActivity {
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
         mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.Toolbar_expanded_text);//展开后的字体大小等
-//        mTextLocation.setText("武汉");
+        mTextLocation.setText(SoleUser.getCity(user));
         ImageLoader.getInstance().displayImage(SoleUser.getIconurl(user), mIcon,
                 Constants.getImageOptions(), new SimpleImageLoadingListener() {
                     @Override

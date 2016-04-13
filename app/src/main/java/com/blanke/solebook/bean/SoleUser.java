@@ -24,6 +24,10 @@ public class SoleUser extends AVUser {
         return user.getString(NICKNAME);
     }
 
+    public static String getCity(AVUser user) {
+        return user.getString(CITY);
+    }
+
     public void setNickname(String nickname) {
         put(NICKNAME, nickname);
     }
