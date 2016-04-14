@@ -50,6 +50,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
 
     @AfterViews
     public void init() {
+        KLog.d("111111111111111111");
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorAccent));
         SoleApplication.getApplication(this).init();
         mSinaBt.setVisibility(View.VISIBLE);
