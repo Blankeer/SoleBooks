@@ -27,6 +27,9 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="f9cdbd1908967274c3d64e34753487f8" />
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5700f53f67e58e999c0026a0 "></meta-data>
 
         <activity
             android:name=".core.main.MainActivity_"

@@ -40,15 +40,14 @@ public class SoleApplication extends Application {
     }
 
     public void init() {
-        initAvos();
         initUM();
+        initAvos();
         initImageLoader();
         initSkin();
         ShareSDK.initSDK(this);
     }
 
     private void initUM() {
-        AnalyticsConfig.setAppkey(this, Constants.APPKEY_UM);
         AnalyticsConfig.setChannel("test");
         AnalyticsConfig.enableEncrypt(true);
     }
