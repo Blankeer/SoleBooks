@@ -1,5 +1,6 @@
 package com.blanke.solebook.core.login;
 
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -49,18 +50,26 @@ public class LoginActivity extends AppCompatActivity implements PlatformActionLi
     @ViewById(R.id.activity_login_layout_login)
     View mLoginBtLayout;
 
-
     private String type;
+    private long lessTime = 2000, temp;
 
     @AfterViews
     public void init() {
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorAccent));
+        temp = SystemClock.currentThreadTimeMillis();
         SoleApplication.getApplication(this).init();
+        temp = SystemClock.currentThreadTimeMillis() - temp;
 //        mSinaBt.setVisibility(View.VISIBLE);
 //        mQQBt.setVisibility(View.VISIBLE);
 //        AnimUtils.loginShow(mSinaBt);
 //        AnimUtils.loginShow(mQQBt);
-        AnimUtils.loginShow(mLoginBtLayout);
+        mQQBt.postDelayed(() -> {
+//            AnimUtils.loginShow(mLoginBtLa
+            AnimUtils.loginShow(mSinaBt);
+            AnimUtils.loginShow(mQQBt);
+
+
+        }, temp > lessTime ? 0 : lessTime - temp);
     }
 
     @Click(R.id.activity_login_bu_sina)

@@ -10,7 +10,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewPropertyAnimator;
 
 /**
  * Created by Blanke on 16-3-31.
@@ -126,18 +125,18 @@ public class AnimUtils {
     public static void loginShow(View v) {
         v.clearAnimation();
         v.setVisibility(View.VISIBLE);
-//        v.setScaleX(0.1F);
-//        v.setScaleY(0.1F);
-//        AnimatorSet set = new AnimatorSet();
-//        ObjectAnimator anim4 = getScaleXAnim(v, 0.1F, 1F, Constants.ANIM_DURATION_MIND);
-//        ObjectAnimator anim5 = getScaleYAnim(v, 0.1F, 1F, Constants.ANIM_DURATION_MIND);
-//        set.play(anim4).with(anim5);
-//        anim4.setInterpolator(new OvershootInterpolator(3.0F));
-//        anim5.setInterpolator(new OvershootInterpolator(3.0F));
-//        set.start();
-        ViewPropertyAnimator.animate(v)
-                .alpha(1F)
-                .setDuration(Constants.ANIM_DURATION_LONG).start();
+        v.setScaleX(0.1F);
+        v.setScaleY(0.1F);
+        AnimatorSet set = new AnimatorSet();
+        ObjectAnimator anim4 = getScaleXAnim(v, 0.1F, 1F, Constants.ANIM_DURATION_MIND);
+        ObjectAnimator anim5 = getScaleYAnim(v, 0.1F, 1F, Constants.ANIM_DURATION_MIND);
+        set.play(anim4).with(anim5);
+        anim4.setInterpolator(new OvershootInterpolator(3.0F));
+        anim5.setInterpolator(new OvershootInterpolator(3.0F));
+        set.start();
+//        ViewPropertyAnimator.animate(v)
+//                .alpha(1F)
+//                .setDuration(Constants.ANIM_DURATION_LONG).start();
     }
 
     public interface CallBack {
