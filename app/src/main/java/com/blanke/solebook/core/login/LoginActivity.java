@@ -58,6 +58,8 @@ public class LoginActivity extends AppCompatActivity implements PlatformActionLi
         SoleApplication.getApplication(this).init();
 //        mSinaBt.setVisibility(View.VISIBLE);
 //        mQQBt.setVisibility(View.VISIBLE);
+//        AnimUtils.loginShow(mSinaBt);
+//        AnimUtils.loginShow(mQQBt);
         AnimUtils.loginShow(mLoginBtLayout);
     }
 

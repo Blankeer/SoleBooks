@@ -33,10 +33,11 @@
             android:id="@+id/activity_login_layout_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:alpha="0"
             android:background="@color/transparent"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/activity_login_bu_sina"
