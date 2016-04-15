@@ -2,6 +2,7 @@ package com.blanke.solebook.utils;
 
 
 import android.view.View;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 
@@ -10,6 +11,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewPropertyAnimator;
 
 /**
  * Created by Blanke on 16-3-31.
@@ -120,6 +122,17 @@ public class AnimUtils {
         anim4.setInterpolator(new OvershootInterpolator(2.0F));
         anim5.setInterpolator(new OvershootInterpolator(2.0F));
         set.start();
+    }
+
+    public static void loginShow(View v) {
+        v.clearAnimation();
+        float t = 1000;
+        v.setTranslationY(-t);
+        v.setVisibility(View.VISIBLE);
+        ViewPropertyAnimator.animate(v)
+                .translationYBy(t).setDuration(Constants.ANIM_DURATION_LONG * 2)
+                .setInterpolator(new BounceInterpolator())
+                .start();
     }
 
     public interface CallBack {

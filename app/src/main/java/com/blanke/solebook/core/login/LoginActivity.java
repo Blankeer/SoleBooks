@@ -13,6 +13,7 @@ import com.blanke.solebook.R;
 import com.blanke.solebook.app.SoleApplication;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.core.main.MainActivity_;
+import com.blanke.solebook.utils.AnimUtils;
 import com.blanke.solebook.utils.ResUtils;
 import com.blanke.solebook.utils.SnackUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
@@ -45,16 +46,19 @@ public class LoginActivity extends AppCompatActivity implements PlatformActionLi
     View mSinaBt;
     @ViewById(R.id.activity_login_bu_qq)
     View mQQBt;
+    @ViewById(R.id.activity_login_layout_login)
+    View mLoginBtLayout;
+
 
     private String type;
 
     @AfterViews
     public void init() {
-        KLog.d("111111111111111111");
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorAccent));
         SoleApplication.getApplication(this).init();
-        mSinaBt.setVisibility(View.VISIBLE);
-        mQQBt.setVisibility(View.VISIBLE);
+//        mSinaBt.setVisibility(View.VISIBLE);
+//        mQQBt.setVisibility(View.VISIBLE);
+        AnimUtils.loginShow(mLoginBtLayout);
     }
 
     @Click(R.id.activity_login_bu_sina)
