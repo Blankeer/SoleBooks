@@ -59,16 +59,9 @@ public class LoginActivity extends AppCompatActivity implements PlatformActionLi
         temp = SystemClock.currentThreadTimeMillis();
         SoleApplication.getApplication(this).init();
         temp = SystemClock.currentThreadTimeMillis() - temp;
-//        mSinaBt.setVisibility(View.VISIBLE);
-//        mQQBt.setVisibility(View.VISIBLE);
-//        AnimUtils.loginShow(mSinaBt);
-//        AnimUtils.loginShow(mQQBt);
         mQQBt.postDelayed(() -> {
-//            AnimUtils.loginShow(mLoginBtLa
             AnimUtils.loginShow(mSinaBt);
             AnimUtils.loginShow(mQQBt);
-
-
         }, temp > lessTime ? 0 : lessTime - temp);
     }
 

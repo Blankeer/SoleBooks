@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/svg_logo">
+    <target
+        android:name="svg_logo_step1"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step2"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step3"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step4"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step5"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step6"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step7"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step8"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step9"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step10"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step11"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step12"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step13"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step14"
+        android:animation="@anim/svg_logo_anim" />
+    <target
+        android:name="svg_logo_step15"
+        android:animation="@anim/svg_logo_anim" />
+
+</animated-vector>
