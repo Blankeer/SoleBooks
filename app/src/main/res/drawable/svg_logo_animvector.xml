@@ -25,26 +25,4 @@
     <target
         android:name="svg_logo_step8"
         android:animation="@anim/svg_logo_anim" />
-    <target
-        android:name="svg_logo_step9"
-        android:animation="@anim/svg_logo_anim" />
-    <target
-        android:name="svg_logo_step10"
-        android:animation="@anim/svg_logo_anim" />
-    <target
-        android:name="svg_logo_step11"
-        android:animation="@anim/svg_logo_anim" />
-    <target
-        android:name="svg_logo_step12"
-        android:animation="@anim/svg_logo_anim" />
-    <target
-        android:name="svg_logo_step13"
-        android:animation="@anim/svg_logo_anim" />
-    <target
-        android:name="svg_logo_step14"
-        android:animation="@anim/svg_logo_anim" />
-    <target
-        android:name="svg_logo_step15"
-        android:animation="@anim/svg_logo_anim" />
-
 </animated-vector>

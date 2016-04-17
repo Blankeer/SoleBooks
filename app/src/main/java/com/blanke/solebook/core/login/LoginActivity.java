@@ -1,8 +1,11 @@
 package com.blanke.solebook.core.login;
 
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.avos.avoscloud.AVAnonymousUtils;
 import com.avos.avoscloud.AVException;
@@ -49,6 +52,8 @@ public class LoginActivity extends AppCompatActivity implements PlatformActionLi
     View mQQBt;
     @ViewById(R.id.activity_login_layout_login)
     View mLoginBtLayout;
+    @ViewById(R.id.activity_login_icon)
+    ImageView mLogoIcon;
 
     private String type;
     private long lessTime = 2000, temp;
@@ -63,6 +68,15 @@ public class LoginActivity extends AppCompatActivity implements PlatformActionLi
             AnimUtils.loginShow(mSinaBt);
             AnimUtils.loginShow(mQQBt);
         }, temp > lessTime ? 0 : lessTime - temp);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Drawable drawable = mLogoIcon.getDrawable();
+        if (drawable instanceof Animatable) {
+            ((Animatable) drawable).start();
+        }
     }
 
     @Click(R.id.activity_login_bu_sina)
