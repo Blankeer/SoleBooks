@@ -5,7 +5,7 @@
     <color name="colorPrimaryDark">@color/accent_material_dark</color>
     <color name="colorAccent">#559688</color>
     <color name="alpha_80_black">#CC000000</color>
-    <color name="svg_logo_color">@color/colorAccent</color>
+    <color name="svg_logo_color">#fff</color>
     <color name="transparent">#00000000</color>
     <color name="color_divideline">#ddd</color>
     <color name="color_divideline_night">#4F5D65</color>
