@@ -290,7 +290,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     }
 
     private void setStatusBarColor() {
-        int c = SkinManager.getInstance().getResourceManager().getColor("statusbar_background");
+        int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_STATUSBAR);
         StatusBarCompat.setStatusBarColorByDrawerLayout(this, drawer, c);
     }
 

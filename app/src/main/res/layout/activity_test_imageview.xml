@@ -12,6 +12,5 @@
         android:layout_centerInParent="true"
         android:background="#44ff0000"
         android:scaleType="centerCrop"
-        android:src="@drawable/load"
         app:holdHeight="true" />
 </RelativeLayout>

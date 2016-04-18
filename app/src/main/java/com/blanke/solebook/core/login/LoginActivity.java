@@ -1,6 +1,8 @@
 package com.blanke.solebook.core.login;
 
+import android.graphics.Color;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +37,7 @@ import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 /**
  * Created by blanke on 16-2-21.
@@ -45,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements PlatformActionLi
     @ViewById(R.id.contentView)
     View contentView;
     @ViewById(R.id.loadingView)
-    View loadView;
+    MaterialProgressBar loadView;
     @ViewById(R.id.activity_login_bu_sina)
     View mSinaBt;
     @ViewById(R.id.activity_login_bu_qq)
@@ -64,10 +67,9 @@ public class LoginActivity extends AppCompatActivity implements PlatformActionLi
         temp = SystemClock.currentThreadTimeMillis();
         SoleApplication.getApplication(this).init();
         temp = SystemClock.currentThreadTimeMillis() - temp;
-        mQQBt.postDelayed(() -> {
-            AnimUtils.loginShow(mSinaBt);
-            AnimUtils.loginShow(mQQBt);
-        }, temp > lessTime ? 0 : lessTime - temp);
+        loadView.setProgressDrawable(new ColorDrawable(Color.WHITE));
+        mQQBt.postDelayed(() -> exexuteLogin(),
+                temp > lessTime ? 0 : lessTime - temp);
     }
 
     @Override
@@ -77,6 +79,19 @@ public class LoginActivity extends AppCompatActivity implements PlatformActionLi
         if (drawable instanceof Animatable) {
             ((Animatable) drawable).start();
         }
+    }
+
+    private void exexuteLogin() {
+        if (isLogin()) {
+            jumpMain();
+        } else {
+            AnimUtils.loginShow(mSinaBt);
+            AnimUtils.loginShow(mQQBt);
+        }
+    }
+
+    private boolean isLogin() {
+        return SoleUser.getCurrentUser() != null;
     }
 
     @Click(R.id.activity_login_bu_sina)

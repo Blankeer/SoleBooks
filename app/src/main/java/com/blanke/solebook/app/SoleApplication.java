@@ -17,10 +17,11 @@ import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.bean.Tag;
 import com.blanke.solebook.bean.UserBookLike;
 import com.blanke.solebook.constants.Constants;
-import com.blanke.solebook.core.welcome.WelcomeActivity_;
+import com.blanke.solebook.core.login.LoginActivity_;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.socks.library.KLog;
 import com.umeng.analytics.AnalyticsConfig;
 import com.zhy.changeskin.SkinManager;
 
@@ -64,10 +65,11 @@ public class SoleApplication extends Application {
         AVAnalytics.setAppChannel("test");
         AVOSCloud.initialize(this, Constants.APPID_AVOS, Constants.APPKEY_AVOS);
         AVInstallation.getCurrentInstallation().saveInBackground();
-        PushService.setDefaultPushCallback(this, WelcomeActivity_.class);
+        PushService.setDefaultPushCallback(this, LoginActivity_.class);
     }
 
     private void initSkin() {
+        KLog.d();
         SkinManager.getInstance().init(this);
     }
 
