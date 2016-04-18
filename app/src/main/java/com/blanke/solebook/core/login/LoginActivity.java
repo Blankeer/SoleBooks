@@ -1,8 +1,8 @@
 package com.blanke.solebook.core.login;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Animatable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements PlatformActionLi
         temp = SystemClock.currentThreadTimeMillis();
         SoleApplication.getApplication(this).init();
         temp = SystemClock.currentThreadTimeMillis() - temp;
-        loadView.setProgressDrawable(new ColorDrawable(Color.WHITE));
+        loadView.setProgressTintList(ColorStateList.valueOf(Color.WHITE));
         mQQBt.postDelayed(() -> exexuteLogin(),
                 temp > lessTime ? 0 : lessTime - temp);
     }

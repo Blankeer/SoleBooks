@@ -54,6 +54,7 @@ public class SoleApplication extends Application {
     }
 
     private void initAvos() {
+        KLog.d();
         AVUser.alwaysUseSubUserClass(SoleUser.class);
         AVObject.registerSubclass(Book.class);
         AVObject.registerSubclass(Tag.class);
