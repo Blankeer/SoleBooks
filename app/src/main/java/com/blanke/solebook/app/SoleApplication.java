@@ -35,7 +35,7 @@ public class SoleApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        MultiDex.install(this);
+        MultiDex.install(this);//65535 error
     }
 
     public static SoleApplication getApplication(Context context) {

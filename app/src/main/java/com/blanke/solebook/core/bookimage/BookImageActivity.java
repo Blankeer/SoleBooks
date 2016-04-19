@@ -2,7 +2,6 @@ package com.blanke.solebook.core.bookimage;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -10,27 +9,22 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.blanke.solebook.R;
 import com.blanke.solebook.base.BaseActivity;
 import com.blanke.solebook.constants.Constants;
 import com.blanke.solebook.utils.BitmapUtils;
-import com.blanke.solebook.utils.ResUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-
-import java.lang.ref.WeakReference;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -72,78 +66,42 @@ public class BookImageActivity extends BaseActivity {
         bookName = bundle.getString(ARG_NAME_BOOKNAME);
     }
 
+    private void saveImage(String fileName) {
+        BitmapUtils.savaImage(this, bitmap, fileName)
+                .subscribe(aBoolean -> {
+                    if (mImageView != null) {
+                        Snackbar.make(mImageView, aBoolean ? R.string.msg_down_img_ok : R.string.msg_down_img_error, Snackbar.LENGTH_SHORT)
+                                .show();
+                    }
+                });
+    }
+
     @AfterViews
     public void init() {
-        ImageLoader.getInstance().displayImage(url, mImageView, Constants.getImageOptions(), new ImageLoadingListener() {
+        ImageLoader.getInstance().displayImage(url, mImageView, Constants.getImageOptions(), new SimpleImageLoadingListener() {
             @Override
-            public void onLoadingStarted(String s, View view) {
-
-            }
-
-            @Override
-            public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-            }
-
-            @Override
-            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                BookImageActivity.this.bitmap = bitmap;
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mImageView.getLayoutParams();
-                params.width = RelativeLayout.LayoutParams.MATCH_PARENT;
-                params.height = params.width;
-                mImageView.setLayoutParams(params);
-            }
-
-            @Override
-            public void onLoadingCancelled(String s, View view) {
-
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                super.onLoadingComplete(imageUri, view, loadedImage);
+                onBitmapComplete(loadedImage);
             }
         });
         PhotoViewAttacher mAttacher = new PhotoViewAttacher(mImageView);
         mAttacher.setOnLongClickListener(v -> {
-            new MsgDialog(bitmap, mImageView, bookName, ResUtils.getResString(BookImageActivity.this, R.string.msg_down_img))
-                    .show(getSupportFragmentManager(), "dialog");
+            new MaterialDialog.Builder(this).content(R.string.msg_down_img)
+                    .title(R.string.title_hint)
+                    .positiveText(R.string.title_confirm)
+                    .negativeText(R.string.title_cancel)
+                    .onPositive((dialog, which) -> saveImage(bookName + ".jpg")).show();
             return false;
         });
         mAttacher.setOnViewTapListener((view, x, y) -> onBackPressed());
     }
 
-    static class MsgDialog extends DialogFragment {
-        String title;
-        Bitmap bitmap;
-        WeakReference<ImageView> imageViewWeakReference;
-        String name;
-
-        public MsgDialog(Bitmap bitmap, ImageView imageView, String name, String title) {
-            this.bitmap = bitmap;
-            this.title = title;
-            this.name = name;
-            imageViewWeakReference = new WeakReference<>(imageView);
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            ImageView imageView = imageViewWeakReference.get();
-            if (imageView == null) {
-                return null;
-            }
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(title);
-            builder.setPositiveButton("确定", (dialog, id) -> {
-                BitmapUtils.savaImage(imageView.getContext(), bitmap, name)
-                        .subscribe(aBoolean -> {
-                            if (imageView != null) {
-                                Snackbar.make(imageView, aBoolean ? R.string.msg_down_img_ok : R.string.msg_down_img_error, Snackbar.LENGTH_SHORT)
-                                        .show();
-                            }
-                        });
-                dialog.dismiss();
-            });
-            builder.setNegativeButton("取消", (dialog, id) -> {
-                dialog.dismiss();
-            });
-            return builder.create();
-        }
+    private void onBitmapComplete(Bitmap bitmap) {
+        BookImageActivity.this.bitmap = bitmap;
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mImageView.getLayoutParams();
+        params.width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        params.height = params.width;
+        mImageView.setLayoutParams(params);
     }
-
 }

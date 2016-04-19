@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.amap.api.location.AMapLocation;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
@@ -210,11 +211,11 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                 navLayout = navigationView.findViewById(R.id.nav_head_layout);
                 mLogout = navigationView.findViewById(R.id.nav_logout);
                 mLogout.setVisibility(View.VISIBLE);
-                mLogout.setOnClickListener(v -> {
-                    SoleUser.logOut();
-                    LoginActivity_.intent(this).start();
-                    finish();
-                });
+                //退出登录
+                mLogout.setOnClickListener(v -> new MaterialDialog.Builder(this)
+                        .title(R.string.title_hint).content(R.string.msg_logout)
+                        .positiveText(R.string.title_confirm).negativeText(R.string.title_cancel)
+                        .onPositive((dialog, which) -> logout()));
                 String nick = currentUser.getNickname();
                 mTvNickName.setText(nick == null ? "" : nick);
                 ImageLoader.getInstance().displayImage(currentUser.getIconurl(), mImageIcon, Constants.getImageOptions(), new SimpleImageLoadingListener() {
@@ -230,6 +231,12 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
             }, 800);
         }
         KLog.d("initNavigationMenu time:" + (System.currentTimeMillis() - t1));
+    }
+
+    private void logout() {
+        SoleUser.logOut();
+        LoginActivity_.intent(this).start();
+        finish();
     }
 
     @Override

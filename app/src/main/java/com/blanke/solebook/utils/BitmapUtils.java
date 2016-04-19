@@ -19,6 +19,12 @@ import rx.schedulers.Schedulers;
  * Created by Blanke on 16-3-10.
  */
 public class BitmapUtils {
+    /**
+     * 适当加黑,避免全白
+     *
+     * @param bitmap
+     * @return
+     */
     public static Bitmap addBlackBitmap(Bitmap bitmap) {
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
@@ -27,7 +33,12 @@ public class BitmapUtils {
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) { //从上往下扫描
                 int color = bitmap.getPixel(j, i);
-                color &= 0xFFDDDDDD;
+                int alp = color >> 24;
+                if (alp == 0) {//透明
+                    color |= 0xFFDDDDDD;
+                } else {
+                    color &= 0xFFDDDDDD;
+                }
                 array[n] = color;
                 n++;
             }

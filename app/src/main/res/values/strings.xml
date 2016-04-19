@@ -73,4 +73,8 @@
     <string name="msg_delete_error">删除失败</string>
     <string name="msg_delete_success">删除成功</string>
     <string name="title_tags">标签</string>
+    <string name="title_confirm">确认</string>
+    <string name="title_cancel">取消</string>
+    <string name="title_hint">提示</string>
+    <string name="msg_logout">是否退出登录?</string>
 </resources>
