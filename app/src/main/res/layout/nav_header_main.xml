@@ -32,6 +32,7 @@
 
     <TextView
         android:id="@+id/nav_nickname"
+        style="@style/text_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/nav_icon"

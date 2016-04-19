@@ -18,6 +18,8 @@
 
     <color name="window_background">#eee</color>
     <color name="window_background_night">@color/colorNightMore</color>
+    <color name="hidebar_background">#ddd</color>
+    <color name="hidebar_background_night">@color/colorNight</color>
     <color name="toolbar_background">@color/colorAccent</color>
     <color name="toolbar_background_night">#2A353B</color>
     <color name="tablayout_background">@color/toolbar_background</color>
@@ -30,7 +32,7 @@
     <color name="fab_press_night">@color/colorNightMore</color>
     <color name="load_background">@color/window_background</color>
     <color name="load_background_night">@color/colorNight</color>
-    <color name="text_background">#FFE</color>
+    <color name="text_background">#EFFF</color>
     <color name="text_background_night">@color/card_night</color>
     <color name="text_color">#000</color>
     <color name="text_color_night">#959C9E</color>

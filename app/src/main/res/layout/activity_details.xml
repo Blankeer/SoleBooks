@@ -322,10 +322,10 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="2dp"
-            android:background="@color/window_background"
+            android:background="@color/hidebar_background"
             android:elevation="@dimen/m_elevation"
             android:padding="5dp"
-            android:tag="skin:window_background:background">
+            android:tag="skin:hidebar_background:background">
 
             <com.blanke.hold.HoldScaleImageView
                 android:id="@+id/activity_details_theme"

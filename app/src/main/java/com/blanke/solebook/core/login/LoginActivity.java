@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements PlatformActionLi
     ImageView mLogoIcon;
 
     private String type;
-    private long lessTime = 2000, temp;
+    private long lessTime = 3000, temp;
 
     @AfterViews
     public void init() {

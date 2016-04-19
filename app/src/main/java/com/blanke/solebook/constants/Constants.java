@@ -38,7 +38,7 @@ public class Constants {
     public static final int TYPE_COLUMN_Random = 3;
     public static final int TYPE_COLUMN_NEARMAP = 4;
     public static final long LAZY_DELAY_TIME = 100;
-    public static final int BLUE_VALUE = 60;
+    public static final int BLUE_VALUE = 30;
     public static final int[] TYPE_HIDE_FAB = {TYPE_COLUMN_Random, TYPE_COLUMN_NEARMAP};//不需要fab的type
     public static final String THEME_NIGHT = "night";
     public static final String EVENT_THEME_CHANGE = "event_themt_change";

@@ -215,7 +215,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                 mLogout.setOnClickListener(v -> new MaterialDialog.Builder(this)
                         .title(R.string.title_hint).content(R.string.msg_logout)
                         .positiveText(R.string.title_confirm).negativeText(R.string.title_cancel)
-                        .onPositive((dialog, which) -> logout()));
+                        .onPositive((dialog, which) -> logout()).show());
                 String nick = currentUser.getNickname();
                 mTvNickName.setText(nick == null ? "" : nick);
                 ImageLoader.getInstance().displayImage(currentUser.getIconurl(), mImageIcon, Constants.getImageOptions(), new SimpleImageLoadingListener() {

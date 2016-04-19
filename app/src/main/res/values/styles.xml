@@ -55,6 +55,11 @@
         <item name="android:gravity">left|center_vertical</item>
     </style>
 
+    <style name="text_head">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Button" parent="Base.TextAppearance.AppCompat.Button"></style>
 
     <style name="TabLayout" parent="Base.Widget.Design.TabLayout"></style>

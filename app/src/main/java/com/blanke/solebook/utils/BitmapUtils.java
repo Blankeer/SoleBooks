@@ -19,6 +19,8 @@ import rx.schedulers.Schedulers;
  * Created by Blanke on 16-3-10.
  */
 public class BitmapUtils {
+    private static final int blackColor = 0xEEEEEEEE;
+
     /**
      * 适当加黑,避免全白
      *
@@ -35,9 +37,9 @@ public class BitmapUtils {
                 int color = bitmap.getPixel(j, i);
                 int alp = color >> 24;
                 if (alp == 0) {//透明
-                    color |= 0xFFDDDDDD;
+                    color |= blackColor;
                 } else {
-                    color &= 0xFFDDDDDD;
+                    color &= blackColor;
                 }
                 array[n] = color;
                 n++;
