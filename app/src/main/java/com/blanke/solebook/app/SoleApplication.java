@@ -2,6 +2,7 @@ package com.blanke.solebook.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVCloud;
@@ -34,6 +35,7 @@ public class SoleApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        MultiDex.install(this);
     }
 
     public static SoleApplication getApplication(Context context) {
@@ -62,7 +64,7 @@ public class SoleApplication extends Application {
         AVObject.registerSubclass(BookColumn.class);
         AVObject.registerSubclass(UserBookLike.class);
         AVOSCloud.setDebugLogEnabled(true);
-        AVCloud.setProductionMode(false);
+        AVCloud.setProductionMode(true);
         AVAnalytics.setAppChannel("test");
         AVOSCloud.initialize(this, Constants.APPID_AVOS, Constants.APPKEY_AVOS);
         AVInstallation.getCurrentInstallation().saveInBackground();
