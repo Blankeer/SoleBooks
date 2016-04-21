@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -17,6 +16,7 @@ import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.blanke.solebook.R;
 import com.blanke.solebook.app.SoleApplication;
+import com.blanke.solebook.base.BaseActivity;
 import com.blanke.solebook.bean.SoleUser;
 import com.blanke.solebook.core.main.MainActivity_;
 import com.blanke.solebook.utils.AnimUtils;
@@ -43,7 +43,7 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
  * Created by blanke on 16-2-21.
  */
 @EActivity(R.layout.activity_login)
-public class LoginActivity extends AppCompatActivity implements PlatformActionListener {
+public class LoginActivity extends BaseActivity implements PlatformActionListener {
 
     @ViewById(R.id.contentView)
     View contentView;

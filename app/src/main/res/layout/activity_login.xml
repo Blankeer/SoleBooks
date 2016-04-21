@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:tag="skin:window_background:background">
+    android:orientation="vertical">
 
     <com.zhy.android.percent.support.PercentLinearLayout
         android:id="@+id/contentView"
