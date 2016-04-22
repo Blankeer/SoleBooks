@@ -19,6 +19,7 @@ import com.blanke.solebook.core.userhome.persenter.UserNewlyPersenter;
 import com.blanke.solebook.core.userhome.view.UserNewlyView;
 import com.blanke.solebook.utils.DateUtils;
 import com.blanke.solebook.utils.ResUtils;
+import com.blanke.solebook.utils.SkinUtils;
 import com.joanzapata.android.recyclerview.BaseAdapterHelper;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
@@ -72,12 +73,7 @@ public class UserNewlyFragment extends BaseFragment
     }
 
     public void changeTheme(Object o) {
-        String name = Constants.RES_COLOR_LOAD;
-        if (SkinManager.getInstance().needChangeSkin()) {
-            name += "_" + Constants.THEME_NIGHT;
-        }
-        mSwipeRefreshLayout.setProgressBackgroundColor(
-                getResources().getIdentifier(name, "color", getContext().getPackageName()));
+        mSwipeRefreshLayout.setProgressBackgroundColor(SkinUtils.getLoadProgressColorId(getContext()));
     }
 
     @AfterViews

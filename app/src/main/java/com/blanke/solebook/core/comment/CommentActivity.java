@@ -27,6 +27,7 @@ import com.blanke.solebook.utils.DateUtils;
 import com.blanke.solebook.utils.DialogUtils;
 import com.blanke.solebook.utils.InputModeUtils;
 import com.blanke.solebook.utils.ResUtils;
+import com.blanke.solebook.utils.SkinUtils;
 import com.blanke.solebook.utils.SnackUtils;
 import com.blanke.solebook.utils.StatusBarCompat;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
@@ -79,8 +80,6 @@ public class CommentActivity extends
     private BaseRecyclerAdapter<BookComment> mAdapter;
     private BookComment reply;
     private SoleUser mUser;
-    private int textColor;
-    private int textBackground;
 
     @AfterViews
     void init() {
@@ -135,10 +134,15 @@ public class CommentActivity extends
                         .setAdapter(new QuickAdapter<CommentMenuItem>(CommentActivity.this, android.R.layout.simple_list_item_1, menus) {
                             @Override
                             protected void convert(com.joanzapata.android.listview.BaseAdapterHelper helper, CommentMenuItem item) {
-                                helper.getTextView(android.R.id.text1).setText(item.getTitle());
+                                TextView tv = helper.getTextView(android.R.id.text1);
+                                tv.setText(item.getTitle());
+                                tv.setTextColor(SkinUtils.getTextHeightColor());
+                                helper.getView().setBackgroundColor(SkinUtils.getTextBackgroundColor());
                             }
                         })
                         .setExpanded(false)
+                        .setContentBackgroundResource(
+                                SkinUtils.getTextBackgroundColorId(CommentActivity.this))
                         .setGravity(Gravity.CENTER)
                         .setCancelable(true);
                 long animTime = dialog.getOutAnimation().getDuration();
@@ -172,8 +176,11 @@ public class CommentActivity extends
      */
     private void showComment(BookComment toComment, long delty) {
         mSwipeRefreshLayout.postDelayed(() ->
-                        DialogUtils.show(CommentActivity.this, toComment.getUser().getNickname(),
-                                textColor, textBackground, toComment.getContent().split("\\n"))
+                        DialogUtils.show(CommentActivity.this,
+                                toComment.getUser().getNickname(),
+                                SkinUtils.getTextColor(),
+                                SkinUtils.getTextBackgroundColorId(this),
+                                toComment.getContent().split("\\n"))
                 , delty);
     }
 
@@ -197,28 +204,19 @@ public class CommentActivity extends
     }
 
     private void setStatausBarColor() {
-        int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_STATUSBAR);
-        StatusBarCompat.setStatusBarColor(this, c);
+        StatusBarCompat.setStatusBarColor(this, SkinUtils.getStatusBarColor());
     }
 
     private void setEditColor() {
-        int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT);
-        mEditText.setHintTextColor(c);
+        mEditText.setHintTextColor(SkinUtils.getTextColor());
     }
 
     private void setSwiptLyaoutColor() {
-        String name = Constants.RES_COLOR_LOAD;
-        if (SkinManager.getInstance().needChangeSkin()) {
-            name += "_" + Constants.THEME_NIGHT;
-        }
-        mSwipeRefreshLayout.setProgressBackgroundColor(
-                getResources().getIdentifier(name, "color", getPackageName()));
+        mSwipeRefreshLayout.setProgressBackgroundColor(SkinUtils.getLoadProgressColorId(this));
     }
 
     @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
     public void applyTheme(Object o) {
-        textColor = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT);
-        textBackground = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT_B);
         setStatausBarColor();
         setSwiptLyaoutColor();
         setEditColor();

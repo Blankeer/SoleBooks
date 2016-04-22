@@ -19,6 +19,7 @@ import com.blanke.solebook.core.booklist.persenter.BookListPersenter;
 import com.blanke.solebook.core.booklist.persenter.BookListPersenterImpl;
 import com.blanke.solebook.core.booklist.view.BookListView;
 import com.blanke.solebook.core.details.DetailsActivity_;
+import com.blanke.solebook.utils.SkinUtils;
 import com.blanke.solebook.utils.SnackUtils;
 import com.neu.refresh.NeuSwipeRefreshLayout;
 import com.neu.refresh.NeuSwipeRefreshLayoutDirection;
@@ -126,12 +127,8 @@ public class BookListFragment extends
 
     @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
     public void applyTheme(Object o) {
-        String name = Constants.RES_COLOR_LOAD;
-        if (SkinManager.getInstance().needChangeSkin()) {
-            name += "_" + Constants.THEME_NIGHT;
-        }
         mSwipeRefreshLayout.setProgressBackgroundColor(
-                getResources().getIdentifier(name, "color", getContext().getPackageName()));
+                SkinUtils.getLoadProgressColorId(getContext()));
     }
 
     public void lazyLoad() {//fragment懒加载，可见才网络加载

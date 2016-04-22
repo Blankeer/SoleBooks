@@ -614,7 +614,7 @@ public class FeedActivity extends BaseSwipeBackActivity {
             } else {
                 holder.timestamp.setText(DateUtils.getRelativeTimeSpanString(comment.getCreatedAt().getTime(), System.currentTimeMillis() - 1L, 0L, 524288));
             }
-            int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT_B);
+            int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT_BACKGROUND);
             convertView.setBackgroundColor(c);
             return convertView;
         }

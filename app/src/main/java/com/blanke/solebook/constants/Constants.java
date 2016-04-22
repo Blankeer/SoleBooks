@@ -43,11 +43,11 @@ public class Constants {
     public static final String THEME_NIGHT = "night";
     public static final String EVENT_THEME_CHANGE = "event_themt_change";
     public static final String RES_COLOR_STATUSBAR = "statusbar_background";
-    public static final String RES_COLOR_LIKE = "like_background";
-    public static final String RES_COLOR_LOAD = "load_background";
+    public static final String RES_COLOR_LOAD_PROGRESS = "load_background";
     public static final String RES_COLOR_TEXT = "text_color";
-    public static final String RES_COLOR_TEXT_H = "text_color_hight";
-    public static final String RES_COLOR_TEXT_B = "text_background";
+    public static final String RES_COLOR_TEXT_HIGHT = "text_color_hight";
+    public static final String RES_COLOR_TEXT_BACKGROUND = "text_background";
+    public static final String RES_COLOR_WINDOWS = "window_background";
     public static final int NEAR_FRIEND_SIZE = 10;
     public static final int TRY_LOCAL_COUNT=3;//定位失败重试3次
 

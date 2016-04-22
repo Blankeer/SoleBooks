@@ -105,7 +105,6 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     TextView activity_details_text_isbn;
     @ViewById(R.id.activity_details_theme)
     ImageView mThemeImg;
-    private int textColor, textBackground;//theme
     private boolean isNight;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -206,7 +205,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     }
 
     private void initThemeImg() {
-        isNight = SkinManager.getInstance().needChangeSkin();
+        isNight = SkinUtils.isNight();
         if (isNight) {//现在是夜间模式
             mThemeImg.setImageResource(R.drawable.icon_theme_day);
         } else {
@@ -216,8 +215,6 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
 
     @Subscriber(tag = Constants.EVENT_THEME_CHANGE)
     public void applyTheme(Object o) {
-        textColor = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT);
-        textBackground = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT_B);
         initThemeImg();
     }
 
@@ -241,7 +238,9 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
 
     @Click(R.id.activity_details_text_author)
     public void clickAuthor() {
-        DialogUtils.show(this, R.string.title_author, textColor, textBackground, book.getIntroAuthor().split("\n"));
+        DialogUtils.show(this, R.string.title_author, SkinUtils.getTextColor(),
+                SkinUtils.getTextBackgroundColorId(this)
+                , book.getIntroAuthor().split("\n"));
     }
 
     @Click(R.id.activity_details_comment)

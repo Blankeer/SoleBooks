@@ -110,7 +110,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
         setSupportActionBar(toolbar);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         searchView.setOnQueryTextListener(new CurstumSearchView.OnQueryTextListener() {
@@ -215,6 +215,9 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                 mLogout.setOnClickListener(v -> new MaterialDialog.Builder(this)
                         .title(R.string.title_hint).content(R.string.msg_logout)
                         .positiveText(R.string.title_confirm).negativeText(R.string.title_cancel)
+                        .backgroundColor(SkinUtils.getWindowColor())
+                        .contentColor(SkinUtils.getTextHeightColor())
+                        .titleColor(SkinUtils.getTextHeightColor())
                         .onPositive((dialog, which) -> logout()).show());
                 String nick = currentUser.getNickname();
                 mTvNickName.setText(nick == null ? "" : nick);
@@ -312,7 +315,7 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
     private void setMenuColor() {
         int[] states_check = new int[]{android.R.attr.state_checked};
         int[] states_normal = new int[]{};
-        int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT_H);//文字颜色
+        int c = SkinManager.getInstance().getResourceManager().getColor(Constants.RES_COLOR_TEXT_HIGHT);//文字颜色
         int checkColor = getResources().getColor(R.color.colorAccent);//文字选中颜色
         ColorStateList colorList = new ColorStateList
                 (new int[][]{states_check, states_normal}, new int[]{checkColor, c});
