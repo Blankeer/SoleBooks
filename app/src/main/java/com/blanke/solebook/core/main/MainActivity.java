@@ -43,6 +43,7 @@ import com.blanke.solebook.core.main.persenter.MainPersenterImpl;
 import com.blanke.solebook.core.main.view.MainView;
 import com.blanke.solebook.core.scan.CommonScanActivity_;
 import com.blanke.solebook.core.search.SearchResActivity_;
+import com.blanke.solebook.core.settings.SettingsActivity;
 import com.blanke.solebook.core.userhome.UserHomeActivity;
 import com.blanke.solebook.manager.LocalManager;
 import com.blanke.solebook.utils.BitmapUtils;
@@ -292,6 +293,9 @@ public class MainActivity extends BaseMvpLceViewStateActivity<View, List<BookCol
                     break;
                 case R.id.navigation_chose_theme:
                     SkinUtils.toggleTheme();
+                    break;
+                case R.id.navigation_setting:
+                    startActivity(new Intent(this,SettingsActivity.class));
                     break;
             }
         }
