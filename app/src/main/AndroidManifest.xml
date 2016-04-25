@@ -104,8 +104,8 @@
         <service android:name="com.amap.api.location.APSService" />
 
         <activity
-            android:name=".core.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:name=".core.settings.SettingsActivity_"
+            android:theme="@style/SwipeBackTheme" />
     </application>
 
 </manifest>

@@ -1,33 +1,32 @@
 package com.blanke.solebook.core.settings;
 
 
-import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.EditTextPreference;
-import android.preference.ListPreference;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.blanke.solebook.R;
+import com.blanke.solebook.utils.ResUtils;
 
-import me.imid.swipebacklayout.lib.app.SwipeBackPreferenceActivity;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
-public class SettingsActivity extends SwipeBackPreferenceActivity{
+/**
+ * Created by blanke on 16-4-25.
+ */
+@EActivity(R.layout.activity_settings)
+public class SettingsActivity extends AppCompatActivity {
+    @ViewById(R.id.activity_settings_toolbar)
+    Toolbar toolbar;
 
-
-    private EditTextPreference mEtPreference;
-    private ListPreference mListPreference;
-    private CheckBoxPreference mCheckPreference;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        addPreferencesFromResource(R.xml.preferences);
-        initPreferences();
-    }
-
-    private void initPreferences() {
-        mEtPreference = (EditTextPreference)findPreference(Consts.EDIT_KEY);
-        mListPreference = (ListPreference)findPreference(Consts.LIST_KEY);
-        mCheckPreference = (CheckBoxPreference)findPreference(Consts.CHECKOUT_KEY);
+    @AfterViews
+    public void init() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        setTitle(ResUtils.getResString(this, R.string.navigation_setting));
+        getFragmentManager().beginTransaction().
+                replace(R.id.activity_settings_layout, new SettingsFragment())
+                .commit();
     }
 }
