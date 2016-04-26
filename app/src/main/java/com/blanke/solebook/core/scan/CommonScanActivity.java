@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.SurfaceView;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blanke.solebook.R;
+import com.blanke.solebook.core.search.SearchResActivity_;
 import com.blanke.solebook.utils.zxing.ScanListener;
 import com.blanke.solebook.utils.zxing.ScanManager;
 import com.blanke.solebook.utils.zxing.decode.DecodeThread;
@@ -91,17 +91,20 @@ public class CommonScanActivity extends Activity implements ScanListener, View.O
     public void scanResult(Result rawResult, Bundle bundle) {
         //扫描成功后，扫描器不会再连续扫描，如需连续扫描，调用reScan()方法。
         KLog.d(rawResult.getText());
+        String isbnCode=rawResult.getText();
         if (!scanManager.isScanning()) { //如果当前不是在扫描状态
+            scanLine.setVisibility(View.GONE);
             Bitmap barcode = null;
             byte[] compressedBitmap = bundle.getByteArray(DecodeThread.BARCODE_BITMAP);
             if (compressedBitmap != null) {
-                barcode = BitmapFactory.decodeByteArray(compressedBitmap, 0, compressedBitmap.length, null);
-                barcode = barcode.copy(Bitmap.Config.ARGB_8888, true);
-                scan_image.setImageBitmap(barcode);
+//                barcode = BitmapFactory.decodeByteArray(compressedBitmap, 0, compressedBitmap.length, null);
+//                barcode = barcode.copy(Bitmap.Config.ARGB_8888, true);
+//                scan_image.setImageBitmap(barcode);
+                SearchResActivity_.intent(this)
+                        .key(isbnCode).start();
             }
-            scanLine.setVisibility(View.GONE);
         }
-        scan_image.setVisibility(View.VISIBLE);
+//        scan_image.setVisibility(View.VISIBLE);
     }
 
     void startScan() {

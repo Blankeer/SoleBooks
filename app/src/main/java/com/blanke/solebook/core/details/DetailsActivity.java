@@ -244,7 +244,7 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
     }
 
     @Click(R.id.activity_details_comment)
-    public void clickCommentr() {
+    public void clickComment() {
         CommentActivity_.intent(this).book(book).start();
     }
 

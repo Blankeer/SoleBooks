@@ -16,6 +16,7 @@
         <item
             android:id="@+id/navigation_setting"
             android:icon="@null"
-            android:title="@string/navigation_setting" />
+            android:title="@string/navigation_setting"
+            android:visible="false" />
     </group>
 </menu>
