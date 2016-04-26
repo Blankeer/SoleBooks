@@ -91,7 +91,7 @@ public class CommonScanActivity extends Activity implements ScanListener, View.O
     public void scanResult(Result rawResult, Bundle bundle) {
         //扫描成功后，扫描器不会再连续扫描，如需连续扫描，调用reScan()方法。
         KLog.d(rawResult.getText());
-        String isbnCode=rawResult.getText();
+        String isbnCode = rawResult.getText();
         if (!scanManager.isScanning()) { //如果当前不是在扫描状态
             scanLine.setVisibility(View.GONE);
             Bitmap barcode = null;
@@ -102,6 +102,7 @@ public class CommonScanActivity extends Activity implements ScanListener, View.O
 //                scan_image.setImageBitmap(barcode);
                 SearchResActivity_.intent(this)
                         .key(isbnCode).start();
+                finish();
             }
         }
 //        scan_image.setVisibility(View.VISIBLE);
