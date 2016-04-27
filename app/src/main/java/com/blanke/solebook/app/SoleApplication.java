@@ -22,7 +22,6 @@ import com.blanke.solebook.core.login.LoginActivity_;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.socks.library.KLog;
 import com.umeng.analytics.AnalyticsConfig;
 import com.zhy.changeskin.SkinManager;
 
@@ -32,9 +31,6 @@ import cn.sharesdk.framework.ShareSDK;
  * Created by Blanke on 16-2-19.
  */
 public class SoleApplication extends Application {
-
-
-    public static final String KEY_DEX2_SHA1 = "dex2-SHA1-Digest";
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -60,7 +56,7 @@ public class SoleApplication extends Application {
     }
 
     private void initAvos() {
-        KLog.d();
+//        KLog.d();
         AVUser.alwaysUseSubUserClass(SoleUser.class);
         AVObject.registerSubclass(Book.class);
         AVObject.registerSubclass(Tag.class);
@@ -76,7 +72,7 @@ public class SoleApplication extends Application {
     }
 
     private void initSkin() {
-        KLog.d();
+//        KLog.d();
         SkinManager.getInstance().init(this);
     }
 
