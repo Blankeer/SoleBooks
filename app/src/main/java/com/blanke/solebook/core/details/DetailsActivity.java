@@ -14,6 +14,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -238,9 +239,11 @@ public class DetailsActivity extends BaseSwipeBackActivity implements DetailsVie
 
     @Click(R.id.activity_details_text_author)
     public void clickAuthor() {
-        DialogUtils.show(this, R.string.title_author, SkinUtils.getTextColor(),
-                SkinUtils.getTextBackgroundColorId(this)
-                , book.getIntroAuthor().split("\n"));
+        if (!TextUtils.isEmpty(book.getIntroAuthor())) {
+            DialogUtils.show(this, R.string.title_author, SkinUtils.getTextColor(),
+                    SkinUtils.getTextBackgroundColorId(this)
+                    , book.getIntroAuthor().split("\n"));
+        }
     }
 
     @Click(R.id.activity_details_comment)
