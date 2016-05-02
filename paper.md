@@ -156,7 +156,6 @@ Android 4.0.3以上
 不处理,否则,产生新用户,生成唯一ID.
 第三方登录主要流程如下:
 
-![登录](https://github.com/Blankeer/SoleBooks/blob/master/image/%E6%B5%81%E7%A8%8B%E5%9B%BE-%E7%99%BB%E5%BD%95dia.png?raw=true)
 
 用户分享操作是将看到的书籍信息分享给好友等,目前支持分享到
 QQ好友,QQ空间,微博,微信好友,微信收藏,微信朋友圈,
