@@ -20,7 +20,7 @@ public class SearchResPersenterImpl extends SearchResPersenter {
         HashMap<String, String> map = new HashMap<>();
         map.put("key", key);
         new RxCloudFunction<List<Book>>()
-                .executeCloud(Constants.CLOUD_MOTHOD_SEARCH_TAG, map)
+                .executeCloud(Constants.CLOUD_MOTHOD_SEARCH_BOOK, map)
                 .subscribe(this::onSuccess, this::onFail);
     }
 

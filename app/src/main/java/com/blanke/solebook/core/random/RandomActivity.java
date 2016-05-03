@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by Blanke on 16-2-26.
  */
-@EActivity(R.layout.activity_random)
+@EActivity(R.layout.fragment_random)
 public class RandomActivity extends BaseMvpLceViewStateActivity<LinearLayout, List<Book>, RandomView, RandomPersenter>
         implements RandomView {
     @ViewById(R.id.fragment_random_swipeview)

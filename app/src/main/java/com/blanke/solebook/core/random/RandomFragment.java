@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Created by Blanke on 16-3-30.
  */
-@EFragment(R.layout.activity_random)
+@EFragment(R.layout.fragment_random)
 public class RandomFragment extends BaseColumnFragment<LinearLayout, List<Book>, RandomView, RandomPersenter>
         implements RandomView {
     @ViewById(R.id.fragment_random_swipeview)
