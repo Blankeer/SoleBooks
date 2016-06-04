@@ -3,7 +3,7 @@
 LeanCloud、MVP、RxJava
 
 ## 截图
-![login](https://github.com/Blankeer/SoleBooks/blob/master/image/login.gif?raw=true)![details](https://github.com/Blankeer/SoleBooks/blob/master/image/details.gif?raw=true)![random](https://github.com/Blankeer/SoleBooks/blob/master/image/rondom.gif?raw=true)
+![login](https://github.com/Blankeer/SoleBooks/blob/master/image/login.gif?raw=true)![details](https://github.com/Blankeer/SoleBooks/blob/master/image/details.gif?raw=true)![random](https://github.com/Blankeer/SoleBooks/blob/master/image/rondom.gif?raw=true)![img](https://github.com/Blankeer/SoleBooks/blob/master/image/bangdan.png?raw=true)![img](https://github.com/Blankeer/SoleBooks/blob/master/image/book_1.png?raw=true)![img](https://github.com/Blankeer/SoleBooks/blob/master/image/book_2.png?raw=true)![img](https://github.com/Blankeer/SoleBooks/blob/master/image/nav.png?raw=true)![img](https://github.com/Blankeer/SoleBooks/blob/master/image/nav_2.png?raw=true)![img](https://github.com/Blankeer/SoleBooks/blob/master/image/nearmap.png?raw=true)![img](https://github.com/Blankeer/SoleBooks/blob/master/image/random.png?raw=true)![img](https://github.com/Blankeer/SoleBooks/blob/master/image/tags.png?raw=true)![img](https://github.com/Blankeer/SoleBooks/blob/master/image/userhome.png?raw=true)
 
 ## 项目描述
 ### 数据来源
