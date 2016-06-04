@@ -3,7 +3,6 @@ package com.blanke.solebook.core.scan;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.SurfaceView;
@@ -28,7 +27,8 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_scan_code)
-public class CommonScanActivity extends Activity implements ScanListener, View.OnClickListener {
+public class CommonScanActivity extends Activity
+        implements ScanListener, View.OnClickListener {
     SurfaceView scanPreview = null;
     View scanContainer;
     View scanCropView;
@@ -92,24 +92,24 @@ public class CommonScanActivity extends Activity implements ScanListener, View.O
         //扫描成功后，扫描器不会再连续扫描，如需连续扫描，调用reScan()方法。
         KLog.d(rawResult.getText());
         String isbnCode = rawResult.getText();
-        if (!scanManager.isScanning()) { //如果当前不是在扫描状态
-            scanLine.setVisibility(View.GONE);
-            Bitmap barcode = null;
-            byte[] compressedBitmap = bundle.getByteArray(DecodeThread.BARCODE_BITMAP);
-            if (compressedBitmap != null) {
+//        if (!scanManager.isScanning()) { //如果当前不是在扫描状态
+        scanLine.setVisibility(View.GONE);
+//            Bitmap barcode = null;
+//            byte[] compressedBitmap = bundle.getByteArray(DecodeThread.BARCODE_BITMAP);
+//            if (compressedBitmap != null) {
 //                barcode = BitmapFactory.decodeByteArray(compressedBitmap, 0, compressedBitmap.length, null);
 //                barcode = barcode.copy(Bitmap.Config.ARGB_8888, true);
 //                scan_image.setImageBitmap(barcode);
-                SearchResActivity_.intent(this)
-                        .key(isbnCode).start();
-                finish();
-            }
-        }
+        SearchResActivity_.intent(this)
+                .key(isbnCode).start();
+        finish();
+//            }
+//        }
 //        scan_image.setVisibility(View.VISIBLE);
     }
 
     void startScan() {
-        scan_image.setVisibility(View.GONE);
+//        scan_image.setVisibility(View.GONE);
         scanManager.reScan();
     }
 

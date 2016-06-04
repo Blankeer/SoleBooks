@@ -43,7 +43,8 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
  * Created by blanke on 16-2-21.
  */
 @EActivity(R.layout.activity_login)
-public class LoginActivity extends BaseActivity implements PlatformActionListener {
+public class LoginActivity extends BaseActivity
+        implements PlatformActionListener {
 
     @ViewById(R.id.contentView)
     View contentView;

@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.blanke.solebook.R;
 import com.blanke.solebook.adapter.BaseRecyclerAdapter;
@@ -105,11 +106,15 @@ public class SearchResActivity extends BaseMvpLceViewStateActivity<LinearLayout,
 
     @Override
     public void setData(List<Book> data) {
-        if (data == null || data.size() == 0) {
+        if (data == null) {
             return;
         }
-        if (data.size() == 1) {//当搜索结果只有一个时，直接跳转到该book的详情页
+        int size = data.size();
+        if (size == 1) {//当搜索结果只有一个时，直接跳转到该book的详情页
             startDetails(null, data.get(0));
+            finish();
+        } else if (size == 0) {
+            Toast.makeText(SearchResActivity.this, R.string.msg_search_none, Toast.LENGTH_LONG).show();
             finish();
         } else {
             this.books = data;

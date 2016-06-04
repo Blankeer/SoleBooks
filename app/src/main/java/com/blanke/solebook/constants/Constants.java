@@ -20,8 +20,8 @@ public class Constants {
     public static final String APPSEC_SINA = "8d766414552a564a15bc4db2bbacc437";
     public static final String REDIRECTURL_SINA = "https://leancloud.cn/1.1/sns/callback/1k4u78lawq2pvrjr";
     public static final String REDIRECTURL_QQ = "https://leancloud.cn/1.1/sns/callback/lljmk2jy0vqme5vh";
-    public static final String CLOUD_MOTHOD_SEARCH_BOOK = "cloud_search_book";
-    public static final String CLOUD_MOTHOD_RANDOM_BOOK = "cloud_random_book";
+    public static final String CLOUD_FUNCTION_SEARCH_BOOK = "cloud_search_book";
+    public static final String CLOUD_FUNCTION_RANDOM_BOOK = "cloud_random_book";
     public static final String APPKEY_UM = "5700f53f67e58e999c0026a0";
 
     public static final long DELAY_NETWORK = 500;

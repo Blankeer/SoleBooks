@@ -20,7 +20,7 @@ public class RandomPersenterImpl extends RandomPersenter {
         HashMap<String, String> map = new HashMap<>();
         map.put("count", count + "");
         new RxCloudFunction<List<Book>>()
-                .executeCloud(Constants.CLOUD_MOTHOD_RANDOM_BOOK, map)
+                .executeCloud(Constants.CLOUD_FUNCTION_RANDOM_BOOK, map)
                 .subscribe(this::onSuccess, this::onFail);
     }
 

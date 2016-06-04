@@ -22,7 +22,6 @@ import com.blanke.solebook.core.login.LoginActivity_;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.umeng.analytics.AnalyticsConfig;
 import com.zhy.changeskin.SkinManager;
 
 import cn.sharesdk.framework.ShareSDK;
@@ -51,8 +50,8 @@ public class SoleApplication extends Application {
     }
 
     private void initUM() {
-        AnalyticsConfig.setChannel("test");
-        AnalyticsConfig.enableEncrypt(true);
+//        AnalyticsConfig.setChannel("test");
+//        AnalyticsConfig.enableEncrypt(true);
     }
 
     private void initAvos() {
